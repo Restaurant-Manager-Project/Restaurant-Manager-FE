@@ -1,0 +1,54 @@
+.proportion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px; /* Khoảng cách giữa các phần tử */
+}
+
+.proportion h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.proportion-content {
+  display: flex;
+  justify-content: center; /* Căn giữa các phần tử con theo hàng ngang */
+  width: 100%;
+  max-width: 1200px; /* Giới hạn chiều rộng tối đa nếu cần */
+  gap: 20px; /* Khoảng cách giữa các phần tử con */
+}
+
+.proportion__left {
+  background-color: #f9f9f9; /* Màu nền cho phần văn bản */
+  padding: 20px;
+  border-radius: 10px; /* Bo góc cho phần văn bản */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ */
+  font-size: 18px; /* Tăng kích thước chữ */
+  max-width: 600px; /* Giới hạn chiều rộng tối đa nếu cần */
+  animation: fadeRight 3s;
+}
+
+.proportion__left h2 {
+  margin-bottom: 10px;
+  font-size: 28px; /* Tăng kích thước chữ cho tiêu đề */
+  color: #333;
+}
+
+.proportion__left p {
+  font-size: 18px; /* Tăng kích thước chữ cho đoạn văn */
+  color: #666;
+}
+
+.proportion__right {
+  max-width: 400px; /* Giới hạn chiều rộng tối đa cho hình ảnh */
+  animation: fadeLeft 3s;
+}
+
+.proportion__right img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px; /* Bo góc cho hình ảnh */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ */
+}

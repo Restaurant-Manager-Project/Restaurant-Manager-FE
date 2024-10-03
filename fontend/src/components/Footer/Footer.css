@@ -1,0 +1,73 @@
+.footer {
+  background-color: #333; /* Màu nền cho footer */
+  color: #fff; /* Màu chữ cho footer */
+  padding: 40px 20px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 20px; /* Khoảng cách giữa các phần tử con */
+}
+
+.footer-content-left {
+    flex: 2; /* Rộng gấp đôi so với các phần tử khác */
+    min-width: 200px; /* Đảm bảo rằng phần tử có chiều rộng tối thiểu */
+  }
+  
+  .footer-content-center,
+  .footer-content-right {
+    flex: 1; /* Đảm bảo rằng các phần tử con chiếm không gian đều nhau */
+    min-width: 200px; /* Đảm bảo rằng các phần tử con có chiều rộng tối thiểu */
+  }
+
+.footer-content-left img {
+  max-width: 200px;
+  height: auto;
+}
+
+.footer-content-left p,
+.footer-content-right p {
+  margin-bottom: 10px;
+}
+.footer-content-right p{
+    margin-left: 20px;
+}
+.footer-content-center h2,
+.footer-content-right h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  margin-left: 20px;
+}
+
+.footer-content-center ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-content-center ul li {
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+
+.social-media {
+  display: flex;
+  gap: 10px; /* Khoảng cách giữa các icon */
+}
+
+.social-media .fa-icon {
+  font-size: 24px;
+  color: #fff;
+}
+hr{
+    margin-top: 10px;
+}
+.footer-copyright {
+    text-align: center; /* Căn giữa văn bản */
+    margin-top: 20px; /* Khoảng cách phía trên */
+    font-size: 14px; /* Kích thước chữ */
+    color: #ccc; /* Màu chữ nhạt hơn */
+  }

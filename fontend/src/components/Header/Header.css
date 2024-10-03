@@ -1,0 +1,41 @@
+.header {
+  height: 34vw;
+  margin: 10px auto;
+  border-radius: 20px;
+  background: url(/header.jpg) no-repeat;
+  background-size: cover; /* Đổi từ contain sang cover */
+  position: relative;
+  margin-top: 100px;
+  overflow: hidden; /* Đảm bảo rằng các phần tử con không vượt ra ngoài các góc bo tròn */
+}
+.header-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 5px;
+  max-width: 50%;
+  bottom: 5%;
+  left: 3vw;
+  animation: fadeIn 3s;
+}
+.header-content h2{
+  font-weight: bolder;
+  color: white;
+  font-size: max(2.5vw, 20px);
+}
+.header-content p{
+  font-weight: bold;
+  color: white;
+  font-size: max(1.5vw, 14px);
+}
+.header-content button{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  background-color: #ffffff;
+  color: rgb(255, 164, 28);
+  font-size: max(1vw, 14px);
+  cursor: pointer;
+  margin-top: 10px;
+}
