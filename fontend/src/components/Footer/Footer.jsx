@@ -9,8 +9,8 @@ const Footer = () => {
         <div className='footer' id='footer'>
             <div className="footer-content">
                 <div className="footer-content-left">
-                    <img src={assets.dodologo2} alt='' />
-                    <p>Dodo Pizza is a popular pizza chain known for its innovative approach to pizza making and delivery. They are famous for their thin-crust pizzas with a wide variety of toppings and unique flavor combinations. Dodo Pizza also emphasizes transparency and customer satisfaction, providing real-time order tracking and feedback mechanisms.</p>
+                    <img src={assets.logo} alt='' />
+                    <p>Manwah là thiên đường ẩm thực cho những tín đồ yêu thích lẩu. Với đa dạng các loại nước lẩu đặc trưng của Đài Loan, kết hợp cùng vô vàn món nhúng tươi ngon, Manwah mang đến một trải nghiệm ẩm thực khó quên. Mỗi ngụm lẩu đều là một hành trình khám phá hương vị độc đáo, từ vị cay nồng đặc trưng của lẩu Mala đến vị thanh ngọt của lẩu nấm.</p>
                     <div className="social-media">
                         <FontAwesomeIcon icon={faFacebook} />
                         <FontAwesomeIcon icon={faInstagram} />
@@ -28,13 +28,14 @@ const Footer = () => {
                 </div>
                 <div className="footer-content-right">
                     <h2>Get in touch</h2>
-                    <p>Address: 123 Main Street, New York, NY 10001</p>
-                    <p>Phone: 123-456-7890</p>
-                    <p>Email: feadback@dodopizza </p>
+                    <p>Trụ sở chính: Số 60 Phố Giang Văn Minh, Phường Đội Cấn,
+                        Quận Ba Đình, Thành phố Hà Nội, Việt Nam</p>
+                    <p>GPĐK: 0102721191 cấp ngày 09/04/2008</p>
+                    <p>ĐT: 043 222 3000 Email: support.hn@ggg.com.vn</p>
                 </div>
             </div>
             <hr />
-            <p className='footer-copyright'>© 2021 Dodo Pizza. All rights reserved.</p>
+            <p className='footer-copyright'>© 2011 Golden Gate ., JSC. All rights reserved</p>
         </div>
     )
 }

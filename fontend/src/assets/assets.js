@@ -1,23 +1,11 @@
-import khuyenmai1 from './khuyenmai1.webp'
-import khuyenmai2 from './khuyenmai2.webp'
-import khuyenmai3 from './khuyenmai3.webp'
-import pizzahaisan from './pizzahaisan.avif'
-import miysotdemi from './miysotdemi.avif'
-import ganuggets from './ganuggets.avif'
-import banhcuonvietquat from './banhcuonvietquat.avif'
-import cocacola from './cocacola.avif'
-import dodologo from './DodoLogo.png'
-import dodologo2 from './DodoLogo2.png'
+import proportion1 from './proportion1.jpeg';
+import proportion2 from './proportion2.jpeg';
+import proportion3 from './proportion3.jpg';
+import logo from './logo.svg';
 
 export const assets = {
-    khuyenmai1,
-    khuyenmai2,
-    khuyenmai3,
-    pizzahaisan,
-    miysotdemi,
-    ganuggets,
-    banhcuonvietquat,
-    cocacola,
-    dodologo,
-    dodologo2
+    proportion1,
+    proportion2,
+    proportion3,
+    logo
 }
