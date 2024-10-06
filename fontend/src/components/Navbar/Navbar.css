@@ -36,7 +36,7 @@
     transition: 3s;
 }
 .navbar .active{
-    color: #ffa764;
+    color: #ff6464;
     text-decoration: underline;
 }
 .navbar-cart{
@@ -46,14 +46,14 @@
     position: absolute;
     top: -8px;
     right: -8px;
-    background-color: #ffa764;
+    background-color: #ff6464;
     color: white;
     border-radius: 50%;
     padding: 5px;
     font-size: 12px;
 }
 .navbar-right button{
-    background-color: #ffa764;
+    background-color: #ff6464;
     color: white;
     padding: 10px 20px;
     border: none;
