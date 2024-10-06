@@ -1,0 +1,113 @@
+h1,h2 {
+    text-align: center;
+    margin: 20px;
+}
+.cart-container{
+    display:grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 30px;
+}
+
+.cart-items {
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 12px;
+}
+
+.cart-items-title{
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 0.5fr;
+    justify-items: center;
+    align-items: center;
+    color: gray;
+    font-size: max(1vw, 12px);
+    padding: 15px;
+}
+
+.cart-items-item{
+    margin: 15px auto;
+    font-size: larger;
+    font-weight: 700;
+    padding: 15px;
+    border-radius: 16px;
+}
+
+.cart-items-item img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+.cart-items-item button{
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #fca657;
+    color: white;
+    cursor: pointer;
+    transition: ease 0.3s;
+}
+
+.cart-items-item button:hover{
+    background-color: #ff6f00;
+}
+.cart-items-item:nth-child(odd){
+    background-color: #f5dab3;
+}
+
+.cart-items-item:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+.cart-total{
+    /* background-color: aqua; */
+    border: 1px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.cart-total h2{
+    background-color: #ffa764;
+    padding: 8px 0;
+    border-radius: 10px 10px 0 0;
+}
+
+.cart-total-detail{
+    display: flex;
+    justify-content: space-between;
+    margin: 16px;
+}
+
+
+.cart-total-detail button{
+    font-size: large;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 2px solid white;
+}
+#total-cart{
+    font-weight: 700;
+    font-size: larger;
+}
+
+#total-price{
+    font-weight: 700;
+    font-size: larger;
+    color: red;
+}
+
+#checkout-button{
+    
+    background-color: #fca657;
+    font-weight: 600;
+    font-size: large;
+    
+    transition: ease 0.3s;
+}
+
+#checkout-button:hover{
+    background-color: white;
+    border: 2px solid #fca657;
+    color: #d46905;
+}
