@@ -23,7 +23,7 @@ const Cart = () => {
           </div>
           <hr />
           <div className="cart-items-title cart-items-item">
-            <img src={assets.khuyenmai1} alt="" />
+            <img src={assets.proportion1} alt="" />
             <p>Example Food</p>
             <p>150,000đ</p>
             <p>1</p>
@@ -31,7 +31,7 @@ const Cart = () => {
             <button>Xoa</button>
           </div>
           <div className="cart-items-title cart-items-item">
-            <img src={assets.khuyenmai1} alt="" />
+            <img src={assets.proportion1} alt="" />
             <p>Example Food</p>
             <p>150,000đ</p>
             <p>1</p>
@@ -39,7 +39,7 @@ const Cart = () => {
             <button>Xoa</button>
           </div>
           <div className="cart-items-title cart-items-item">
-            <img src={assets.khuyenmai1} alt="" />
+            <img src={assets.proportion1} alt="" />
             <p>Example Food</p>
             <p>150,000đ</p>
             <p>1</p>
@@ -49,7 +49,6 @@ const Cart = () => {
         </div>
         <div className="cart-checkout">
           <div className="cart-total">
-
             <h2>TÓM TẮT ĐƠN HÀNG</h2>
             <span className="cart-total-detail">
               <p>Số sản phẩm:</p>

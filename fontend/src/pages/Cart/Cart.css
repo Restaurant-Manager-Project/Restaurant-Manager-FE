@@ -41,17 +41,16 @@ h1,h2 {
     padding: 5px 10px;
     border: none;
     border-radius: 10px;
-    background-color: #fca657;
+    background-color: #ff6464;
     color: white;
+    
+    font-size: large;
     cursor: pointer;
     transition: ease 0.3s;
 }
 
-.cart-items-item button:hover{
-    background-color: #ff6f00;
-}
 .cart-items-item:nth-child(odd){
-    background-color: #f5dab3;
+    background-color: #f5b3b3;
 }
 
 .cart-items-item:nth-child(even){
@@ -66,7 +65,7 @@ h1,h2 {
 }
 
 .cart-total h2{
-    background-color: #ffa764;
+    background-color: #fc3731;
     padding: 8px 0;
     border-radius: 10px 10px 0 0;
 }
@@ -99,15 +98,16 @@ h1,h2 {
 
 #checkout-button{
     
-    background-color: #fca657;
+    background-color: #ff6464;
     font-weight: 600;
     font-size: large;
     
     transition: ease 0.3s;
 }
 
-#checkout-button:hover{
+#checkout-button:hover,
+.cart-items-item button:hover{
     background-color: white;
-    border: 2px solid #fca657;
-    color: #d46905;
+    border: 2px solid #ff6464;
+    color: #d40c05;
 }
