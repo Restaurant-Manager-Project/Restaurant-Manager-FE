@@ -30,6 +30,7 @@
   font-size: 18px; /* Tăng kích thước chữ */
   max-width: 600px; /* Giới hạn chiều rộng tối đa nếu cần */
   animation: fadeRight 3s;
+  padding: 20px;
 }
 
 .proportion__left h2 {

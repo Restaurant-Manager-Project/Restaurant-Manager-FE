@@ -31,7 +31,7 @@ const Proportion = () => {
                     <p>🎴Là lẩu Đài nguyên bản, nhưng không kém phần trẻ trung và hội nhập! Không tự giới hạn mình trong phạm vi ẩm thực, Manwah luôn muốn đan cài các yếu tố văn hóa vào thương hiệu. Lần “dịch chuyển” này, Manwah xích lại gần đời sống của khách hàng hơn! Bạn có thể thấy những màu sắc, hoa văn, nguồn cảm hứng rất gần gũi, mà bạn đã gặp ở đâu đó trong các bộ phim Đài Loan tuổi thơ hay những hình ảnh đặc trưng của đất nước này. Một hành trình mới nhưng tâm ý không đổi, hi vọng rằng bạn sẽ luôn cảm thấy mình trong Manwah nhé!</p>
                 </div>
                 <div className="proportion__right">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/tsvpW_-oxm8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/tsvpW_-oxm8" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 </div>
             </div>
         </div>

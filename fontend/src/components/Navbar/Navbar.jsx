@@ -3,6 +3,7 @@ import './Navbar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { assets } from '../../assets/assets'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
 
@@ -12,10 +13,10 @@ const Navbar = () => {
     <div className='navbar'>
       <img src={assets.logo} className='logo' />
       <ul className="navbar-menu">
-        <li onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>home</li>
-        <li onClick={() => setMenu("menu")} className={menu === "menu" ? "active" : ""}>menu</li>
-        <li onClick={() => setMenu("about")} className={menu === "about" ? "active" : ""}>about</li>
-        <li onClick={() => setMenu("contact")} className={menu === "contact" ? "active" : ""}>contact</li>
+        <Link to='/'><li onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>Trang chủ</li></Link>
+        <Link to='/menu'><li onClick={() => setMenu("menu")} className={menu === "menu" ? "active" : ""}>Menu</li></Link>
+        <li onClick={() => setMenu("about")} className={menu === "about" ? "active" : ""}>Về chúng tôi</li>
+        <li onClick={() => setMenu("contact")} className={menu === "contact" ? "active" : ""}>Liên hệ</li>
       </ul>
       <div className='navbar-right'>
         <div className='navbar-cart'>
@@ -23,7 +24,7 @@ const Navbar = () => {
           <div className="dot"></div>
         </div>
         <li><FontAwesomeIcon icon={faUser} /></li>
-        <button>Sign In</button>
+        <button>Đăng nhập</button>
       </div>
     </div>
   )

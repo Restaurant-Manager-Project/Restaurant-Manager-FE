@@ -20,14 +20,14 @@ const Footer = () => {
                 <div className="footer-content-center">
                     <h2>Quick Links</h2>
                     <ul>
-                        <li>Home</li>
+                        <li>Trang chủ</li>
                         <li>Menu</li>
-                        <li>About</li>
-                        <li>Contact</li>
+                        <li>Về chúng tôi</li>
+                        <li>Liên hệ</li>
                     </ul>
                 </div>
                 <div className="footer-content-right">
-                    <h2>Get in touch</h2>
+                    <h2>Liên hệ</h2>
                     <p>Trụ sở chính: Số 60 Phố Giang Văn Minh, Phường Đội Cấn,
                         Quận Ba Đình, Thành phố Hà Nội, Việt Nam</p>
                     <p>GPĐK: 0102721191 cấp ngày 09/04/2008</p>
