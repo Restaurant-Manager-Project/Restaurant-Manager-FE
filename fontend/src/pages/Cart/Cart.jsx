@@ -43,6 +43,14 @@ const Cart = () => {
             <p>150,000đ</p>
             <button><FontAwesomeIcon icon={faTrash} /></button>
           </div>
+          <div className="cart-items-title cart-items-item">
+            <img src={assets.proportion1} alt="" />
+            <p>Example Food</p>
+            <p>150,000đ</p>
+            <p>1</p>
+            <p>150,000đ</p>
+            <button><FontAwesomeIcon icon={faTrash} /></button>
+          </div>
         </div>
         <div className="cart-checkout">
           <div className="cart-total">
