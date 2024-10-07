@@ -9,6 +9,7 @@ h2 {
     grid-template-columns: 3fr 1fr;
     gap: 30px;
     align-items: stretch;
+    height: 80vh;
 }
 
 .cart-items {
@@ -17,6 +18,11 @@ h2 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #f9f9f9;
     height: 100%;
+    overflow-y: auto;
+}
+
+.cart-items::-webkit-scrollbar {
+    display: none;
 }
 
 .cart-items-title {
