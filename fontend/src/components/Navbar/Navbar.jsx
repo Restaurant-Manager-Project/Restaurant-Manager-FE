@@ -13,10 +13,10 @@ const Navbar = () => {
     <div className='navbar'>
       <Link to="/"><img src={assets.logo} className='logo' /></Link>
       <ul className="navbar-menu">
-        <Link to="/"><li onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>home</li></Link>
-        <li onClick={() => setMenu("menu")} className={menu === "menu" ? "active" : ""}>menu</li>
-        <li onClick={() => setMenu("about")} className={menu === "about" ? "active" : ""}>about</li>
-        <li onClick={() => setMenu("contact")} className={menu === "contact" ? "active" : ""}>contact</li>
+        <Link to='/'><Link to="/"><li onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>Trang chủ</li></Link></Link>
+        <Link to='/menu'><li onClick={() => setMenu("menu")} className={menu === "menu" ? "active" : ""}>Menu</li></Link>
+        <li onClick={() => setMenu("about")} className={menu === "about" ? "active" : ""}>Về chúng tôi</li>
+        <li onClick={() => setMenu("contact")} className={menu === "contact" ? "active" : ""}>Liên hệ</li>
       </ul>
       <div className='navbar-right'>
         <div className='navbar-cart'>
@@ -24,7 +24,7 @@ const Navbar = () => {
           <div className="dot"></div>
         </div>
         <li><FontAwesomeIcon icon={faUser} /></li>
-        <button>Sign In</button>
+        <button>Đăng nhập</button>
       </div>
     </div>
   )
