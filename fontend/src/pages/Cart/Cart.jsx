@@ -2,15 +2,12 @@ import React from "react";
 import "./Cart.css";
 import { assets } from "../../assets/assets";
 import { Link } from 'react-router-dom';
-
-
-// import { StoreContext} from '../../context/StoreContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const Cart = () => {
-  // const {cartItems,food_list,removeFromCart} = useContext(StoreContext);
   return (
     <div className="cart">
-      <h1>Giỏ Hàng</h1>
       <div className="cart-container">
         <div className="cart-items">
           <div className="cart-items-title">
@@ -28,7 +25,7 @@ const Cart = () => {
             <p>150,000đ</p>
             <p>1</p>
             <p>150,000đ</p>
-            <button>Xoa</button>
+            <button><FontAwesomeIcon icon={faTrash} /></button>
           </div>
           <div className="cart-items-title cart-items-item">
             <img src={assets.proportion1} alt="" />
@@ -36,7 +33,7 @@ const Cart = () => {
             <p>150,000đ</p>
             <p>1</p>
             <p>150,000đ</p>
-            <button>Xoa</button>
+            <button><FontAwesomeIcon icon={faTrash} /></button>
           </div>
           <div className="cart-items-title cart-items-item">
             <img src={assets.proportion1} alt="" />
@@ -44,12 +41,12 @@ const Cart = () => {
             <p>150,000đ</p>
             <p>1</p>
             <p>150,000đ</p>
-            <button>Xoa</button>
+            <button><FontAwesomeIcon icon={faTrash} /></button>
           </div>
         </div>
         <div className="cart-checkout">
           <div className="cart-total">
-            <h2>TÓM TẮT ĐƠN HÀNG</h2>
+            <h2>Total</h2>
             <span className="cart-total-detail">
               <p>Số sản phẩm:</p>
               <p>1</p>
@@ -58,25 +55,21 @@ const Cart = () => {
               <p>Phí vận chuyển:</p>
               <p>Miễn phí</p>
             </span>
+            <div className="cart-promo">
+              <h3>Áp mã khuyến mãi</h3>
+              <input type="text" placeholder="Nhập mã khuyến mãi" />
+              <button>Áp dụng</button>
+            </div>
             <hr />
             <span className="cart-total-detail">
               <p id="total-cart">TỔNG CỘNG</p>
-              <p id="total-price">32.000 Vnd</p>
+              <p id="total-price">450.000 Vnd</p>
             </span>
             <span className="cart-total-detail">
               <Link to="/"><button>Quay lại</button></Link>
-              <button id="checkout-button">Tiến hành đặt hàng</button>
+              <button id="checkout-button">Đặt hàng</button>
             </span>
-            
           </div>
-          {/* <div className="cart-payment">
-          <p>Thanh toán qua:</p>
-          <div className="cart-payment-methods">
-            <img src={assets.atm} alt="" />
-            <img src={assets.vietcombank} alt="" />
-            <img src={assets.momo} alt="" />
-          </div>
-        </div> */}
         </div>
       </div>
     </div>
