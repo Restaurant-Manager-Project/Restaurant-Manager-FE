@@ -13,7 +13,7 @@ const Navbar = () => {
     <div className='navbar'>
       <Link to="/"><img src={assets.logo} className='logo' /></Link>
       <ul className="navbar-menu">
-        <Link to='/'><Link to="/"><li onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>Trang chủ</li></Link></Link>
+        <Link to="/"><li onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>Trang chủ</li></Link>
         <Link to='/menu'><li onClick={() => setMenu("menu")} className={menu === "menu" ? "active" : ""}>Menu</li></Link>
         <li onClick={() => setMenu("about")} className={menu === "about" ? "active" : ""}>Về chúng tôi</li>
         <li onClick={() => setMenu("contact")} className={menu === "contact" ? "active" : ""}>Liên hệ</li>
