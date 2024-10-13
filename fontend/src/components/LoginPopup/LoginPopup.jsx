@@ -3,9 +3,15 @@ import './LoginPopup.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
-function LoginPopup({setShowLogin}) {
+function LoginPopup({setShowLogin,setShowOtp}) {
 
     const [currState,setCurrState] = useState("Đăng nhập")
+
+    const handleLoginClick = () => {
+        setShowLogin(false)  // Ẩn popup đăng nhập
+        setShowOtp(true)     // Hiện OTP
+    }
+
   return (
     <div className="login-popup">
         <form className="login-popup-container">
@@ -16,20 +22,17 @@ function LoginPopup({setShowLogin}) {
             <div className="login-popup-inputs">
                 {currState==="Đăng nhập"?(
                     <>
-                        <input type="text" placeholder='Tên đăng nhập hoặc Email' required/>
-                        <input type="password" placeholder='Mật khẩu'required/>
+                        <input type="number" placeholder='Số điện thoại' required/>
                     </>
                 ) : (
                     <>
-                        <input type="text" placeholder='Tên đăng nhập' required/>
-                        <input type="email" placeholder='Email'required/>
-                        <input type="password" placeholder='Mật khẩu'required/>
-                        <input type="password" placeholder='Nhập lại mật khẩu'required/>
+                        <input type="text" placeholder='Tên khách hàng' required/>
+                        <input type="number" placeholder='Số điện thoại' required/>
                     </>
                 )}
                 
             </div>
-            <button>{currState==="Đăng nhập"?"Đăng nhập":"Đăng ký"}</button>
+            <button onClick={currState === "Đăng nhập" ? handleLoginClick : undefined}>{currState === "Đăng nhập" ? "Đăng nhập" : "Đăng ký"}</button>
             {currState==="Đăng nhập"?<p>Chưa có tài khoản? <span onClick={()=>setCurrState("Đăng ký")}>Đăng ký ngay!</span></p>
             :<p>Bạn đã có tài khoản? <span onClick={()=>setCurrState("Đăng nhập")}>Đăng nhập ngay!</span></p>}
             

@@ -68,3 +68,15 @@
     color: #808080;
     cursor: pointer;
 }
+
+/* Ẩn nút tăng giảm trên Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Ẩn nút tăng giảm trên Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
