@@ -5,11 +5,12 @@ import { faUser, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { assets } from '../../assets/assets'
 import { Link } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({setShowLogin,setShowOtp}) => {
 
   const [menu, setMenu] = React.useState("home");
 
   return (
+    
     <div className='navbar'>
       <Link to="/"><img src={assets.logo} className='logo' /></Link>
       <ul className="navbar-menu">
@@ -24,7 +25,7 @@ const Navbar = () => {
           <div className="dot"></div>
         </div>
         <li><FontAwesomeIcon icon={faUser} /></li>
-        <button>Đăng nhập</button>
+        <button onClick={()=>setShowLogin(true)}>Đăng nhập</button>
       </div>
     </div>
   )
