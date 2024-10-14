@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
-import { assets } from '../../assets/assets'; 
+import { assets } from '../../assets/assets';
 import './Navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ setShowLogin, setShowOtp }) => {
+
   const [menu, setMenu] = useState("home");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -28,6 +29,7 @@ const Navbar = () => {
   }, []);
 
   return (
+
     <div className='navbar'>
       <Link to="/"><img src={assets.logo} className='logo' alt='Logo' /></Link>
       <ul className="navbar-menu">
@@ -42,7 +44,7 @@ const Navbar = () => {
           <div className="dot"></div>
         </div>
         <li><FontAwesomeIcon icon={faUser} /></li>
-        <button>Đăng nhập</button>
+        <button onClick={() => setShowLogin(true)}>Đăng nhập</button>
       </div>
       <div className='menu-icon' onClick={toggleDropdown}>
         <FontAwesomeIcon icon={faBars} />
@@ -59,6 +61,6 @@ const Navbar = () => {
       )}
     </div>
   );
-};
+}
 
 export default Navbar;
