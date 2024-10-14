@@ -8,3 +8,9 @@
   margin-top: 100px;
   overflow: hidden; /* Đảm bảo rằng các phần tử con không vượt ra ngoài các góc bo tròn */
 }
+@media (max-width: 768px) {
+  .header {
+    height: 40vw;
+    margin-top: 70px;
+  }
+}

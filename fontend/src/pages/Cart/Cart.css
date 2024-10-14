@@ -1,5 +1,4 @@
-h1,
-h2 {
+.cart-total h2 {
     text-align: center;
     margin: 20px;
 }
@@ -146,4 +145,33 @@ h2 {
 
 .cart-promo button:hover {
     background-color: #6a6161;
+}
+
+@media (max-width: 768px) {
+    .cart-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-items-title {
+        font-size: 12px; 
+        padding: 10px;
+    }
+
+    .cart-items-item {
+        padding: 10px;
+    }
+
+    .cart-items-item img {
+        width: 60px; 
+        height: 60px; 
+    }
+
+    .cart-items-item button {
+        padding: 3px 6px; 
+        font-size: 12px; 
+    }
 }
