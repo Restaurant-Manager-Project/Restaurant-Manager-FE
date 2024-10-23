@@ -1,0 +1,101 @@
+/* src/pages/PlaceOrder/PlaceOrder.css */
+
+.place-order {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.place-order h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.order-status {
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.order-status img,
+.order-status .lottie-container {
+    display: block;
+    margin: 0 auto;
+}
+
+.order-status p {
+    font-size: 18px;
+    color: #555;
+}
+
+.order-details {
+    margin-bottom: 20px;
+}
+
+.order-details p {
+    font-size: 16px;
+    color: #333;
+}
+
+.order-details h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.order-details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.order-details table th,
+.order-details table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.order-details table th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.order-details table td img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.order-details .table-container {
+    max-height: 300px;
+    /* Fixed height for the table */
+    overflow-y: auto;
+    /* Add vertical scroll */
+}
+
+.order-actions {
+    text-align: center;
+}
+
+.order-actions button {
+    background-color: #3a3a3a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.order-actions button:hover {
+    background-color: #000000;
+}

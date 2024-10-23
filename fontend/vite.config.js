@@ -7,5 +7,8 @@ export default defineConfig({
   optimizeDeps: {
     include: [], 
   },
+  server: {
+    historyApiFallback: true,
+  },
 })
 

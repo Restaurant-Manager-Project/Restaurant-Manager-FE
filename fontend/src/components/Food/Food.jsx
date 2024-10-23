@@ -1,10 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './Food.css';
+import { CartContext } from '../CartContext/CartContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { menu_list } from '../../assets/assets';
 import '../Category/Category.css';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import { useParams } from 'react-router-dom';
+// import { addNewItemToOrder } from '../../pages/Cart/Cart';
 
 const Food = () => {
     const [foodList, setFoodList] = useState([]);
@@ -15,15 +24,24 @@ const Food = () => {
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [currentPage, setCurrentPage] = useState(1);
     const [sortOrder, setSortOrder] = useState("default");
+    const { addToCart } = useContext(CartContext);
     const itemsPerPage = 9;
+    const api_link = 'https://restaurant-manager-be-1.onrender.com';
+    const [openDialog, setOpenDialog] = useState(false);
+    const { qr_code } = useParams();
+
 
     useEffect(() => {
-        let isMounted = true; // Biến cờ để kiểm tra component có còn được gắn kết hay không
+        let isMounted = true;
 
-        axios.get('https://restaurant-manager-be-1.onrender.com/api/products/')
+        axios.get(`${api_link}/api/products`)
             .then(response => {
                 if (isMounted) {
-                    setFoodList(response.data);
+                    if (response.data && Array.isArray(response.data.result)) {
+                        setFoodList(response.data.result);
+                    } else {
+                        console.error('API response does not contain a valid result array:', response.data);
+                    }
                 }
             })
             .catch(error => {
@@ -33,7 +51,7 @@ const Food = () => {
             });
 
         return () => {
-            isMounted = false; // Hủy bỏ biến cờ khi component bị hủy bỏ
+            isMounted = false;
         };
     }, []);
 
@@ -48,8 +66,17 @@ const Food = () => {
     };
 
     const handleAddToCart = () => {
-        console.log('Added to cart:', selectedProduct, 'Quantity:', quantity);
-        setIsModalOpen(false);
+        if (!qr_code) {
+            setOpenDialog(true);
+        } else {
+            addToCart(selectedProduct, quantity);
+            // addNewItemToOrder(selectedProduct);
+            setIsModalOpen(false);
+        }
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
     };
 
     const handleCategoryClick = (category) => {
@@ -71,7 +98,7 @@ const Food = () => {
     };
 
     const filteredFoodList = foodList.filter(item => {
-        const matchesCategory = selectedCategory === "All" || item.category_name === selectedCategory;
+        const matchesCategory = selectedCategory === "All" || item.categoryName === selectedCategory;
         const matchesSearchTerm = item.name.toLowerCase().includes(searchTerm.toLowerCase());
         return matchesCategory && matchesSearchTerm;
     });
@@ -179,7 +206,8 @@ const Food = () => {
                                         </button>
                                     </div>
                                     <button className="add-to-cart" onClick={handleAddToCart}>
-                                        <FontAwesomeIcon icon={faCartPlus} /> Add to Cart
+                                        <FontAwesomeIcon icon={faCartPlus} />
+                                        <span className="add-to-cart-text">Add to Cart</span>
                                     </button>
                                 </div>
                             </div>
@@ -187,6 +215,19 @@ const Food = () => {
                     </div>
                 </div>
             )}
+            <Dialog open={openDialog} onClose={handleCloseDialog}>
+                <DialogTitle>Thông báo</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Vui lòng quét mã QR để thêm sản phẩm vào giỏ hàng.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseDialog} color="primary">
+                        Đóng
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 };
