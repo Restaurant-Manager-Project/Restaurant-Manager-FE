@@ -27,7 +27,7 @@
 }
 .navbar-right{
     display: flex;
-    gap: 40px;
+    gap: 20px;
     align-items: center;
     list-style: none;
     cursor: pointer;
@@ -60,14 +60,15 @@
     padding: 5px;
     font-size: 12px;
 }
-.navbar-right button{
+.navbar-right p{
     background-color: #ff6464;
     color: white;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border: none;
     border-radius: 20px;
     cursor: pointer;
     transition: ease 0.3s;
+    margin-right: 20px;
 }
 .dropdown-menu {
     display: none;

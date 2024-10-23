@@ -239,3 +239,95 @@
     border: 1px solid #ddd;
     border-radius: 5px;
 }
+
+@media (max-width: 450px) {
+    .food-list {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .food-list-item {
+        padding: 10px;
+    }
+
+    .img-container {
+        padding-top: 80%;
+    }
+
+    .food-list-item h3 {
+        font-size: 16px;
+    }
+
+    .food-list-item p {
+        font-size: 14px;
+    }
+
+    .add {
+        width: 30px;
+        height: 30px;
+    }
+
+    .modal-content {
+        padding: 10px;
+        flex-direction: column;
+    }
+
+    .modal-img-container {
+        width: 250px;
+        height: 250px;
+    }
+
+    .modal-details {
+        height: 250px;
+    }
+
+    .button-container {
+        gap: 10px;
+    }
+
+    .quantity-control button {
+        padding: 5px 7.5px;
+    }
+
+    .quantity-control span {
+        font-size: 14px;
+    }
+
+    .add-to-cart {
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+
+    .food-function {
+        flex-direction: column;
+        gap: 0;
+    }
+    .search input {
+        width: 300px;
+    }
+}
+
+/* Add this CSS to your stylesheet */
+@media (max-width: 450px) {
+    .pagination {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+    }
+
+    .page-item {
+        flex: 1 1 auto; 
+        flex-basis: 30px;
+        margin: 5px;
+        padding: 5px 10px; 
+        font-size: 14px; 
+    }
+    .modal-details h2{
+        font-size: 16px;
+    }
+    .modal-details p{
+        font-size: 14px;
+    }
+    .add-to-cart-text {
+        display: none;
+    }
+}

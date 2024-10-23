@@ -31,7 +31,7 @@ export const menu_list = [
         menu_image: lau
     },
     {
-        menu_name: "Heo_Cừu",
+        menu_name: "Heo & Cừu",
         menu_image: heo
     },
     {
