@@ -1,0 +1,99 @@
+button{
+    cursor: pointer;
+}
+
+.container{
+    width: 100%;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    height: 16%;
+    background-color: aqua;
+    padding: 50px;
+}
+
+.header .btn-them{
+    padding: 7px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #6a6161;
+    color: white;
+}
+
+.timkiem{
+    display: flex;
+}
+
+.timkiem .input-timkiem{
+    width: 250px;
+    padding: 5px;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.timkiem .btn-timkiem{
+    padding: 7px 20px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background-color: #6a6161;
+    color: white;
+}
+
+.content{
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    height: 69vh;
+    overflow: auto;
+}
+
+.content-title {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    color: gray;
+    font-size: max(1vw, 15px);
+    padding: 15px;
+}
+
+.title{
+    padding-right: 40px;
+    padding-left: 25px;
+}
+
+.content-item {
+    margin: 15px auto;
+    padding: 15px;
+    border-radius: 16px;
+}
+
+.content-item:nth-child(even){
+    background-color: #d8d5d5;
+}
+
+.content-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.content-item button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 50%;
+    background-color: #6a6161;
+    color: white;
+    font-size: 15px;
+    transition: ease 0.3s;
+}
+
+.btn{
+    display: flex;
+    gap: 10px;
+}
+

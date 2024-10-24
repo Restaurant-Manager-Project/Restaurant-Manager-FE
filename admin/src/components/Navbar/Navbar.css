@@ -1,0 +1,16 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 4%;
+}
+
+.navbar .logo{
+    width: max(10%, 80px);
+    cursor: pointer;
+}
+
+svg.svg-inline--fa.fa-circle-user {
+    cursor: pointer;
+    height: 40px;
+}
