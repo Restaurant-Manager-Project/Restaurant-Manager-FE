@@ -1,0 +1,22 @@
+.sidebar{
+    width: 12%;
+    min-height: 90vh;
+    border: 1.5px solid #a9a9a9;
+}
+
+.sidebar-options{
+    /* padding-top: 50px;
+    padding-left: 20%; */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.sidebar-option{
+    /* display: flex; */
+    background-color: aqua;
+    padding: 10px;
+    cursor: pointer;
+}
