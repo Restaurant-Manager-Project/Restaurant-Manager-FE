@@ -1,0 +1,11 @@
+
+
+.donhang-loc {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.donhang-content-title {
+    grid-template-columns: 0.2fr 1.5fr 1fr 1fr 1fr 0.5fr;
+}
