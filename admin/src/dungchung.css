@@ -9,8 +9,7 @@ button{
 .header{
     display: flex;
     justify-content: space-between;
-    height: 16%;
-    background-color: aqua;
+    background-color: rgb(255, 255, 255);
     padding: 50px;
 }
 
@@ -63,6 +62,8 @@ button{
 .title{
     padding-right: 40px;
     padding-left: 25px;
+    background-color: rgb(195, 0, 0);
+    color: white;
 }
 
 .content-item {

@@ -18,7 +18,7 @@ const PlaceOrder = () => {
     // Fetch order details based on directionTable
     const fetchOrderDetails = async () => {
       try {
-        const response = await axios.get(`https://restaurant-manager-be-1.onrender.com/api/orders?direction=${qr_code}`);
+        const response = await axios.get(`https://restaurant-manager-be-1.onrender.com/api/table/${qr_code}/details-orders`);
         if (response.data.success) {
           setOrderDetails(response.data.result);
         } else {
@@ -87,6 +87,10 @@ const PlaceOrder = () => {
     fetchAnimationData(orderStatus);
   }, [orderStatus]);
 
+  const calculateTotalAmount = () => {
+    return orderDetails.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
+
   if (!orderDetails.length) {
     return <div>Không có dữ liệu đơn hàng.</div>;
   }
@@ -133,6 +137,7 @@ const PlaceOrder = () => {
             </tbody>
           </table>
         </div>
+        <h3>Tổng tiền: {calculateTotalAmount().toLocaleString()} VND</h3>
       </div>
       <div className="order-actions">
         <button onClick={handleOrderMore}>Đặt thêm món</button>

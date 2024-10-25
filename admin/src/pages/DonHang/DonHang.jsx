@@ -8,14 +8,14 @@ const DonHang = () => {
       <div className="header">
         <div className="timkiem">
           <input className='input-timkiem' type="text" placeholder="Tìm kiếm đơn hàng..." />
-          <button className='btn-timkiem'>Tim kiem</button>
+          <button className='btn-timkiem'>Tìm kiếm</button>
         </div>
         <div className="donhang-loc">
-          <p>Tu ngay </p>
+          <p>Từ ngày </p>
           <input type="date" />
-          <p>Den ngay </p>
+          <p>Dến ngày </p>
           <input type="date" />
-          <button>Loc</button>
+          <button>Lọc</button>
         </div>
       </div>
       <div className="donhang-content-title content-title title">

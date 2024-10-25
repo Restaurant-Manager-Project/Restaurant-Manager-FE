@@ -9,3 +9,12 @@
 .donhang-content-title {
     grid-template-columns: 0.2fr 1.5fr 1fr 1fr 1fr 0.5fr;
 }
+.donhang-loc button{
+    padding: 5px 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: #6a6161;
+    color: white;
+    font-size: 15px;
+    transition: ease 0.3s;
+}

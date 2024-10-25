@@ -1,44 +1,176 @@
-import React, { useState } from 'react'
-import './LoginPopup.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import React, { useEffect, useState } from 'react';
+import './LoginPopUp.css';
 
-function LoginPopup({setShowLogin,setShowOtp}) {
+const PopUpLogin = () => {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [phoneError, setPhoneError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [successMessage2, setSuccessMessage2] = useState('');
+    const [clientInfo, setClientInfo] = useState(null);
 
-    const [currState,setCurrState] = useState("Đăng nhập")
+    useEffect(() => {
+        const container = document.getElementById('container');
+        const registerBtn = document.getElementById('register');
+        const loginBtn = document.getElementById('login');
+        const overlay = document.querySelector('.overlay');
 
-    const handleLoginClick = () => {
-        setShowLogin(false)  // Ẩn popup đăng nhập
-        setShowOtp(true)     // Hiện OTP
-    }
+        const handleClickOutside = (event) => {
+            if (!container.contains(event.target)) {
+                container.style.display = "none";
+                overlay.style.display = "none";
+            }
+        };
 
-  return (
-    <div className="login-popup">
-        <form className="login-popup-container">
-            <div className="login-popup-title">
-                <h2>{currState}</h2>
-                <div className='close-btn'><FontAwesomeIcon icon={faXmark} onClick={()=>setShowLogin(false)} /></div>
+        registerBtn.addEventListener('click', () => {
+            container.classList.add("active");
+        });
+
+        loginBtn.addEventListener('click', () => {
+            container.classList.remove("active");
+        });
+        document.addEventListener('click', handleClickOutside);
+
+        // Cleanup event listeners on component unmount
+        return () => {
+            registerBtn.removeEventListener('click', () => {
+                container.classList.add("active");
+            });
+
+            loginBtn.removeEventListener('click', () => {
+                container.classList.remove("active");
+            });
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
+
+    const validatePhone = (phone) => {
+        const phoneRegex = /^[0-9]{10}$/;
+        return phoneRegex.test(phone);
+    };
+
+    const handleSignUp = async (event) => {
+        event.preventDefault();
+        if (!validatePhone(phone)) {
+            setPhoneError('Số điện thoại không hợp lệ');
+            return;
+        }
+
+        const clientData = {
+            firstName,
+            lastName,
+            phone
+        };
+
+        try {
+            const response = await fetch('https://restaurant-manager-be-1.onrender.com/api/clients', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(clientData)
+            });
+
+            if (response.ok) {
+                console.log('Client registered successfully');
+                setSuccessMessage('Đăng ký thành công');
+                // Reset form fields
+                setFirstName('');
+                setLastName('');
+                setPhone('');
+                setPhoneError('');
+            } else {
+                console.error('Failed to register client');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const handleSignIn = async (event) => {
+        event.preventDefault();
+        if (!validatePhone(phone)) {
+            setPhoneError('Số điện thoại không hợp lệ');
+            return;
+        }
+
+        try {
+            const response = await fetch(`https://restaurant-manager-be-1.onrender.com/api/clients/search?phone=${phone}`);
+            if (response.ok) {
+                const data = await response.json();
+                setClientInfo(data);
+                setSuccessMessage2('Đăng nhập thành công');
+                setPhoneError('');
+            } else {
+                setPhoneError('Số điện thoại không tồn tại');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            setPhoneError('Có lỗi xảy ra, vui lòng thử lại');
+        }
+    };
+
+    return (
+        <div className="overlay">
+            <div className="container" id="container">
+                <div className="form-container sign-up">
+                <form onSubmit={handleSignUp}>
+                        <h1>Create Account</h1>
+                        <input
+                            type="text"
+                            placeholder="Họ"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Tên"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                        />
+                        <input
+                            placeholder="Số điện thoại"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                        />
+                        {phoneError && <p className="error" >{phoneError}</p>}
+                        <button type="submit">Sign Up</button>
+                        {successMessage && <p className="success" >{successMessage}</p>}
+                    </form>
+                </div>
+                <div className="form-container sign-in">
+                    <form onSubmit={handleSignIn}>
+                        <h1>Sign In</h1>
+                        <input
+                            placeholder="Số điện thoại"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                        />
+                        {phoneError && <p className="error">{phoneError}</p>}
+                        <button type="submit">Sign In</button>
+                        {successMessage2 && <p className="success">{successMessage2}</p>}
+                    </form>
+                </div>
+                <div className="toggle-container">
+                    <div className="toggle">
+                        <div className="toggle-panel toggle-left">
+                            <h1>Chào mừng quý khách trở lại!</h1>
+                            <p>Hãy nhập số điện thoại để tích điểm</p>
+                            <p>Click ra ngoài để bỏ qua</p>
+                            <button className="hidden" id="login">Sign In</button>
+                        </div>
+                        <div className="toggle-panel toggle-right">
+                            <h1>Xin chào quý khách!</h1>
+                            <p>Hãy đăng kí thẻ thành viên để nhận nhiều chương trình khuyến mãi từ chúng tôi</p>
+                            <p>Click ra ngoài để bỏ qua</p>
+                            <button className="hidden" id="register">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="login-popup-inputs">
-                {currState==="Đăng nhập"?(
-                    <>
-                        <input type="number" placeholder='Số điện thoại' required/>
-                    </>
-                ) : (
-                    <>
-                        <input type="text" placeholder='Tên khách hàng' required/>
-                        <input type="number" placeholder='Số điện thoại' required/>
-                    </>
-                )}
-                
-            </div>
-            <button onClick={currState === "Đăng nhập" ? handleLoginClick : undefined}>{currState === "Đăng nhập" ? "Đăng nhập" : "Đăng ký"}</button>
-            {currState==="Đăng nhập"?<p>Chưa có tài khoản? <span onClick={()=>setCurrState("Đăng ký")}>Đăng ký ngay!</span></p>
-            :<p>Bạn đã có tài khoản? <span onClick={()=>setCurrState("Đăng nhập")}>Đăng nhập ngay!</span></p>}
-            
-        </form>
-    </div>
-  )
-}
+        </div>
+    );
+};
 
-export default LoginPopup
+export default PopUpLogin;
