@@ -1,22 +1,31 @@
 .sidebar{
-    width: 12%;
+    width: 15%;
     min-height: 90vh;
-    border: 1.5px solid #a9a9a9;
+    border-right: 1.5px solid #a9a9a9;
+    color: #464646;
 }
 
 .sidebar-options{
-    /* padding-top: 50px;
-    padding-left: 20%; */
+    padding-top: 50px;
+    padding-left: 5%;
+    padding-right: 5%;
     text-align: center;
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-top: 10px;
+    text-align: start;
 }
 
 .sidebar-option{
     /* display: flex; */
-    background-color: aqua;
+    background-color: rgb(255, 255, 255);
     padding: 10px;
     cursor: pointer;
+    border-radius: 15px;
+    transition: background-color 0.3s;
+}
+.sidebar-option:hover{
+    background-color: rgb(195, 0, 0);
+    color: white;
 }

@@ -15,7 +15,7 @@ const SanPham = ({setShowAddSanPham, setShowEditSanPham}) => {
       <div className="header">
         <div className="timkiem">
           <input className='input-timkiem' type="text" placeholder="Tìm kiếm sản phẩm..." />
-          <button className='btn-timkiem'>Tim kiem</button>
+          <button className='btn-timkiem'>Tìm kiếm</button>
         </div>
         <button className='btn-them' onClick={() => setShowAddSanPham(true)}><FontAwesomeIcon icon={faPlus} /> Thêm</button>
       </div>

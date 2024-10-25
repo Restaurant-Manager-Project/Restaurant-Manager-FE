@@ -12,9 +12,9 @@ const Loai = () => {
       <div className="header">
         <div className="timkiem">
           <input className='input-timkiem' type="text" placeholder="Tìm kiếm loại món ăn..." />
-          <button className='btn-timkiem'>Tim kiem</button>
+          <button className='btn-timkiem'>Tìm kiếm</button>
         </div>
-        <button className='btn-them' ><FontAwesomeIcon icon={faPlus} /> Them</button>
+        <button className='btn-them' ><FontAwesomeIcon icon={faPlus} /> Thêm</button>
       </div>
       <div className="loai-content-title content-title title">
         <p>STT</p>

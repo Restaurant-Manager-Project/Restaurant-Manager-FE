@@ -2,15 +2,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 4%;
+    padding: 8px 1%;
+    z-index: 1000;
+    border: 1px solid #a9a9a9;
 }
 
 .navbar .logo{
-    width: max(10%, 80px);
+    width: 150px;
     cursor: pointer;
 }
 
 svg.svg-inline--fa.fa-circle-user {
     cursor: pointer;
     height: 40px;
+    color: rgb(195, 0, 0);
 }
