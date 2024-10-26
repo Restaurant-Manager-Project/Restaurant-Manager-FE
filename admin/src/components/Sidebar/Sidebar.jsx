@@ -10,7 +10,7 @@ const Sidebar = () => {
   return (
     <div className='sidebar'>
       <div className="sidebar-options">
-        <h1>MENU</h1>
+        
         <NavLink to='/TrangChu' className="sidebar-option">
             <p><FontAwesomeIcon icon={faHome} /> Trang chủ</p>
         </NavLink>
