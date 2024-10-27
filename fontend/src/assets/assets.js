@@ -5,7 +5,7 @@ import logo from './logo.svg';
 import lau from './Lau.jpg';
 import heo from './Heo.jpg';
 import bo from './Bo.jpg';
-import haisan from './HaiSan.jpg';
+import haisan from './Haisan.jpg';
 import rau from './Rau.jpg';
 import noitang from './NoiTang.jpg';
 import mi from './Mi.jpg';
