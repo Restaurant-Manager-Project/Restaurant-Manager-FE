@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './LoginPopUp.css';
+import './LoginPopup.css';
 import axios from 'axios';
 import API_URLS from '../../../config';
 
