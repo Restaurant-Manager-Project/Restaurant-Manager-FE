@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './LoginPopUp.css';
 
-const PopUpLogin = () => {
+constpopupLogin = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [phone, setPhone] = useState('');
@@ -173,4 +173,4 @@ const PopUpLogin = () => {
     );
 };
 
-export default PopUpLogin;
+export defaultpopupLogin;

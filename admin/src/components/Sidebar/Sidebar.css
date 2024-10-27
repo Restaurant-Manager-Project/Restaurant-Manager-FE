@@ -20,12 +20,20 @@
 .sidebar-option{
     /* display: flex; */
     background-color: rgb(255, 255, 255);
-    padding: 10px;
+    padding: 10px 40px;
     cursor: pointer;
     border-radius: 15px;
     transition: background-color 0.3s;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    border: 3px solid white;
 }
 .sidebar-option:hover{
+    border:3px solid rgb(195, 0, 0);
+    color: rgb(195, 0, 0);
+}
+
+.sidebar-options .active{
     background-color: rgb(195, 0, 0);
     color: white;
+    border: 3px solid rgb(195, 0, 0);
 }
