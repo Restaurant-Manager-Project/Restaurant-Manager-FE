@@ -5,41 +5,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { CartContext } from '../../components/CartContext/CartContext';
 import axios from 'axios';
-
-// Hàm để thêm món mới vào đơn hàng hiện tại
-// export const addNewItemToOrder = async (newItem) => {
-//   const orderId = localStorage.getItem('orderId'); // Fetch orderId từ localStorage
-//   if (!orderId) {
-//     console.error('No orderId found. Please place an order first.');
-//     return;
-//   }
-
-//   const newItemData = {
-//     order_id: orderId,
-//     product_id: newItem.id,
-//     price: newItem.price,
-//     quantity: newItem.quantity
-//   };
-
-//   try {
-//     const response = await axios.post('https://restaurant-manager-be-1.onrender.com/api/order/add-item', newItemData);
-//     console.log('Item added successfully to the order');
-//     console.log('Response:', response);
-//   } catch (error) {
-//     console.error('Error adding item to order:', error);
-//     if (error.response) {
-//       console.error('Response data:', error.response.data);
-//       console.error('Response status:', error.response.status);
-//       console.error('Response headers:', error.response.headers);
-//     }
-//   }
-// };
+import API_URLS from '../../../config';
 
 const Cart = ({ tableId }) => {
   const { cartItems, removeFromCart, updateCartItemQuantity } = useContext(CartContext);
   const navigate = useNavigate();
   const { qr_code } = useParams();
-  const [orderId, setOrderId] = useState(localStorage.getItem('orderId')); // Fetch orderId từ localStorage
   const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
   const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
@@ -83,13 +54,9 @@ const Cart = ({ tableId }) => {
     console.log(orderData);
 
     try {
-      const response = await axios.post('https://restaurant-manager-be-1.onrender.com/api/order', orderData);
+      const response = await axios.post(API_URLS.POST_ORDER, orderData);
       console.log('Order placed successfully');
       console.log('Response:', response);
-      // const newOrderId = response.data.order_id; // Lấy order_id từ phản hồi của API
-      // setOrderId(newOrderId);
-      // console.log("OrderId:", newOrderId)
-      // localStorage.setItem('orderId', newOrderId); // Lưu trữ orderId vào localStorage
       navigate(`/${qr_code}/place-order`, { state: { cartItems, totalPrice, orderData } });
     } catch (error) {
       console.error('Error placing order:', error);
@@ -159,12 +126,7 @@ const Cart = ({ tableId }) => {
               <p>Phí vận chuyển:</p>
               <p>Miễn phí</p>
             </span>
-            <div className="cart-promo">
-              <h3>Áp mã khuyến mãi</h3>
-              <input type="text" placeholder="Nhập mã khuyến mãi" />
-              <button>Áp dụng</button>
-            </div>
-            <hr />
+            
             <span className="cart-total-detail">
               <p id="total-cart">TỔNG CỘNG</p>
               <p id="total-price">{totalPrice.toLocaleString()} VND</p>
