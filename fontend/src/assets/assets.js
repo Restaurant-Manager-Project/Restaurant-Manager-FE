@@ -7,7 +7,7 @@ import heo from './Heo.jpg';
 import bo from './Bo.jpg';
 import haisan from './Haisan.jpg';
 import rau from './Rau.jpg';
-import noitang from './NoiTang.jpg';
+import noitang from './Noitang.jpg';
 import mi from './Mi.jpg';
 import all from './All.jpg';
 import dauhu from './DauHu.jpg';
