@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './LoginPopUp.css';
+import axios from 'axios';
+import API_URLS from '../../../config';
 
 const PopUpLogin = () => {
     const [firstName, setFirstName] = useState('');
@@ -53,63 +55,72 @@ const PopUpLogin = () => {
     const handleSignUp = async (event) => {
         event.preventDefault();
         if (!validatePhone(phone)) {
-            setPhoneError('Số điện thoại không hợp lệ');
-            return;
+          setPhoneError('Số điện thoại không hợp lệ');
+          return;
         }
-
-        const clientData = {
-            firstName,
-            lastName,
-            phone
-        };
 
         try {
-            const response = await fetch('https://restaurant-manager-be-1.onrender.com/api/clients', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(clientData)
-            });
-
-            if (response.ok) {
-                console.log('Client registered successfully');
-                setSuccessMessage('Đăng ký thành công');
-                // Reset form fields
-                setFirstName('');
-                setLastName('');
-                setPhone('');
-                setPhoneError('');
-            } else {
-                console.error('Failed to register client');
+            const checkResponse = await axios.get(API_URLS.GET_CLIENT_BY_PHONE(phone));
+            if (checkResponse.status === 200 && checkResponse.data) {
+              setPhoneError('Số điện thoại đã được sử dụng');
+              return;
             }
+          } catch (error) {
+            console.error('Error checking phone number:', error);
+          }
+    
+        const clientData = {
+          firstName,
+          lastName,
+          phone
+        };
+        
+        try {
+          const response = await axios.post(API_URLS.POST_CLIENT, clientData, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+    
+          if (response.status === 200) {
+            console.log('Client registered successfully');
+            setSuccessMessage('Đăng ký thành công');
+            // Reset form fields
+            setFirstName('');
+            setLastName('');
+            setPhone('');
+            setPhoneError('');
+          } else {
+            console.error('Failed to register client');
+          }
         } catch (error) {
-            console.error('Error:', error);
+          console.error('Error:', error);
         }
-    };
-
-    const handleSignIn = async (event) => {
+      };
+    
+      const handleSignIn = async (event) => {
         event.preventDefault();
         if (!validatePhone(phone)) {
-            setPhoneError('Số điện thoại không hợp lệ');
-            return;
+          setPhoneError('Số điện thoại không hợp lệ');
+          return;
         }
-
+    
         try {
-            const response = await fetch(`https://restaurant-manager-be-1.onrender.com/api/clients/search?phone=${phone}`);
-            if (response.ok) {
-                const data = await response.json();
-                setClientInfo(data);
-                setSuccessMessage2('Đăng nhập thành công');
-                setPhoneError('');
-            } else {
-                setPhoneError('Số điện thoại không tồn tại');
-            }
+          const response = await axios.get(API_URLS.GET_CLIENT_BY_PHONE(phone));
+    
+          if (response.status === 200) {
+            const data = response.data;
+            setClientInfo(data);
+            setSuccessMessage2('Đăng nhập thành công');
+            setPhoneError('');
+          } else {
+            setPhoneError('Số điện thoại không tồn tại');
+          }
         } catch (error) {
-            console.error('Error:', error);
-            setPhoneError('Có lỗi xảy ra, vui lòng thử lại');
+          console.error('Error:', error);
+          setPhoneError('Có lỗi xảy ra, vui lòng thử lại');
         }
-    };
+      };
 
     return (
         <div className="overlay">

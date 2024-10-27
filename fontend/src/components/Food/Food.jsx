@@ -13,7 +13,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { useParams } from 'react-router-dom';
-// import { addNewItemToOrder } from '../../pages/Cart/Cart';
+import API_URLS from '../../../config';
 
 const Food = () => {
     const [foodList, setFoodList] = useState([]);
@@ -26,7 +26,6 @@ const Food = () => {
     const [sortOrder, setSortOrder] = useState("default");
     const { addToCart } = useContext(CartContext);
     const itemsPerPage = 9;
-    const api_link = 'https://restaurant-manager-be-1.onrender.com';
     const [openDialog, setOpenDialog] = useState(false);
     const { qr_code } = useParams();
 
@@ -34,7 +33,7 @@ const Food = () => {
     useEffect(() => {
         let isMounted = true;
 
-        axios.get(`${api_link}/api/products`)
+        axios.get(API_URLS.GET_PRODUCTS)
             .then(response => {
                 if (isMounted) {
                     if (response.data && Array.isArray(response.data.result)) {
