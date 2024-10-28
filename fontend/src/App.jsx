@@ -7,6 +7,8 @@ import Menu from './pages/Menu/Menu';
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Footer from './components/Footer/Footer';
 import { CartProvider } from './components/CartContext/CartContext';
+import PaymentCallback from './pages/PaymentCallback/PaymentCallback';
+import API_URLS from '../config';
 
 const App = () => {
   const [qrCode, setQrCode] = useState(null); 
@@ -36,9 +38,8 @@ const MainContent = ({ setTableId, setQrCode }) => {
 
   useEffect(() => {
     if (qr_code) {
-      setQrCode(qr_code); // Đẩy qr_code lên App
-      // Gọi API để lấy thông tin bàn dựa vào qr_code
-      fetch(`https://restaurant-manager-be-1.onrender.com/tables?code=${qr_code}`)
+      setQrCode(qr_code);
+      fetch(API_URLS.GET_TABLE(qr_code))
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -64,7 +65,7 @@ const MainContent = ({ setTableId, setQrCode }) => {
       <Route path='menu' element={<Menu />} />
       <Route path='cart' element={<Cart tableId = {localTableId}/>} />
       <Route path='place-order' element={<PlaceOrder />} />
-      {/* Add other nested routes as needed */} 
+      <Route path='vnpay-callback' element={<PaymentCallback />} />
     </Routes>
   );
 };
