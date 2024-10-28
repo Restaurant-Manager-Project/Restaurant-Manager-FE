@@ -18,7 +18,7 @@ const PlaceOrder = () => {
     // Fetch order details based on directionTable
     const fetchOrderDetails = async () => {
       try {
-        const response = await axios.get(`https://restaurant-manager-be-1.onrender.com/api/orders?direction=${qr_code}`);
+        const response = await axios.get(API_URLS.GET_ORDER_DETAILS(qr_code));
         if (response.data.success) {
           setOrderDetails(response.data.result);
         } else {
@@ -59,7 +59,7 @@ const PlaceOrder = () => {
     };
     console.log('Payment data:', paymentData);
     try {
-      const response = await axios.post(`https://restaurant-manager-be-1.onrender.com/vnpay`, paymentData, {
+      const response = await axios.post(API_URLS.POST_VNPAY, paymentData, {
         headers: {
           'Content-Type': 'application/json'
         }

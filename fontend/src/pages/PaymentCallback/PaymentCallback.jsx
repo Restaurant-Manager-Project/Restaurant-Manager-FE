@@ -18,18 +18,18 @@ const PaymentCallback = () => {
     const fetchPaymentStatus = async () => {
       try {
         const queryParams = location.search; // Lấy phần sau của URL hiện tại
-        const response = await axios.get(`https://restaurant-manager-be-1.onrender.com/${qr_code}/vnpay-callback${queryParams}`);
+        const response = await axios.get(API_URLS.GET_VNPAY_CALLBACK(qr_code, queryParams));
         if (response.data && response.data.code === '00') {
           setPaymentStatus('success');
           const direction = response.data.direction;
           // Lấy tableId từ qr_code
-          const tableResponse = await axios.get(`https://restaurant-manager-be-1.onrender.com/tables?code=${qr_code}`);
+          const tableResponse = await axios.get(API_URLS.GET_TABLE(qr_code));
           if (tableResponse.data && tableResponse.data.result && tableResponse.data.result.id) {
             const tableId = tableResponse.data.result.id;
             setTableId(tableId);
             console.log('Table ID:', tableId);
             // Tạo mã QR mới
-            const qrResponse = await axios.get(`https://restaurant-manager-be-1.onrender.com/tables/generateQRCode/${tableId}`);
+            const qrResponse = await axios.get(API_URLS.GENERATE_QR_CODE(tableId));
             if (qrResponse.data && qrResponse.data.qrCode) {
               setQrCode(qrResponse.data.qrCode);
             }
