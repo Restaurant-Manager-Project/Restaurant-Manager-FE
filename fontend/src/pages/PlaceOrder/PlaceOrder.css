@@ -200,3 +200,20 @@ select {
 #animation {
     margin: 0 auto;
 }
+
+@media (max-width: 768px) {
+    .place-order {
+        grid-template-columns: 1fr;
+        gap: 0;
+        height: auto;
+    }
+
+    .place-order-left {
+        margin-bottom: 20px;
+        height: auto;
+    }
+
+    .place-order-right {
+        margin-top: 20px;
+    }
+}

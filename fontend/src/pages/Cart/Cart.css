@@ -153,6 +153,7 @@
     .cart-items-title {
         font-size: 12px; 
         padding: 10px;
+        text-align: center;
     }
 
     .cart-items-item {
@@ -166,6 +167,10 @@
 
     .cart-items-item button {
         padding: 3px 6px; 
-        font-size: 12px; 
+        font-size: 10px; 
+    }
+    .cart-items-item input {
+        width: 20px; 
+        padding: 5px; 
     }
 }
