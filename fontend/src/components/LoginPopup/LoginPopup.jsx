@@ -3,7 +3,7 @@ import './LoginPopup.css';
 import axios from 'axios';
 import API_URLS from '../../../config';
 
-const PopUpLogin = () => {
+constpopupLogin = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [phone, setPhone] = useState('');
@@ -185,3 +185,4 @@ const PopUpLogin = () => {
 };
 
 export default PopUpLogin;
+

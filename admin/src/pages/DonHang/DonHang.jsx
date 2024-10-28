@@ -2,7 +2,7 @@ import React from 'react'
 import "./DonHang.css"
 import "../../dungchung.css"
 
-const DonHang = () => {
+const DonHang = ({setShowChiTietDonHang}) => {
   return (
     <div className='container'>
       <div className="header">
@@ -34,7 +34,7 @@ const DonHang = () => {
           <p>B01</p>
           <p>150,000đ</p>
           <p>Đã xác nhận</p>
-          <button>Chi tiết</button>
+          <button onClick={()=>setShowChiTietDonHang(true)}>Chi tiết</button>
         </div>
         <div className="donhang-content-title content-title content-item">
           <p>2</p>
