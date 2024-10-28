@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Lottie from 'lottie-react';
 import './PlaceOrder.css';
 import { useCart } from '../../components/CartContext/CartContext';
+import API_URLS from '../../../config';
 
 const PlaceOrder = () => {
-  const location = useLocation();
   const { qr_code } = useParams();
   const navigate = useNavigate();
   const { clearCart } = useCart();
-  const [orderStatus, setOrderStatus] = useState('confirming'); // Initial order status
-  const [animationData, setAnimationData] = useState(null); // State to hold Lottie animation data
   const [orderDetails, setOrderDetails] = useState([]); // State to hold order details
+  const [paymentMethod, setPaymentMethod] = useState('card');
+  const [animationData, setAnimationData] = useState(null);
 
   useEffect(() => {
     // Fetch order details based on directionTable
     const fetchOrderDetails = async () => {
       try {
-        const response = await axios.get(`https://restaurant-manager-be-1.onrender.com/api/table/${qr_code}/details-orders`);
+        const response = await axios.get(API_URLS.GET_ORDER_DETAILS(qr_code));
         if (response.data.success) {
           setOrderDetails(response.data.result);
         } else {
@@ -32,63 +32,51 @@ const PlaceOrder = () => {
     fetchOrderDetails();
   }, [qr_code]);
 
-  const handleOrderMore = () => {
-    clearCart();
-    navigate(`/${qr_code}/menu`);
-  };
-
-  const handlePayment = () => {
-    // Logic to handle payment
-    console.log('Thanh toán');
-  };
-
   useEffect(() => {
-    // Simulate updating order status over time
-    const statusSequence = ['confirming', 'cooking', 'delivering', 'enjoy'];
-    let currentStatusIndex = 0;
-
-    const interval = setInterval(() => {
-      currentStatusIndex = (currentStatusIndex + 1) % statusSequence.length;
-      setOrderStatus(statusSequence[currentStatusIndex]);
-    }, 5000); // Update status every 5 seconds
-
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    // Fetch Lottie animation data based on order status
-    const fetchAnimationData = async (status) => {
-      let url = '';
-      switch (status) {
-        case 'confirming':
-          url = 'https://lottie.host/4ca8ac85-7ac6-4c30-b829-70bd6ca3da70/wYEQlgbalg.json';
-          break;
-        case 'cooking':
-          url = 'https://lottie.host/8c283d14-03ee-47dc-9b74-72d68b22b633/9hhg1kQ0H9.json';
-          break;
-        case 'delivering':
-          url = 'https://lottie.host/10829fc1-e743-4646-a8b8-9c825ffe10e4/EbxSimdyUy.json';
-          break;
-        case 'enjoy':
-          url = 'https://lottie.host/d0ed001d-0bce-4e09-9fa7-4be79670f3d5/hbKobyLEtL.json';
-          break;
-        default:
-          return;
-      }
-
+    // Fetch animation data
+    const fetchAnimationData = async () => {
       try {
-        const response = await axios.get(url);
+        const response = await axios.get('https://lottie.host/3fab5488-ca7c-45c7-bba7-ecce760f05ee/3r7aLdND3m.json');
         setAnimationData(response.data);
       } catch (error) {
         console.error('Error fetching animation data:', error);
       }
     };
 
-    fetchAnimationData(orderStatus);
-  }, [orderStatus]);
+    fetchAnimationData();
+  }, []);
+
+  const handleOrderMore = () => {
+    clearCart();
+    navigate(`/${qr_code}/menu`);
+  };
+
+  const handlePayment = async () => {
+    const totalAmount = calculateTotalAmount();
+    const paymentData = {
+      directionTable: qr_code,
+      amount: totalAmount
+    };
+    console.log('Payment data:', paymentData);
+    try {
+      const response = await axios.post(API_URLS.POST_VNPAY, paymentData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.data && response.data.paymentUrl) {
+        window.location.href = response.data.paymentUrl;
+      } else {
+        console.error('Failed to get payment URL');
+      }
+    } catch (error) {
+      console.error('Error processing payment:', error);
+    }
+  };
 
   const calculateTotalAmount = () => {
-    return orderDetails.reduce((total, item) => total + item.price * item.quantity, 0);
+    return orderDetails.reduce((total, order) => total + order.total, 0);
   };
 
   if (!orderDetails.length) {
@@ -97,51 +85,66 @@ const PlaceOrder = () => {
 
   return (
     <div className="place-order">
-      <h2>Trạng thái đơn hàng</h2>
-      <div className="order-status">
-        {animationData ? (
-          <div className="lottie-container">
-            <Lottie animationData={animationData} style={{ width: 300, height: 300 }} />
-          </div>
-        ) : (
-          <p>Loading animation...</p>
-        )}
-        <p>
-          {orderStatus === 'confirming' && 'Xác nhận đơn hàng'}
-          {orderStatus === 'cooking' && 'Bếp đang nấu'}
-          {orderStatus === 'delivering' && 'Nhân viên đang mang đến'}
-          {orderStatus === 'enjoy' && 'Mời quý khách ăn ngon miệng'}
-        </p>
-      </div>
-      <div className="order-details">
+      <div className="place-order-left">
         <h2>Chi tiết đơn hàng:</h2>
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Tên sản phẩm</th>
-                <th>Số lượng</th>
-                <th>Giá</th>
-                <th>Tổng tiền</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orderDetails.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.productName}</td>
-                  <td>{item.quantity}</td>
-                  <td>{item.price.toLocaleString()} VND</td>
-                  <td>{(item.price * item.quantity).toLocaleString()} VND</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="order-details">
+          {orderDetails.map((order, index) => (
+            <div key={index} className="order-section">
+              <h3>Đơn hàng số: {order.orderId} - Trạng thái: </h3>
+              <div className="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Tên sản phẩm</th>
+                      <th>Số lượng</th>
+                      <th>Giá</th>
+                      <th>Tổng tiền</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {order.detailList ? (
+                      order.detailList.map((item, itemIndex) => (
+                        <tr key={itemIndex}>
+                          <td>{item.productName}</td>
+                          <td>{item.quantity}</td>
+                          <td>{item.price.toLocaleString()} VND</td>
+                          <td>{(item.price * item.quantity).toLocaleString()} VND</td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="4">Không có chi tiết đơn hàng</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))}
         </div>
-        <h3>Tổng tiền: {calculateTotalAmount().toLocaleString()} VND</h3>
       </div>
-      <div className="order-actions">
-        <button onClick={handleOrderMore}>Đặt thêm món</button>
-        <button onClick={handlePayment}>Thanh toán</button>
+      <div className="place-order-right">
+        <h2 id='total-title'>Total</h2>
+        {animationData && <Lottie id="animation" animationData={animationData} style={{ width: 100, height: 100 }} />}
+        <h3 className='totalPrice'>Tổng tiền: {calculateTotalAmount().toLocaleString()} VND</h3>
+        <div className="cart-promo">
+          <h3>Áp mã khuyến mãi</h3>
+          <input type="text" placeholder="Nhập mã khuyến mãi" />
+          <button>Áp dụng</button>
+        </div>
+        <hr />
+        <h3 id='total2'>Thành tiền: </h3>
+        <div className="methodContainer">
+          <h3 id='paymentMethod'>Chọn phương thức thanh toán: </h3>
+          <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
+            <option value="card">Thẻ ngân hàng</option>
+            <option value="cash">Tiền mặt</option>
+          </select>
+        </div>
+        <div className="order-actions">
+          <button onClick={handleOrderMore}>Đặt thêm món</button>
+          <button onClick={handlePayment}>Thanh toán</button>
+        </div>
       </div>
     </div>
   );
