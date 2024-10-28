@@ -207,7 +207,8 @@ button {
 .popup-container {
     position: relative;
     place-self: center;
-    width: max(23vw, 330px);
+    /* width: max(23vw, 330px); */
+    min-width: 20vw;
     color: #808080;
     background-color: white;
     display: flex;
@@ -242,6 +243,13 @@ button {
     }
 }
 
+.popup-table{
+    display: grid;
+    grid-template-columns: 3fr 3fr;
+    gap: 20px;
+    height: 250px;
+}
+
 .popup-inputs {
     display: flex;
     flex-direction: column;
@@ -274,13 +282,22 @@ button {
         max-height: 350px;
         min-width: 100%;
         scroll-padding-block: 12px;
+        &:disabled{
+            background-color: rgb(214, 212, 212);
+        }
     }
 
     & .popup-input {
         display: grid;
-        grid-template-columns: 1fr 4fr;
+        grid-template-columns: 1fr 3fr;
         align-items: center;
+        gap: 10px;
         /* justify-items: start; */
+
+        & input:disabled {
+            /* opacity: 0.5; */
+            background-color: rgb(214, 212, 212);
+        }
     }
 
     & label {

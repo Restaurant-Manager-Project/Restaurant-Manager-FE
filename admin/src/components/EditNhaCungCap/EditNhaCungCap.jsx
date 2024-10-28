@@ -35,6 +35,15 @@ const EditNhaCungCap = ({ setShowEditNhaCungCap }) => {
               required
             />
           </div>
+          <div className="popup-input">
+            <label htmlFor="popup-diachi">Địa chỉ:</label>
+            <input
+              type="text"
+              id="popup-diachi"
+              placeholder="Nhập địa chỉ..."
+              required
+            />
+          </div>
         </div>
         <button>Chỉnh sửa nhà cung cấp</button>
       </form>

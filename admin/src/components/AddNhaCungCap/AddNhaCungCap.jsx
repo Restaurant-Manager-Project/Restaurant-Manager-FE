@@ -35,6 +35,15 @@ const AddNhaCungCap = ({ setShowAddNhaCungCap }) => {
               required
             />
           </div>
+          <div className="popup-input">
+            <label htmlFor="popup-diachi">Địa chỉ:</label>
+            <input
+              type="text"
+              id="popup-diachi"
+              placeholder="Nhập địa chỉ..."
+              required
+            />
+          </div>
         </div>
         <button>Thêm nhà cung cấp</button>
       </form>
