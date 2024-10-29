@@ -9,7 +9,7 @@ const API_URLS = {
     GET_CLIENT_BY_PHONE: (phone) => `${API_BASE_URL}/api/clients/search?phone=${phone}`, // Lấy thông tin khách hàng theo số điện thoại
     GET_ORDER_DETAILS: (qr_code) => `${API_BASE_URL}/api/orders?direction=${qr_code}`, // Lấy dữ liệu cho từng đơn hàng
     POST_VNPAY: `${API_BASE_URL}/vnpay`, // Đẩy dữ liệu lên cho VN Pay
-    GET_VNPAY_CALLBACK: (qr_code, queryParams) => `${API_BASE_URL}/${qr_code}/vnpay-callback${queryParams}`, // Lấy dữ liệu của VN Pay
+    GET_VNPAY_CALLBACK:  (queryParams) => `${API_BASE_URL}/vnpay-callback${queryParams}`, // Lấy dữ liệu của VN Pay
     GENERATE_QR_CODE: (tableId) => `${API_BASE_URL}/tables/generateQRCode/${tableId}` // Lấy mã QR mới
 };
 

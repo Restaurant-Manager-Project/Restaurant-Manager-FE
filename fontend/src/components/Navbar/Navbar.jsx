@@ -1,14 +1,16 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../components/CartContext/CartContext';
+import { useOrderStatus } from '../../components/OrderStatusContext/OrderStatusContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faReceipt, faBars } from '@fortawesome/free-solid-svg-icons';
 import { assets } from '../../assets/assets';
 import './Navbar.css';
 
 const Navbar = ({ qr_code }) => {
   console.log('qr_code:', qr_code);
   const { cartItems } = useContext(CartContext);
+  const { hasOrderData } = useOrderStatus();
   const [menu, setMenu] = useState("home");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [qrCode, setQrCode] = useState(null); // Define the qrCode state
@@ -54,15 +56,21 @@ const Navbar = ({ qr_code }) => {
       <ul className="navbar-menu">
         <li onClick={() => handleNavigation('', 'home')}>Trang chủ</li>
         <li onClick={() => handleNavigation('menu', 'menu')} >Menu</li>
-        <li onClick={() => handleNavigation('about', 'about')} >Về chúng tôi</li>
-        <li onClick={() => handleNavigation('contact', 'contact')} >Liên hệ</li>
+        <li >Về chúng tôi</li>
+        <li >Liên hệ</li>
       </ul>
       <div className='navbar-right'>
         <div className='navbar-cart'>
           <FontAwesomeIcon icon={faCartShopping} onClick={() => handleNavigation('cart', 'cart')} />
           {cartItems.length > 0 && <div className="dot"></div>}
         </div>
-        <p>Đặt bàn</p>
+        {!qr_code && <p className='book_table'>Đặt bàn</p>}
+        {qr_code && (
+          <div className='navbar-receipt'>
+            <FontAwesomeIcon icon={faReceipt} onClick={() => { handleNavigation('place-order', 'place-order') }} />
+            {hasOrderData && <div className="dot"></div>}
+          </div>
+        )}
       </div>
       <div className='menu-icon' onClick={toggleDropdown}>
         <FontAwesomeIcon icon={faBars} />
@@ -71,10 +79,11 @@ const Navbar = ({ qr_code }) => {
         <div className='dropdown-menu' ref={dropdownRef}>
           <div onClick={() => { handleNavigation('', 'home'); setDropdownOpen(false); }}>Trang chủ</div>
           <div onClick={() => { handleNavigation('menu', 'menu'); setDropdownOpen(false); }}>Menu</div>
-          <div onClick={() => { handleNavigation('about', 'about'); setDropdownOpen(false); }}>Về chúng tôi</div>
-          <div onClick={() => { handleNavigation('contact', 'contact'); setDropdownOpen(false); }}>Liên hệ</div>
+          <div >Về chúng tôi</div>
+          <div >Liên hệ</div>
           <div onClick={() => { handleNavigation('cart', 'cart'); setDropdownOpen(false); }}>Giỏ hàng</div>
           <div>Đặt bàn</div>
+          <div onClick={() => { handleNavigation('place-order', 'place-order'); setDropdownOpen(false); }}>Đơn hàng</div>
         </div>
       )}
     </div>

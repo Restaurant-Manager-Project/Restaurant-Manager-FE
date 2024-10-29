@@ -60,6 +60,19 @@
     padding: 5px;
     font-size: 12px;
 }
+.navbar-receipt{
+    position: relative;
+}
+.navbar-receipt .dot{
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ff6464;
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 12px;
+}
 .navbar-right p{
     background-color: #ff6464;
     color: white;
