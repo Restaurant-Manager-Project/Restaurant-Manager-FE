@@ -1,7 +1,9 @@
 #popup-dsMonAn {
-    padding-left: 25px;
+    padding: 10px 0px 10px 32px;
     justify-items: start;
     overflow: auto;
-    height: 74%;
-    list-style-type: style;;
+    list-style-type: auto;
+    box-shadow: 2px 2px 13px #333;
+    width: 27vw;
+    height: 25vw;
 }
