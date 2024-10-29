@@ -7,34 +7,37 @@ import Menu from './pages/Menu/Menu';
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Footer from './components/Footer/Footer';
 import { CartProvider } from './components/CartContext/CartContext';
+import { OrderStatusProvider } from './components/OrderStatusContext/OrderStatusContext';
 import PaymentCallback from './pages/PaymentCallback/PaymentCallback';
 import API_URLS from '../config';
 
 const App = () => {
-  const [qrCode, setQrCode] = useState(null); 
+  const [qrCode, setQrCode] = useState(null);
   const [tableId, setTableId] = useState(null);
 
   return (
     <CartProvider>
-      <div className='app'>
-        <Navbar qr_code={qrCode} />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/menu' element={<Menu />} />
-          <Route path='/cart' element={<Cart />} />
-          <Route path='/place-order' element={<PlaceOrder />} />
-          <Route path='/:qr_code/*' element={<MainContent setTableId={setTableId} setQrCode={setQrCode} />} />
-        </Routes>
-      </div>
-      <Footer />
+      <OrderStatusProvider>
+        <div className='app'>
+          <Navbar qr_code={qrCode} />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/menu' element={<Menu />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/place-order' element={<PlaceOrder />} />
+            <Route path='/vnpay-callback' element={<PaymentCallback />} />
+            <Route path='/:qr_code/*' element={<MainContent setTableId={setTableId} setQrCode={setQrCode} />} />
+          </Routes>
+        </div>
+        <Footer />
+      </OrderStatusProvider>
     </CartProvider>
   );
 };
 
 const MainContent = ({ setTableId, setQrCode }) => {
-  const { qr_code } = useParams(); // Lấy qr_code từ URL
+  const { qr_code } = useParams();
   const [localTableId, setLocalTableId] = useState(null);
-  
 
   useEffect(() => {
     if (qr_code) {
@@ -63,7 +66,7 @@ const MainContent = ({ setTableId, setQrCode }) => {
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='menu' element={<Menu />} />
-      <Route path='cart' element={<Cart tableId = {localTableId}/>} />
+      <Route path='cart' element={<Cart tableId={localTableId} />} />
       <Route path='place-order' element={<PlaceOrder />} />
       <Route path='vnpay-callback' element={<PaymentCallback />} />
     </Routes>

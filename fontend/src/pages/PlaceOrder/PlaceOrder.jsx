@@ -4,12 +4,14 @@ import axios from 'axios';
 import Lottie from 'lottie-react';
 import './PlaceOrder.css';
 import { useCart } from '../../components/CartContext/CartContext';
+import { useOrderStatus } from '../../components/OrderStatusContext/OrderStatusContext';
 import API_URLS from '../../../config';
 
 const PlaceOrder = () => {
   const { qr_code } = useParams();
   const navigate = useNavigate();
   const { clearCart } = useCart();
+  const { setHasOrderData } = useOrderStatus();
   const [orderDetails, setOrderDetails] = useState([]); // State to hold order details
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [animationData, setAnimationData] = useState(null);
@@ -21,16 +23,20 @@ const PlaceOrder = () => {
         const response = await axios.get(API_URLS.GET_ORDER_DETAILS(qr_code));
         if (response.data.success) {
           setOrderDetails(response.data.result);
+          const hasOrderData = response.data.result.some(order => order.detailList && order.detailList.length > 0);
+          setHasOrderData(hasOrderData);
         } else {
           console.error('Error fetching order details:', response.data.message);
+          setHasOrderData(false);
         }
       } catch (error) {
         console.error('Error fetching order details:', error);
+        setHasOrderData(false);
       }
     };
 
     fetchOrderDetails();
-  }, [qr_code]);
+  }, [qr_code, setHasOrderData]);
 
   useEffect(() => {
     // Fetch animation data
