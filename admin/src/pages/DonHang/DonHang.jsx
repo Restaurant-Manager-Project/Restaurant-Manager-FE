@@ -1,14 +1,18 @@
-import React from 'react'
-import "./DonHang.css"
-import "../../dungchung.css"
+import React from "react";
+import "../../dungchung.css";
+import "./DonHang.css";
 
-const DonHang = ({setShowChiTietDonHang}) => {
+const DonHang = ({ setShowChiTietDonHang }) => {
   return (
-    <div className='container'>
+    <div className="container">
       <div className="header">
         <div className="timkiem">
-          <input className='input-timkiem' type="text" placeholder="Tìm kiếm đơn hàng..." />
-          <button className='btn-timkiem'>Tìm kiếm</button>
+          <input
+            className="input-timkiem"
+            type="text"
+            placeholder="Tìm kiếm đơn hàng..."
+          />
+          <button className="btn-timkiem">Tìm kiếm</button>
         </div>
         <div className="donhang-loc">
           <p>Từ ngày </p>
@@ -26,7 +30,7 @@ const DonHang = ({setShowChiTietDonHang}) => {
         <p>Trạng thái</p>
         <p>Hành động</p>
       </div>
-      <hr />
+
       <div className="content">
         <div className="donhang-content-title content-title content-item">
           <p>1</p>
@@ -34,7 +38,7 @@ const DonHang = ({setShowChiTietDonHang}) => {
           <p>B01</p>
           <p>150,000đ</p>
           <p>Đã xác nhận</p>
-          <button onClick={()=>setShowChiTietDonHang(true)}>Chi tiết</button>
+          <button onClick={() => setShowChiTietDonHang(true)}>Chi tiết</button>
         </div>
         <div className="donhang-content-title content-title content-item">
           <p>2</p>
@@ -54,7 +58,7 @@ const DonHang = ({setShowChiTietDonHang}) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DonHang
+export default DonHang;

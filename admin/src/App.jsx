@@ -20,6 +20,7 @@ import AddKhachHang from './components/AddKhachHang/AddKhachHang'
 import EditKhachHang from './components/EditKhachHang/EditKhachHang'
 import AddNhaCungCap from './components/AddNhaCungCap/AddNhaCungCap'
 import EditNhaCungCap from './components/EditNhaCungCap/EditNhaCungCap'
+import AddPhieuNhap from './components/AddPhieuNhap/AddPhieuNhap'
 import AddTaiKhoan from './components/AddTaiKhoan/AddTaiKhoan'
 import EditTaiKhoan from './components/EditTaiKhoan/EditTaiKhoan'
 
@@ -33,6 +34,7 @@ const App = () => {
   const [showEditKhachHang, setShowEditKhachHang] = useState(false)  // Thêm state cho modal sửa khách hàng
   const [showAddNhaCungCap, setShowAddNhaCungCap] = useState(false)  // Thêm state cho modal thêm nhà cung cấp
   const [showEditNhaCungCap, setShowEditNhaCungCap] = useState(false)  // Thêm state cho modal sửa nhà cung cấp
+  const [showAddPhieuNhap, setShowAddPhieuNhap] = useState(false) // Thêm
   const [showAddTaiKhoan, setShowAddTaiKhoan] = useState(false)  // Thêm state cho modal thêm tài khoản
   const [showEditTaiKhoan, setShowEditTaiKhoan] = useState(false)  // Thêm state cho modal sửa tài khoản
   
@@ -49,6 +51,7 @@ const App = () => {
     {showEditKhachHang ? <EditKhachHang setShowEditKhachHang={setShowEditKhachHang} /> : <></>}
     {showAddNhaCungCap? <AddNhaCungCap setShowAddNhaCungCap={setShowAddNhaCungCap} /> : <></>}
     {showEditNhaCungCap? <EditNhaCungCap setShowEditNhaCungCap={setShowEditNhaCungCap} /> : <></>}
+    {showAddPhieuNhap? <AddPhieuNhap setShowAddPhieuNhap={setShowAddPhieuNhap} /> : <></>}
     {showAddTaiKhoan? <AddTaiKhoan setShowAddTaiKhoan={setShowAddTaiKhoan} /> : <></>}
     {showEditTaiKhoan? <EditTaiKhoan setShowEditTaiKhoan={setShowEditTaiKhoan} /> : <></>}
       <div>
@@ -63,7 +66,7 @@ const App = () => {
             <Route path='/DonHang' element={<DonHang setShowChiTietDonHang={setShowChiTietDonHang}/>} />
             <Route path='/KhachHang' element={<KhachHang setShowAddKhachHang={setShowAddKhachHang} setShowEditKhachHang={setShowEditKhachHang}/>} />
             <Route path='/NhaCungCap' element={<NhaCungCap setShowAddNhaCungCap={setShowAddNhaCungCap} setShowEditNhaCungCap={setShowEditNhaCungCap}/>} />
-            <Route path='/PhieuNhap' element={<PhieuNhap />} />
+            <Route path='/PhieuNhap' element={<PhieuNhap setShowAddPhieuNhap={setShowAddPhieuNhap}/>} />
             <Route path='/TaiKhoan' element={<TaiKhoan setShowAddTaiKhoan={setShowAddTaiKhoan} setShowEditTaiKhoan={setShowEditTaiKhoan}/>} />
           </Routes>
         </div>

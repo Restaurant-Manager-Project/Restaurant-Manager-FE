@@ -6,7 +6,6 @@
 }
 
 .sidebar-options{
-    padding-top: 50px;
     padding-left: 5%;
     padding-right: 5%;
     text-align: center;
@@ -20,7 +19,7 @@
 .sidebar-option{
     /* display: flex; */
     background-color: rgb(255, 255, 255);
-    padding: 10px 40px;
+    padding: 10px 27px;
     cursor: pointer;
     border-radius: 15px;
     transition: background-color 0.3s;

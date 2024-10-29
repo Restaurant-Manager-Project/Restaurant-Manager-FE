@@ -1,9 +1,7 @@
+import { faPlus, faTrash, faWrench } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import "./TaiKhoan.css"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import { faWrench } from '@fortawesome/free-solid-svg-icons'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const TaiKhoan = ({setShowAddTaiKhoan, setShowEditTaiKhoan}) => {
     return (
@@ -22,7 +20,7 @@ const TaiKhoan = ({setShowAddTaiKhoan, setShowEditTaiKhoan}) => {
             <p>Trạng thái</p>
             <p>Hành động</p>
         </div>
-        <hr />
+        
         <div className="content">
             <div className="taikhoan-content-title content-title content-item">
                 <p>1</p>

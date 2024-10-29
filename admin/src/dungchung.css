@@ -81,15 +81,18 @@ button {
     }
 }
 
-.content {
+.content, .content-1 {
     padding: 10px;
     border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #f9f9f9;
-    height: 69vh;
+    max-height: 69vh;
     overflow: auto;
 }
 
+.content-1{
+    max-height: 55vh !important;
+}
 .content-title {
     display: grid;
     justify-items: center;
@@ -103,6 +106,7 @@ button {
     padding-left: 25px;
     background-color: rgb(195, 0, 0);
     color: white;
+    border-radius: 20px 20px 0 0;
 
     & p {
         padding: 15px;
@@ -183,11 +187,11 @@ button {
 .btn button {
     display: flex;
     gap: 10px;
-    padding: 9px 10px;
-    border: none;
-    border-radius: 50%;
-    background-color: #6a6161;
-    color: white;
+    padding: 9px 10px !important;
+    border: none !important;
+    border-radius: 50% !important;
+    background-color: #6a6161 !important;
+    color: white !important;
     font-size: 15px;
     transition: ease 0.3s;
 }
@@ -218,7 +222,12 @@ button {
     border-radius: 8px;
     font-size: 16px;
     animation: fadeIn .5s;
-    text-align: center;
+
+    & h2 {
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+    }
 
     & button {
         padding: 10px 20px;
@@ -245,9 +254,9 @@ button {
 
 .popup-table{
     display: grid;
-    grid-template-columns: 3fr 3fr;
+    grid-template-columns: 1fr 2fr;
     gap: 20px;
-    height: 250px;
+    /* height: 250px; */
 }
 
 .popup-inputs {
@@ -259,53 +268,68 @@ button {
         width: 100%;
         padding: 10px;
         border-radius: 4px;
-        border: 1px solid #ccc;
+        border: 2px solid #ccc;
         font-size: medium;
+        margin-top: 6px;
     }
 
     & img {
         width: 100px;
-        height: 100px;
+        aspect-ratio: 1;
         object-fit: cover;
         border-radius: 10px;
-        margin-bottom: 15px;
-    }
-
-    & textarea {
-        width: 100%;
-        padding: 10px;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        font-size: large;
-        resize: vertical;
-        min-height: 100px;
-        max-height: 350px;
-        min-width: 100%;
-        scroll-padding-block: 12px;
-        &:disabled{
-            background-color: rgb(214, 212, 212);
-        }
-    }
-
-    & .popup-input {
-        display: grid;
-        grid-template-columns: 1fr 3fr;
-        align-items: center;
-        gap: 10px;
-        /* justify-items: start; */
-
-        & input:disabled {
-            /* opacity: 0.5; */
-            background-color: rgb(214, 212, 212);
-        }
+        margin-top: 10px;
     }
 
     & label {
-        width: 100px;
+        /* max-width: 100px; */
         text-align: left;
     }
 }
 
+.popup-input {
+    display: flex;
+    flex-direction: column;
+    /* grid-template-columns: 1fr 3fr; */
+    /* align-items: center; */
+    /* gap: 10px; */
+    /* justify-items: start; */
+
+    & input:disabled {
+        /* opacity: 0.5; */
+        background-color: rgb(214, 212, 212);
+    }
+
+    & .error{
+        color: red;
+        font-size: small;
+        height: 13px;
+        /* transform: translateY(-8px); */
+    }
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: large;
+    resize: vertical;
+    min-height: 16vw;
+    max-height: 29vw;
+    min-width: 100%;
+    /* scroll-padding-block: 12px; */
+    &:disabled{
+        background-color: rgb(214, 212, 212);
+    }
+}
+
+input:focus{
+    outline: 0;
+}
+.error input, .error textarea, .error select{
+    border: 2px solid #ff6464;
+}
 .close-btn {
     position: absolute;
     top: 10px;
@@ -315,6 +339,16 @@ button {
     cursor: pointer;
 }
 
+.btn-group{
+    display: flex;
+    /* gap: 10px; */
+    justify-content: space-evenly;
+
+    & button:nth-child(2){
+        background-color: white;
+        color: #333;
+    }
+}
 /* Ẩn nút tăng giảm trên Chrome, Safari, Edge, Opera */
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
