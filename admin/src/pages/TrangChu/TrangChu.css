@@ -1,0 +1,21 @@
+.textTyping{
+    margin: 0 14%;
+    /* width: 60%; */
+}
+.text{
+    display: inline-block;
+    font-size: 3.6rem ;
+    overflow: hidden;
+    border-right: 0.1em solid orange;
+    white-space: nowrap;
+    animation: typing 4s steps(60, end) infinite;
+}
+
+@keyframes typing {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}

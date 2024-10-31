@@ -15,12 +15,34 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
     // Hàm kiểm tra dữ liệu đầu vào
     const validateFormData = () => {
         let validationErrors = {};
+        const soLuongRegex = /^[0-9]{1,3}$/;
+        const giaRegex = /^[0-9]{4,9}$/;
 
-        if (!tenNhaCungCap) validationErrors.tenNhaCungCap = "Vui lòng chọn nhà cung cấp.";
+        if (!tenNhaCungCap) {validationErrors.tenNhaCungCap = "Vui lòng chọn nhà cung cấp."};
         if (!tenMon) validationErrors.tenMon = "Vui lòng chọn món ăn.";
-        if (!soLuong || isNaN(soLuong)) validationErrors.soLuong = "Vui lòng nhập số lượng hợp lệ.";
-        if (!giaNhap || isNaN(giaNhap)) validationErrors.giaNhap = "Vui lòng nhập giá nhập hợp lệ.";
-        if (!giaBan || isNaN(giaBan)) validationErrors.giaBan = "Vui lòng nhập giá bán hợp lệ.";
+
+        if (!soLuong || isNaN(soLuong)) {
+            validationErrors.soLuong = "Vui lòng nhập số lượng hợp lệ."
+        } else if (!soLuongRegex.test(soLuong)){
+                validationErrors.soLuong =
+                    "Số lượng không hợp lệ. Giới hạn chỉ 999.";
+        } else if(soLuong <= 0){
+            validationErrors.soLuong = "Số lượng không được bé hơn 0";
+        };
+
+        if (!giaNhap || isNaN(giaNhap)) {
+            validationErrors.giaNhap = "Vui lòng nhập giá nhập hợp lệ."
+        } else if (!giaRegex.test(giaNhap)) {
+            validationErrors.giaNhap =
+                "Giá ít nhất là 1.000 Vnd và cao nhất là 100.000.000 Vnd. ";//000.000.000
+        };
+
+        if (!giaBan || isNaN(giaBan)) {
+            validationErrors.giaBan = "Vui lòng nhập giá bán hợp lệ."
+        } else if (!giaRegex.test(giaBan)) {
+            validationErrors.giaBan =
+                "Giá ít nhất là 1.000 Vnd và cao nhất là 100.000.000 Vnd. ";
+        };
 
         setErrors(validationErrors);
         return Object.keys(validationErrors).length === 0;
@@ -72,7 +94,7 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                 </div>
                 <div className="popup-table">
                     <div className="popup-inputs">
-                        <div className={`popup-input ${errors.tenNhaCungCap ? "error" : ""}`}>
+                        <div className={`popup-input ${errors.tenNhaCungCap ? "error" : "success"}`}>
                             <label htmlFor="popup-tenNhaCungCap">Tên nhà cung cấp:</label>
                             <select
                                 name="popup-tenNhaCungCap"
@@ -134,7 +156,7 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                             <div className="error">{errors.giaBan}</div>
                         </div>
                         <div className="btn-group">
-                            <button type="button" onClick={handleAddRow}>
+                            <button type="submit" onClick={handleAddRow}>
                                 <FontAwesomeIcon icon={faPlus} /> Thêm
                             </button>
                         </div>
@@ -178,7 +200,6 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                         
                     </div>
                 </div>
-                <hr />
                 <div className="btn-group">
                     <button type="button" onClick={handleSubmitToAPI}>
                         <FontAwesomeIcon icon={faPlus} /> Thêm phiếu nhập

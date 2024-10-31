@@ -97,7 +97,7 @@ const AddSanPham = ({ setShowAddSanPham }) => {
                             <label>Chọn hình:</label>
                             <input
                                 type="file"
-                                onChange={(e) => setHinhAnh(e.target.files[0])}
+                                onChange={(e) => setHinhAnh(e.target.files[0])} multiple
                             />
                             {hinhAnh && <img src={URL.createObjectURL(hinhAnh)} alt="Preview" />}
                             <div className="error">{errors.hinhAnh}</div>
