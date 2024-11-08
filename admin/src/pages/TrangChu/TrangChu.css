@@ -1,5 +1,6 @@
 .textTyping{
-    margin: 0 14%;
+    display: inline-block;
+    margin: 0 20%;
     /* width: 60%; */
 }
 .text{
@@ -8,7 +9,8 @@
     overflow: hidden;
     border-right: 0.1em solid orange;
     white-space: nowrap;
-    animation: typing 4s steps(60, end) infinite;
+    animation: typing 4s steps(40),
+                cursor .4s step-end infinite alternate;
 }
 
 @keyframes typing {
@@ -17,5 +19,17 @@
     }
     100% {
         width: 100%;
+    }
+}
+
+@keyframes cursor {
+    0% {
+        border-color: transparent;
+    }
+    50% {
+        border-color: orange;
+    }
+    100% {
+        border-color: transparent;
     }
 }

@@ -2,6 +2,9 @@ import React from "react";
 import "./SanPham.css";
 //
 import {
+    faLock,
+    faLockOpen,
+    faPenToSquare,
 faPlus,
 faSort,
 faTrash,
@@ -30,9 +33,12 @@ return (
         <p>
         STT <FontAwesomeIcon icon={faSort} />
         </p>
-        <p>Sản phẩm</p>
+        <p>Hình ảnh</p>
         <p>
         Tên sản phẩm <FontAwesomeIcon icon={faSort} />
+        </p>
+        <p>
+        Loại <FontAwesomeIcon icon={faSort} />
         </p>
         <p>
         Giá <FontAwesomeIcon icon={faSort} />
@@ -40,6 +46,8 @@ return (
         <p>
         Số lượng <FontAwesomeIcon icon={faSort} />
         </p>
+        <p>Mô tả</p>
+        <p>Trạng thái <FontAwesomeIcon icon={faSort} /></p>
         <p>Hành động</p>
     </div>
 
@@ -48,26 +56,32 @@ return (
         <p>1</p>
         <img src={assets.proportion1} alt="" />
         <p>Example Food</p>
+        <p>Ca rot</p>
         <p>150,000đ</p>
         <p>1</p>
+        <p className="moTa">Xúc xích kết hợp với nấm, thơm và hấp dẫn.Xúc xích kết hợp với nấm, thơm và hấp dẫn.Xúc xích kết hợp với nấm, thơm và hấp dẫn.Xúc xích kết hợp với nấm, thơm và hấp dẫn.Xúc xích kết hợp với nấm, thơm và hấp dẫn.Xúc xích kết hợp với nấm, thơm và hấp dẫn.Xúc xích kết hợp với nấm, thơm và hấp dẫn.</p>
+        <label className="switch">
+            <input type="checkbox" />
+            <span className="slider"></span>
+        </label>
         <p className="btn">
             <div className="btn-container">
             <button
                 className="btn-edit"
                 onClick={() => setShowEditSanPham(true)}
             >
-                <FontAwesomeIcon icon={faWrench} />
+                <FontAwesomeIcon icon={faPenToSquare} />
             </button>
             <span className="tooltip">Chỉnh sửa</span>
             </div>
             <div className="btn-container">
             <button
                 className="btn-remove"
-                onClick={() => confirm("Xóa sản phẩm")}
+                onClick={() => confirm("Xác nhận khóa sản phẩm?")}
             >
-                <FontAwesomeIcon icon={faTrash} />
+                <FontAwesomeIcon icon={faLockOpen} />
             </button>
-            <span className="tooltip">Xóa</span>
+            <span className="tooltip">Khóa</span>
             </div>
         </p>
         </div>

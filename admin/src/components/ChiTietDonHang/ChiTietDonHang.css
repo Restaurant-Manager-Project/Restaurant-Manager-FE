@@ -4,6 +4,7 @@
     overflow: auto;
     list-style-type: auto;
     border: 2px dashed black;
-    width: 27vw;
-    height: 24vw;
+    width: 22em;
+    height: 15em;
+    margin-top: 8px;
 }

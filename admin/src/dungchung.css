@@ -5,6 +5,7 @@ button {
 /*-------------------------------Khung Admin---------------------------------*/
 .container {
     width: 100%;
+    position: relative;
 }
 
 .header {
@@ -12,6 +13,7 @@ button {
     justify-content: space-between;
     background-color: rgb(255, 255, 255);
     padding: 30px 50px;
+    align-items: center;
 
     & .btn-them {
         /* font-size: large; */
@@ -91,7 +93,11 @@ button {
 }
 
 .content-1{
-    max-height: 55vh !important;
+    max-height: 22em !important;
+}
+
+.content-2{
+    max-height: 33em !important;
 }
 .content-title {
     display: grid;
@@ -200,7 +206,6 @@ button {
     border-radius: 50% !important;
     background-color: #6a6161 !important;
     color: white !important;
-    /* font-size: 15px; */
     transition: ease 0.3s;
 }
 
@@ -229,14 +234,14 @@ button {
     position: relative;
     place-self: center;
     /* width: max(23vw, 330px); */
-    min-width: 20vw;
+    min-width: 25em;
     color: #808080;
     background-color: white;
     display: flex;
     flex-direction: column;
     gap: 15px;
     padding: 25px 30px;
-    border-radius: 8px;
+    border-radius: 20px;
     font-size: 16px;
     animation: fadeIn .5s;
     /* background: linear-gradient(315deg, #86E3CE , #D0E6A5); */
@@ -269,11 +274,43 @@ button {
         text-decoration: underline;
         cursor: pointer;
     }
+
+    &::before, &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        background-image: conic-gradient(from var(--angle),transparent 10% 20%, #ff4545 30% 40%, transparent 60% 65%, #ff4545 95%, transparent);
+        padding: 10px;
+        border-radius: 20px;
+        z-index: -10;
+        animation: 5s spin linear infinite;
+    }
+
+    &::after {
+        filter: blur(1.5rem);
+    }
 }
 
+@keyframes spin {
+    0% {
+        --angle: 0deg;
+    }
+    100% {
+        --angle: 360deg;
+    }
+}
+@property --angle{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
 .popup-table{
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 21em 2fr;
     gap: 20px;
     /* height: 250px; */
 }
@@ -303,14 +340,16 @@ button {
     & label {
         /* max-width: 100px; */
         text-align: left;
+        /* font-size: calc(2rem - 10px); */
     }
 }
 
 .popup-input {
-    display: flex;
-    flex-direction: column;
-    /* grid-template-columns: 1fr 3fr; */
-    /* align-items: center; */
+    /* display: flex;
+    flex-direction: column; */
+    display: grid;
+    grid-template-columns:5em 1fr ;
+    align-items: center;
     /* gap: 10px; */
     /* justify-items: start; */
 
@@ -319,24 +358,23 @@ button {
         background-color: rgb(214, 212, 212);
     }
 
-    & .error{
-        color: red;
-        font-size: small;
-        height: 13px;
-        /* transform: translateY(-8px); */
-    }
 }
-
+.errorText{
+    color: red;
+    font-size: small;
+    height: 13px;
+    /* transform: translateY(-8px); */
+}
 textarea {
-    width: 100%;
+    width: 20em;
     padding: 10px;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     font-size: large;
-    resize: vertical;
-    min-height: 16vw;
-    max-height: 29vw;
-    min-width: 100%;
+    resize:none !important;
+    height: 15em;
+    /* margin-top: 6px; */
+    outline: none;
     /* scroll-padding-block: 12px; */
     &:disabled{
         background-color: rgb(214, 212, 212);
@@ -364,7 +402,7 @@ input:focus{
     justify-content: space-evenly;
 
 }
-/* Ẩn nút tăng giảm trên Chrome, Safari, Edge, Opera */
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;

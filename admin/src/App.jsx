@@ -6,6 +6,8 @@ import {Routes, Route} from 'react-router-dom'
 import TrangChu from './pages/TrangChu/TrangChu'
 import SanPham from './pages/SanPham/SanPham'
 import Loai from './pages/Loai/Loai'
+import Ban from './pages/Ban/Ban'
+import LichDatBan from './components/LichDatBan/LichDatBan'
 import DonHang from './pages/DonHang/DonHang'
 import KhachHang from './pages/KhachHang/KhachHang'
 import NhaCungCap from './pages/NhaCungCap/NhaCungCap'
@@ -63,6 +65,8 @@ const App = () => {
             <Route path='/' element={<TrangChu />} />
             <Route path='/SanPham' element={<SanPham setShowAddSanPham={setShowAddSanPham} setShowEditSanPham={setShowEditSanPham}/>} />
             <Route path='/Loai' element={<Loai setShowAddLoai={setShowAddLoai} setShowEditLoai={setShowEditLoai}/>} />
+            <Route path='/Ban' element={<Ban />} />
+            <Route path='/Ban/LichDatBan' element={<LichDatBan />} />
             <Route path='/DonHang' element={<DonHang setShowChiTietDonHang={setShowChiTietDonHang}/>} />
             <Route path='/KhachHang' element={<KhachHang setShowAddKhachHang={setShowAddKhachHang} setShowEditKhachHang={setShowEditKhachHang}/>} />
             <Route path='/NhaCungCap' element={<NhaCungCap setShowAddNhaCungCap={setShowAddNhaCungCap} setShowEditNhaCungCap={setShowEditNhaCungCap}/>} />
