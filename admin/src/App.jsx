@@ -6,6 +6,8 @@ import { Routes, Route } from 'react-router-dom';
 import TrangChu from './pages/TrangChu/TrangChu';
 import SanPham from './pages/SanPham/SanPham';
 import Loai from './pages/Loai/Loai';
+import Ban from './pages/Ban/Ban';
+import LichDatBan from './components/LichDatBan/LichDatBan';
 import DonHang from './pages/DonHang/DonHang';
 import KhachHang from './pages/KhachHang/KhachHang';
 import NhaCungCap from './pages/NhaCungCap/NhaCungCap';
@@ -130,6 +132,8 @@ const App = () => {
                 <Loai setShowAddLoai={setShowAddLoai} setShowEditLoai={handleEditLoai} />
               }
             />
+            <Route path="/Ban" element={<Ban />} />
+            <Route path="/Ban/LichDatBan" element={<LichDatBan />} />
             <Route
               path="/DonHang"
               element={<DonHang setShowChiTietDonHang={setShowChiTietDonHang} />}
