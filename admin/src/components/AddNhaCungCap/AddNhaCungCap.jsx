@@ -5,6 +5,7 @@ import axios from "axios";
 import "./AddNhaCungCap.css";
 
 const AddNhaCungCap = ({ setShowAddNhaCungCap }) => {
+
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
     const [phone, setPhone] = useState("");
@@ -31,9 +32,9 @@ const AddNhaCungCap = ({ setShowAddNhaCungCap }) => {
             }
         }
 
-        setErrors(validationErrors);
-        return Object.keys(validationErrors).length === 0;
-    };
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -112,7 +113,45 @@ const AddNhaCungCap = ({ setShowAddNhaCungCap }) => {
                 </button>
             </form>
         </div>
-    );
+        <div className="popup-inputs">
+          <div className={`popup-input ${errors.tenNhaCungCap ? "error" : ""}`}>
+            <label htmlFor="popup-ten">Tên nhà cung cấp:</label>
+            <input
+              type="text"
+              id="popup-ten"
+              placeholder="Nhập tên nhà cung cấp..."
+              value={tenNhaCungCap}
+              onChange={(e) => setTenNhaCungCap(e.target.value)}
+            />
+            <div className="errorText">{errors.tenNhaCungCap}</div>
+          </div>
+          <div className={`popup-input ${errors.soDienThoai ? "error" : ""}`}>
+            <label htmlFor="popup-sodienthoai">Số điện thoại:</label>
+            <input
+              type="tel"
+              id="popup-sodienthoai"
+              placeholder="Nhập số điện thoại..."
+              value={soDienThoai}
+              onChange={(e) => setSoDienThoai(e.target.value)}
+            />
+            <div className="errorText">{errors.soDienThoai}</div>
+          </div>
+          <div className={`popup-input ${errors.diaChi ? "error" : ""}`}>
+            <label htmlFor="popup-diachi">Địa chỉ:</label>
+            <input
+              type="text"
+              id="popup-diachi"
+              placeholder="Nhập địa chỉ..."
+              value={diaChi}
+              onChange={(e) => setDiaChi(e.target.value)}
+            />
+            <div className="errorText">{errors.diaChi}</div>
+          </div>
+        </div>
+        <button type="submit">Thêm nhà cung cấp</button>
+      </form>
+    </div>
+  );
 };
 
 export default AddNhaCungCap;

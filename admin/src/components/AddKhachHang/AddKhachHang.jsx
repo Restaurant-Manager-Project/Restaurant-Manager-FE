@@ -5,35 +5,43 @@ import axios from "axios";
 import "./AddKhachHang.css";
 
 const AddKhachHang = ({ setShowAddKhachHang }) => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [phone, setPhone] = useState("");
-    const [errors, setErrors] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
+// Khai báo state cho từng input
+const [tenKhachHang, setTenKhachHang] = useState("");
+const [soDienThoai, setSoDienThoai] = useState("");
+const [maKhuyenMai, setMaKhuyenMai] = useState("");
+const [errors, setErrors] = useState({});
 
-    const validateFormData = () => {
-        let validationErrors = {};
+// Hàm kiểm tra dữ liệu đầu vào
+const validateFormData = () => {
+    let validationErrors = {};
 
-        if (firstName.trim() === "") {
-            validationErrors.firstName = "Vui lòng nhập tên.";
-        }
+    if (tenKhachHang.trim() === "") {
+    validationErrors.tenKhachHang = "Vui lòng nhập tên khách hàng.";
+    } else {
+    const nameRegex = /^[a-zA-Z\s]*$/;
+    if (!nameRegex.test(tenKhachHang)) {
+        validationErrors.tenKhachHang =
+        "Tên khách hàng không hợp lệ. Vui lòng chỉ nhập chữ.";
+    }
+    }
 
-        if (lastName.trim() === "") {
-            validationErrors.lastName = "Vui lòng nhập họ.";
-        }
+    if (soDienThoai.trim() === "") {
+    validationErrors.soDienThoai = "Vui lòng nhập số điện thoại.";
+    } else {
+    const phoneRegex = /^(0|84|\+84)(\d{9})$/;
+    if (!phoneRegex.test(soDienThoai)) {
+        validationErrors.soDienThoai =
+        "Số điện thoại không hợp lệ. Vui lòng nhập đúng định dạng 10 chữ số.";
+    }
+    }
 
-        if (phone.trim() === "") {
-            validationErrors.phone = "Vui lòng nhập số điện thoại.";
-        } else {
-            const phoneRegex = /^[0-9]{10}$/;
-            if (!phoneRegex.test(phone)) {
-                validationErrors.phone = "Số điện thoại không hợp lệ. Vui lòng nhập 10 chữ số.";
-            }
-        }
+    if (maKhuyenMai === "") {
+    validationErrors.maKhuyenMai = "Vui lòng chọn mã khuyến mãi.";
+    }
 
-        setErrors(validationErrors);
-        return Object.keys(validationErrors).length === 0;
-    };
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+};
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -112,7 +120,10 @@ const AddKhachHang = ({ setShowAddKhachHang }) => {
                 </button>
             </form>
         </div>
-    );
+        <button type="submit">Thêm khách hàng</button>
+    </form>
+    </div>
+);
 };
 
 export default AddKhachHang;

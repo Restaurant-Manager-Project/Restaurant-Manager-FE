@@ -1,28 +1,30 @@
-import React, { useState } from 'react';
-import './dungchung.css';
-import Navbar from './components/Navbar/Navbar';
-import Sidebar from './components/Sidebar/Sidebar';
-import { Routes, Route } from 'react-router-dom';
-import TrangChu from './pages/TrangChu/TrangChu';
-import SanPham from './pages/SanPham/SanPham';
-import Loai from './pages/Loai/Loai';
-import DonHang from './pages/DonHang/DonHang';
-import KhachHang from './pages/KhachHang/KhachHang';
-import NhaCungCap from './pages/NhaCungCap/NhaCungCap';
-import PhieuNhap from './pages/PhieuNhap/PhieuNhap';
-import TaiKhoan from './pages/TaiKhoan/TaiKhoan';
-import AddSanPham from './components/AddSanPham/AddSanPham';
-import EditSanPham from './components/EditSanPham/EditSanPham';
-import AddLoai from './components/AddLoai/AddLoai';
-import EditLoai from './components/EditLoai/EditLoai';
-import ChiTietDonHang from './components/ChiTietDonHang/ChiTietDonHang';
-import AddKhachHang from './components/AddKhachHang/AddKhachHang';
-import EditKhachHang from './components/EditKhachHang/EditKhachHang';
-import AddNhaCungCap from './components/AddNhaCungCap/AddNhaCungCap';
-import EditNhaCungCap from './components/EditNhaCungCap/EditNhaCungCap';
-import AddPhieuNhap from './components/AddPhieuNhap/AddPhieuNhap';
-import AddTaiKhoan from './components/AddTaiKhoan/AddTaiKhoan';
-import EditTaiKhoan from './components/EditTaiKhoan/EditTaiKhoan';
+import React, { useState } from 'react'
+import './dungchung.css'
+import Navbar from './components/Navbar/Navbar'
+import Sidebar from './components/Sidebar/Sidebar'
+import {Routes, Route} from 'react-router-dom'
+import TrangChu from './pages/TrangChu/TrangChu'
+import SanPham from './pages/SanPham/SanPham'
+import Loai from './pages/Loai/Loai'
+import Ban from './pages/Ban/Ban'
+import LichDatBan from './components/LichDatBan/LichDatBan'
+import DonHang from './pages/DonHang/DonHang'
+import KhachHang from './pages/KhachHang/KhachHang'
+import NhaCungCap from './pages/NhaCungCap/NhaCungCap'
+import PhieuNhap from './pages/PhieuNhap/PhieuNhap'
+import TaiKhoan from './pages/TaiKhoan/TaiKhoan'
+import AddSanPham from './components/AddSanPham/AddSanPham'
+import EditSanPham from './components/EditSanPham/EditSanPham'
+import AddLoai from './components/AddLoai/AddLoai'
+import EditLoai from './components/EditLoai/EditLoai'
+import ChiTietDonHang from './components/ChiTietDonHang/ChiTietDonHang'
+import AddKhachHang from './components/AddKhachHang/AddKhachHang'
+import EditKhachHang from './components/EditKhachHang/EditKhachHang'
+import AddNhaCungCap from './components/AddNhaCungCap/AddNhaCungCap'
+import EditNhaCungCap from './components/EditNhaCungCap/EditNhaCungCap'
+import AddPhieuNhap from './components/AddPhieuNhap/AddPhieuNhap'
+import AddTaiKhoan from './components/AddTaiKhoan/AddTaiKhoan'
+import EditTaiKhoan from './components/EditTaiKhoan/EditTaiKhoan'
 
 const App = () => {
   const [showAddSanPham, setShowAddSanPham] = useState(false);

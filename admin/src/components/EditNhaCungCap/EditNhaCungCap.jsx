@@ -39,9 +39,9 @@ const EditNhaCungCap = ({ setShowEditNhaCungCap, supplier }) => {
             }
         }
 
-        setErrors(validationErrors);
-        return Object.keys(validationErrors).length === 0;
-    };
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -120,7 +120,44 @@ const EditNhaCungCap = ({ setShowEditNhaCungCap, supplier }) => {
                 </button>
             </form>
         </div>
-    );
+        <div className="popup-inputs">
+          <div className="popup-input">
+            <label htmlFor="popup-ten">Tên nhà cung cấp:</label>
+            <input
+              type="text"
+              id="popup-ten"
+              placeholder="Tên nhà cung cấp..."
+              disabled
+            />
+            <div className="errorText"></div>
+          </div>
+          <div className={`popup-input ${errors.soDienThoai ? "error" : ""}`}>
+            <label htmlFor="popup-sodienthoai">Số điện thoại:</label>
+            <input
+              type="tel"
+              id="popup-sodienthoai"
+              placeholder="Nhập số điện thoại..."
+              value={soDienThoai}
+              onChange={(e) => setSoDienThoai(e.target.value)}
+            />
+            <div className="errorText">{errors.soDienThoai}</div>
+          </div>
+          <div className={`popup-input ${errors.diaChi ? "error" : ""}`}>
+            <label htmlFor="popup-diachi">Địa chỉ:</label>
+            <input
+              type="text"
+              id="popup-diachi"
+              placeholder="Nhập địa chỉ..."
+              value={diaChi}
+              onChange={(e) => setDiaChi(e.target.value)}
+            />
+            <div className="errorText">{errors.diaChi}</div>
+          </div>
+        </div>
+        <button type="submit">Chỉnh sửa nhà cung cấp</button>
+      </form>
+    </div>
+  );
 };
 
 export default EditNhaCungCap;

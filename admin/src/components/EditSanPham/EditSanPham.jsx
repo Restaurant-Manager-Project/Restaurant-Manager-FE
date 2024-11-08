@@ -50,13 +50,13 @@ const EditSanPham = ({ setShowEditSanPham, product }) => {
             validationErrors.loaiMonAn = "Vui lòng chọn loại món ăn.";
         }
 
-        if (trangThai === "") {
-            validationErrors.trangThai = "Vui lòng chọn trạng thái cho món ăn.";
-        }
+    if (trangThai === "") {
+      validationErrors.trangThai = "Vui lòng chọn trạng thái cho món ăn.";
+    }
 
-        setErrors(validationErrors);
-        return Object.keys(validationErrors).length === 0;
-    };
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
 
     const uploadImageToCloudinary = async (image) => {
         const formData = new FormData();
@@ -191,7 +191,87 @@ const EditSanPham = ({ setShowEditSanPham, product }) => {
                 </button>
             </form>
         </div>
-    );
+        <div className="popup-table">
+          <div className="popup-inputs">
+            <div className="popup-input">
+              <label htmlFor="popup-ten">Tên món ăn:</label>
+              <div>
+                <input
+                  type="text"
+                  id="popup-ten"
+                  value={"An ba to com"}
+                  disabled
+                />
+                <div className="errorText"></div>
+              </div>
+              
+            </div>
+            <div className={`popup-input ${errors.loaiMonAn ? "error" : ""}`}>
+              <label htmlFor="popup-loai">Loại:</label>
+              <div>
+                <select
+                  name="popup-loai"
+                  id="popup-loai"
+                  value={loaiMonAn}
+                  onChange={(e) => setLoaiMonAn(e.target.value)}
+                >
+                  <option value="">Chọn loại món ăn</option>
+                  <option value="1">Món ăn</option>
+                  <option value="2">Thức uống</option>
+                  <option value="3">Thức ăn ngon</option>
+                  <option value="4">Món ăn khác</option>
+                </select>
+                <div className="errorText">{errors.loaiMonAn}</div>
+              </div>
+            </div>
+            <div className="popup-input">
+              <label>Chọn hình:</label>
+              <div>
+                <input
+                  type="file"
+                  onChange={(e) => setHinhAnh(e.target.files[0])}
+                />
+                {hinhAnh ? (
+                  <img src={URL.createObjectURL(hinhAnh)} alt="Preview" />
+                ) : (
+                  <img src={assets.proportion1} alt="Hình ảnh mặc định" />
+                )}
+                <div className="errorText"></div>
+              </div>
+              
+            </div>
+            <div className={`popup-input ${errors.trangThai ? "error" : ""}`}>
+              <label htmlFor="popup-trangThai">Trạng thái:</label>
+              <div>
+                <select
+                  name="popup-trangThai"
+                  id="popup-trangThai"
+                  value={trangThai}
+                  onChange={(e) => setTrangThai(e.target.value)}
+                >
+                  <option value="">Chọn trạng thái</option>
+                  <option value="1">Số lượng còn</option>
+                  <option value="2">Hết hàng</option>
+                </select>
+                <div className="errorText">{errors.trangThai}</div>
+              </div>
+              
+            </div>
+          </div>
+          <div className="popup-inputs">
+            <label htmlFor="popup-mota">Mô tả:</label>
+            <textarea
+              name="popup-mota"
+              id="popup-mota"
+              value={"AN BA TO COMMMMMMMM"}
+            ></textarea>
+          </div>
+        </div>
+
+        <button type="submit">Chỉnh sửa món ăn</button>
+      </form>
+    </div>
+  );
 };
 
 export default EditSanPham;
