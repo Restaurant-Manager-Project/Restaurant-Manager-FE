@@ -1,23 +1,25 @@
 .sidebar{
     width: 15%;
-    min-height: 90vh;
+    min-height: 89vh;
     border-right: 1.5px solid #a9a9a9;
     color: #464646;
+    transition: 0.3s ease-in-out;
 }
 
 .sidebar-options{
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: 10px;
+    padding-right: 10px;
     text-align: center;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 1em;
     text-align: start;
 }
 
 .sidebar-option{
-    /* display: flex; */
+    display: flex;
+    align-items: center;
     background-color: rgb(255, 255, 255);
     padding: 10px 27px;
     cursor: pointer;
@@ -25,6 +27,9 @@
     transition: background-color 0.3s;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     border: 3px solid white;
+    font-size: small;
+    position: relative;
+    overflow: hidden;
 }
 .sidebar-option:hover{
     border:3px solid rgb(195, 0, 0);
@@ -35,4 +40,28 @@
     background-color: rgb(195, 0, 0);
     color: white;
     border: 3px solid rgb(195, 0, 0);
+}
+
+
+.sidebar-option span{
+    position: absolute;
+    right: 0%;
+    width: 70%;
+    /* opacity: 0; */
+    font-size: 1.2em;
+    font-weight: 600;
+    transition-duration: .3s;
+}
+.barMenu{
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 10px;
+}
+.openBar{
+    display: none;
+}
+
+.closeBar, .openBar{
+    cursor: pointer;
+    font-size: x-large;
 }

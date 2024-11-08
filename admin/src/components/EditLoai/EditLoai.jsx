@@ -28,9 +28,9 @@ const EditLoai = ({ setShowEditLoai, category }) => {
             }
         }
 
-        setErrors(validationErrors);
-        return Object.keys(validationErrors).length === 0;
-    };
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
 
     const uploadImageToCloudinary = async (image) => {
         const formData = new FormData();
@@ -119,7 +119,37 @@ const EditLoai = ({ setShowEditLoai, category }) => {
                 </button>
             </form>
         </div>
-    );
+        <div className="popup-inputs">
+          <div className="popup-input">
+            <label htmlFor="popup-ten">Tên loại:</label>
+            <input
+              type="text"
+              id="popup-ten"
+              placeholder="Nhập tên loại..."
+              disabled
+            />
+          </div>
+          <div className={`popup-input ${errors.hinhAnh ? "error" : ""}`}>
+            <label>Chọn hình:</label>
+            <div>
+              <input
+                type="file"
+                onChange={(e) => setHinhAnh(e.target.files[0])}
+              />
+              {hinhAnh ? (
+                <img src={URL.createObjectURL(hinhAnh)} alt="Preview" />
+              ) : (
+                <img src={assets.proportion1} alt="Hình ảnh mặc định" />
+              )}
+              <div className="errorText"></div>
+            </div>
+            
+          </div>
+        </div>
+        <button type="submit">Chỉnh sửa loại món ăn</button>
+      </form>
+    </div>
+  );
 };
 
 export default EditLoai;

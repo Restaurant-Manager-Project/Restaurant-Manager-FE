@@ -1,0 +1,36 @@
+  .calendar-body {
+    /* Styles cho body */
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+  
+  .calendar-cell {
+    /* Styles cho mỗi ô */
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  /* Styles cho các trạng thái khác nhau của đặt bàn */
+  .reserved {
+    background-color: yellow;
+  }
+  
+  .not-reserved {
+    background-color: pink;
+  }
+
+  .list-detail{
+    background-color: white;
+    box-shadow: -2px 6px 20px #333;
+    width: 0px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    bottom: 7px;
+    right: 0;
+    border-radius: 20px 0 0 20px;
+    transition: .2s linear;
+    padding: 0;
+}

@@ -111,14 +111,17 @@ const AddSanPham = ({ setShowAddSanPham }) => {
                     <div className="popup-inputs">
                         <div className={`popup-input ${errors.tenMonAn ? "error" : ""}`}>
                             <label htmlFor="popup-ten">Tên món ăn:</label>
-                            <input
+                            <div>
+                                <input
                                 type="text"
                                 id="popup-ten"
                                 placeholder="Nhập tên món ăn..."
                                 value={tenMonAn}
                                 onChange={(e) => setTenMonAn(e.target.value)}
-                            />
-                            <div className="error">{errors.tenMonAn}</div>
+                                />
+                                <div className="errorText">{errors.tenMonAn}</div>
+                            </div>
+                            
                         </div>
                         <div className={`popup-input ${errors.loaiMonAn ? "error" : ""}`}>
                             <label htmlFor="popup-loai">Loại:</label>
@@ -137,15 +140,18 @@ const AddSanPham = ({ setShowAddSanPham }) => {
                         </div>
                         <div className={`popup-input ${errors.hinhAnh ? "error" : ""}`}>
                             <label>Chọn hình:</label>
-                            <input
-                                type="file"
-                                onChange={(e) => setHinhAnh(e.target.files[0])}
-                            />
-                            {hinhAnh && <img src={URL.createObjectURL(hinhAnh)} alt="Preview" />}
-                            <div className="error">{errors.hinhAnh}</div>
+                            <div>
+                                <input
+                                    type="file"
+                                    onChange={(e) => setHinhAnh(e.target.files[0])} multiple
+                                />
+                                {hinhAnh && <img src={URL.createObjectURL(hinhAnh)} alt="Preview" />}
+                                <div className="errorText">{errors.hinhAnh}</div>
+                            </div>
+                            
                         </div>
                     </div>
-                    <div className={`popup-input ${errors.moTa ? "error" : ""}`}>
+                    <div className={`popup-inputs ${errors.moTa ? "error" : ""}`}>
                         <label htmlFor="popup-mota">Mô tả:</label>
                         <textarea
                             name="popup-mota"
@@ -154,7 +160,7 @@ const AddSanPham = ({ setShowAddSanPham }) => {
                             value={moTa}
                             onChange={(e) => setMoTa(e.target.value)}
                         ></textarea>
-                        <div className="error">{errors.moTa}</div>
+                        <div className="errorText">{errors.moTa}</div>
                     </div>
                 </div>
                 <button type="submit" disabled={isLoading}>

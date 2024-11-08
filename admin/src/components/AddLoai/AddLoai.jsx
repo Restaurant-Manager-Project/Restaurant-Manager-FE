@@ -5,6 +5,7 @@ import axios from "axios";
 import "./AddLoai.css";
 
 const AddLoai = ({ setShowAddLoai }) => {
+
     const [tenLoai, setTenLoai] = useState("");
     const [hinhAnh, setHinhAnh] = useState(null);
     const [errors, setErrors] = useState({});
@@ -22,13 +23,13 @@ const AddLoai = ({ setShowAddLoai }) => {
             }
         }
 
-        if (!hinhAnh) {
-            validationErrors.hinhAnh = "Vui lòng chọn hình ảnh cho loại món ăn.";
-        }
+    if (!hinhAnh) {
+      validationErrors.hinhAnh = "Vui lòng chọn hình ảnh cho loại món ăn.";
+    }
 
-        setErrors(validationErrors);
-        return Object.keys(validationErrors).length === 0;
-    };
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
 
     const uploadImageToCloudinary = async (image) => {
         const formData = new FormData();
@@ -111,7 +112,40 @@ const AddLoai = ({ setShowAddLoai }) => {
                 </button>
             </form>
         </div>
-    );
+        <div className="popup-inputs">
+          <div className={`popup-input ${errors.tenLoai ? "error" : ""}`}>
+            <label htmlFor="popup-ten">Tên loại:</label>
+            <div>
+              <input
+                type="text"
+                id="popup-ten"
+                placeholder="Nhập tên loại..."
+                value={tenLoai}
+                onChange={(e) => setTenLoai(e.target.value)}
+              />
+              <div className="errorText">{errors.tenLoai}</div>
+            </div>
+            
+          </div>
+          <div className={`popup-input ${errors.hinhAnh ? "error" : ""}`}>
+            <label>Chọn hình:</label>
+            <div>
+              <input
+                type="file"
+                onChange={(e) => setHinhAnh(e.target.files[0])}
+              />
+              {hinhAnh && (
+                <img src={URL.createObjectURL(hinhAnh)} alt="Preview" />
+              )}
+              <div className="errorText">{errors.hinhAnh}</div>
+            </div>
+            
+          </div>
+        </div>
+        <button type="submit">Thêm loại món ăn</button>
+      </form>
+    </div>
+  );
 };
 
 export default AddLoai;
