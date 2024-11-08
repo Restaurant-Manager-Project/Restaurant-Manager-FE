@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./SanPham.css";
-//
 import {
     faLock,
     faLockOpen,
@@ -11,31 +11,55 @@ faTrash,
 faWrench
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { assets } from "../../assets/assets";
 
 const SanPham = ({ setShowAddSanPham, setShowEditSanPham }) => {
-return (
+  const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  useEffect(() => {
+    axios.get("https://restaurant-manager-be-1.onrender.com/api/products")
+      .then(response => {
+        if (response.data.success) {
+          setProducts(response.data.result);
+          setFilteredProducts(response.data.result);
+        }
+      })
+      .catch(error => console.error("Error fetching products:", error));
+  }, []);
+
+  useEffect(() => {
+    setFilteredProducts(
+      products.filter(product =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }, [searchTerm, products]);
+
+  return (
     <div className="container">
-    <div className="header">
+      <div className="header">
         <div className="timkiem">
-        <input
+          <input
             className="input-timkiem"
             type="text"
             placeholder="Tìm kiếm sản phẩm..."
-        />
-        <button className="btn-timkiem">Tìm kiếm</button>
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+          />
+          <button className="btn-timkiem">Tìm kiếm</button>
         </div>
         <button className="btn-them" onClick={() => setShowAddSanPham(true)}>
-        <FontAwesomeIcon icon={faPlus} /> Thêm
+          <FontAwesomeIcon icon={faPlus} /> Thêm
         </button>
-    </div>
-    <div className="sanpham-content-title content-title title">
+      </div>
+      <div className="sanpham-content-title content-title title">
         <p>
-        STT <FontAwesomeIcon icon={faSort} />
+          STT <FontAwesomeIcon icon={faSort} />
         </p>
         <p>Hình ảnh</p>
         <p>
-        Tên sản phẩm <FontAwesomeIcon icon={faSort} />
+          Tên sản phẩm <FontAwesomeIcon icon={faSort} />
         </p>
         <p>
         Loại <FontAwesomeIcon icon={faSort} />
@@ -44,12 +68,12 @@ return (
         Giá <FontAwesomeIcon icon={faSort} />
         </p>
         <p>
-        Số lượng <FontAwesomeIcon icon={faSort} />
+          Số lượng <FontAwesomeIcon icon={faSort} />
         </p>
         <p>Mô tả</p>
         <p>Trạng thái <FontAwesomeIcon icon={faSort} /></p>
         <p>Hành động</p>
-    </div>
+      </div>
 
     <div className="content">
         <div className="sanpham-content-title content-title content-item">
@@ -222,7 +246,7 @@ return (
         </div>
     </div>
     </div>
-);
+  );
 };
 
 export default SanPham;

@@ -1,27 +1,27 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
+import axios from "axios";
 import "./AddLoai.css";
 
 const AddLoai = ({ setShowAddLoai }) => {
-  // Khai báo state cho các input
-  const [tenLoai, setTenLoai] = useState("");
-  const [hinhAnh, setHinhAnh] = useState(null);
-  const [errors, setErrors] = useState({});
 
-  // Hàm kiểm tra dữ liệu đầu vào
-  const validateFormData = () => {
-    let validationErrors = {};
+    const [tenLoai, setTenLoai] = useState("");
+    const [hinhAnh, setHinhAnh] = useState(null);
+    const [errors, setErrors] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
 
-    if (tenLoai.trim() === "") {
-      validationErrors.tenLoai = "Vui lòng nhập tên loại món ăn.";
-    } else {
-      const addressRegex = /^[a-zA-Z\s]*$/;
-      if (!addressRegex.test(tenLoai)) {
-        validationErrors.tenLoai =
-          "Tên loại món ăn không hợp lệ. Vui lòng chỉ nhập chữ.";
-      }
-    }
+    const validateFormData = () => {
+        let validationErrors = {};
+
+        if (tenLoai.trim() === "") {
+            validationErrors.tenLoai = "Vui lòng nhập tên loại món ăn.";
+        } else {
+            const vietnameseRegex = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]*$/;
+            if (!vietnameseRegex.test(tenLoai)) {
+                validationErrors.tenLoai = "Tên loại món ăn không hợp lệ. Vui lòng chỉ nhập chữ.";
+            }
+        }
 
     if (!hinhAnh) {
       validationErrors.hinhAnh = "Vui lòng chọn hình ảnh cho loại món ăn.";
@@ -31,24 +31,86 @@ const AddLoai = ({ setShowAddLoai }) => {
     return Object.keys(validationErrors).length === 0;
   };
 
-  // Hàm xử lý submit form
-  const handleSubmit = (event) => {
-    event.preventDefault();
+    const uploadImageToCloudinary = async (image) => {
+        const formData = new FormData();
+        formData.append("file", image);
+        formData.append("upload_preset", "Demo-upload");
+        formData.append("cloud_name", "dwjm7jkno");
 
-    if (validateFormData()) {
-      console.log("Dữ liệu hợp lệ, tiến hành thêm loại món ăn...");
-      // Thực hiện các hành động khác nếu cần, ví dụ: gọi API để thêm loại món ăn
-    }
-  };
+        try {
+            const response = await axios.post("https://api.cloudinary.com/v1_1/dwjm7jkno/image/upload", formData);
+            return response.data.url;
+        } catch (error) {
+            console.error("Error uploading image to Cloudinary:", error);
+            return null;
+        }
+    };
 
-  return (
-    <div className="popup">
-      <form className="popup-container" onSubmit={handleSubmit}>
-        <div className="popup-title">
-          <h2>Thêm loại món ăn</h2>
-          <div className="close-btn" onClick={() => setShowAddLoai(false)}>
-            <FontAwesomeIcon icon={faXmark} />
-          </div>
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (validateFormData()) {
+            setIsLoading(true);
+            const imageUrl = await uploadImageToCloudinary(hinhAnh);
+
+            if (imageUrl) {
+                const newCategory = {
+                    name: tenLoai,
+                    img: imageUrl
+                };
+
+                try {
+                    const response = await axios.post("https://restaurant-manager-be-1.onrender.com/api/categories", newCategory);
+                    if (response.data.success) {
+                        console.log("Thêm loại món ăn thành công:", response.data);
+                        setShowAddLoai(false);
+                    } else {
+                        console.error("Error adding category:", response.data.message);
+                    }
+                } catch (error) {
+                    console.error("Error adding category:", error);
+                }
+            }
+
+            setIsLoading(false);
+        }
+    };
+
+    return (
+        <div className="popup">
+            <form className="popup-container" onSubmit={handleSubmit}>
+                <div className="popup-title">
+                    <h2>Thêm loại món ăn</h2>
+                    <div className="close-btn" onClick={() => setShowAddLoai(false)}>
+                        <FontAwesomeIcon icon={faXmark} />
+                    </div>
+                </div>
+                <div className="popup-inputs">
+                    <div className={`popup-input ${errors.tenLoai ? "error" : ""}`}>
+                        <label htmlFor="popup-ten">Tên loại:</label>
+                        <input
+                            type="text"
+                            id="popup-ten"
+                            placeholder="Nhập tên loại..."
+                            value={tenLoai}
+                            onChange={(e) => setTenLoai(e.target.value)}
+                        />
+                        <div className="error">{errors.tenLoai}</div>
+                    </div>
+                    <div className={`popup-input ${errors.hinhAnh ? "error" : ""}`}>
+                        <label>Chọn hình:</label>
+                        <input
+                            type="file"
+                            onChange={(e) => setHinhAnh(e.target.files[0])}
+                        />
+                        {hinhAnh && <img src={URL.createObjectURL(hinhAnh)} alt="Preview" />}
+                        <div className="error">{errors.hinhAnh}</div>
+                    </div>
+                </div>
+                <button type="submit" disabled={isLoading}>
+                    {isLoading ? "Đang thêm..." : "Thêm loại món ăn"}
+                </button>
+            </form>
         </div>
         <div className="popup-inputs">
           <div className={`popup-input ${errors.tenLoai ? "error" : ""}`}>
