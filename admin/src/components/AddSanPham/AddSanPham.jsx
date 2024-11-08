@@ -1,48 +1,42 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import "./AddSanPham.css";
 
 const AddSanPham = ({ setShowAddSanPham }) => {
+    // Khai báo state cho các trường
     const [tenMonAn, setTenMonAn] = useState("");
     const [loaiMonAn, setLoaiMonAn] = useState("");
     const [hinhAnh, setHinhAnh] = useState(null);
     const [moTa, setMoTa] = useState("");
     const [errors, setErrors] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
-    const [categories, setCategories] = useState([]);
 
-    useEffect(() => {
-        axios.get("https://restaurant-manager-be-1.onrender.com/api/categories")
-            .then(response => {
-                if (response.data.success) {
-                    setCategories(response.data.result);
-                }
-            })
-            .catch(error => console.error("Error fetching categories:", error));
-    }, []);
-
+    // Hàm kiểm tra dữ liệu đầu vào
     const validateAddFormData = () => {
         let validationErrors = {};
 
+        // Kiểm tra tên món ăn
         if (tenMonAn.trim() === "") {
             validationErrors.tenMonAn = "Vui lòng nhập tên món ăn.";
         } else {
             const addressRegex = /^[a-zA-Z\s]*$/;
             if (!addressRegex.test(tenMonAn)) {
-                validationErrors.tenMonAn = "Tên món ăn không hợp lệ. Vui lòng chỉ nhập chữ.";
+                validationErrors.tenMonAn =
+                    "Tên món ăn không hợp lệ. Vui lòng chỉ nhập chữ.";
             }
         }
 
+        // Kiểm tra loại món ăn
         if (loaiMonAn === "") {
             validationErrors.loaiMonAn = "Vui lòng chọn loại món ăn.";
         }
 
+        // Kiểm tra hình ảnh
         if (!hinhAnh) {
             validationErrors.hinhAnh = "Vui lòng chọn hình ảnh cho món ăn.";
         }
 
+        // Kiểm tra mô tả
         if (moTa.trim() === "") {
             validationErrors.moTa = "Vui lòng nhập mô tả cho món ăn.";
         }
@@ -51,50 +45,13 @@ const AddSanPham = ({ setShowAddSanPham }) => {
         return Object.keys(validationErrors).length === 0;
     };
 
-    const uploadImageToCloudinary = async (image) => {
-        const formData = new FormData();
-        formData.append("file", image);
-        formData.append("upload_preset", "Demo-upload");
-        formData.append("cloud_name", "dwjm7jkno");
-
-        try {
-            const response = await axios.post("https://api.cloudinary.com/v1_1/dwjm7jkno/image/upload", formData);
-            return response.data.url;
-        } catch (error) {
-            console.error("Error uploading image to Cloudinary:", error);
-            return null;
-        }
-    };
-
-    const handleSubmit = async (event) => {
+    // Hàm xử lý submit form
+    const handleSubmit = (event) => {
         event.preventDefault();
 
         if (validateAddFormData()) {
-            setIsLoading(true);
-            const imageUrl = await uploadImageToCloudinary(hinhAnh);
-
-            if (imageUrl) {
-                const newProduct = {
-                    name: tenMonAn,
-                    categoryName: loaiMonAn,
-                    img: imageUrl,
-                    description: moTa,
-                };
-
-                try {
-                    const response = await axios.post("https://restaurant-manager-be-1.onrender.com/api/products", newProduct);
-                    if (response.data.success) {
-                        console.log("Thêm món ăn thành công:", response.data);
-                        setShowAddSanPham(false);
-                    } else {
-                        console.error("Error adding product:", response.data.message);
-                    }
-                } catch (error) {
-                    console.error("Error adding product:", error);
-                }
-            }
-
-            setIsLoading(false);
+            console.log("Dữ liệu hợp lệ, tiến hành thêm món ăn...");
+            // Thực hiện các hành động khác nếu cần, ví dụ: gọi API thêm món ăn
         }
     };
 
@@ -125,18 +82,22 @@ const AddSanPham = ({ setShowAddSanPham }) => {
                         </div>
                         <div className={`popup-input ${errors.loaiMonAn ? "error" : ""}`}>
                             <label htmlFor="popup-loai">Loại:</label>
-                            <select
-                                name="popup-loai"
-                                id="popup-loai"
-                                value={loaiMonAn}
-                                onChange={(e) => setLoaiMonAn(e.target.value)}
-                            >
-                                <option value="">Chọn loại món ăn</option>
-                                {categories.map(category => (
-                                    <option key={category.id} value={category.name}>{category.name}</option>
-                                ))}
-                            </select>
-                            <div className="error">{errors.loaiMonAn}</div>
+                            <div>
+                                <select
+                                    name="popup-loai"
+                                    id="popup-loai"
+                                    value={loaiMonAn}
+                                    onChange={(e) => setLoaiMonAn(e.target.value)}
+                                >
+                                    <option value="">Chọn loại món ăn</option>
+                                    <option value="1">Món ăn</option>
+                                    <option value="2">Thức uống</option>
+                                    <option value="3">Thức ăn ngon</option>
+                                    <option value="4">Món ăn khác</option>
+                                </select>
+                            <div className="errorText">{errors.loaiMonAn}</div>
+                            </div>
+                            
                         </div>
                         <div className={`popup-input ${errors.hinhAnh ? "error" : ""}`}>
                             <label>Chọn hình:</label>
@@ -150,6 +111,7 @@ const AddSanPham = ({ setShowAddSanPham }) => {
                             </div>
                             
                         </div>
+                        
                     </div>
                     <div className={`popup-inputs ${errors.moTa ? "error" : ""}`}>
                         <label htmlFor="popup-mota">Mô tả:</label>
@@ -163,9 +125,8 @@ const AddSanPham = ({ setShowAddSanPham }) => {
                         <div className="errorText">{errors.moTa}</div>
                     </div>
                 </div>
-                <button type="submit" disabled={isLoading}>
-                    {isLoading ? "Đang thêm..." : "Thêm món ăn"}
-                </button>
+                    
+                <button type="submit">Thêm món ăn</button>
             </form>
         </div>
     );

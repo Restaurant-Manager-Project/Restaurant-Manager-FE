@@ -17,7 +17,6 @@ import API_URLS from '../../../config';
 
 const Food = () => {
     const [foodList, setFoodList] = useState([]);
-    const [categories, setCategories] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
@@ -29,6 +28,7 @@ const Food = () => {
     const itemsPerPage = 9;
     const [openDialog, setOpenDialog] = useState(false);
     const { qr_code } = useParams();
+
 
     useEffect(() => {
         let isMounted = true;
@@ -54,30 +54,6 @@ const Food = () => {
         };
     }, []);
 
-    useEffect(() => {
-        let isMounted = true;
-
-        axios.get("https://restaurant-manager-be-1.onrender.com/api/categories")
-            .then(response => {
-                if (isMounted) {
-                    if (response.data && Array.isArray(response.data.result)) {
-                        setCategories([{ id: 0, name: "All", img: menu_list[0].menu_image }, ...response.data.result]);
-                    } else {
-                        console.error('API response does not contain a valid result array:', response.data);
-                    }
-                }
-            })
-            .catch(error => {
-                if (isMounted) {
-                    console.error('Error fetching categories:', error);
-                }
-            });
-
-        return () => {
-            isMounted = false;
-        };
-    }, []);
-
     const handleAddClick = (product) => {
         setSelectedProduct(product);
         setQuantity(1);
@@ -93,6 +69,7 @@ const Food = () => {
             setOpenDialog(true);
         } else {
             addToCart(selectedProduct, quantity);
+            // addNewItemToOrder(selectedProduct);
             setIsModalOpen(false);
         }
     };
@@ -145,13 +122,13 @@ const Food = () => {
         <div>
             <div className='category' id='category'>
                 <div className="menu-list">
-                    {categories.map((item, index) => {
+                    {menu_list.map((item, index) => {
                         return (
-                            <div className={`menu-list-item ${selectedCategory === item.name ? 'active' : ''}`}
+                            <div className={`menu-list-item ${selectedCategory === item.menu_name ? 'active' : ''}`}
                                 key={index}
-                                onClick={() => handleCategoryClick(item.name)}>
-                                <img src={item.img} alt={item.name} />
-                                <p>{item.name}</p>
+                                onClick={() => handleCategoryClick(item.menu_name)}>
+                                <img src={item.menu_image} />
+                                <p>{item.menu_name}</p>
                             </div>
                         )
                     })}

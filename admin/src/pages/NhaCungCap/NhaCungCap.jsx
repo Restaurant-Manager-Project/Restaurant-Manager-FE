@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import "./NhaCungCap.css";
+
 import {
   faPlus,
   faSort,
@@ -10,29 +10,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NhaCungCap = ({ setShowAddNhaCungCap, setShowEditNhaCungCap }) => {
-  const [suppliers, setSuppliers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredSuppliers, setFilteredSuppliers] = useState([]);
-
-  useEffect(() => {
-    axios.get("https://restaurant-manager-be-1.onrender.com/api/suppliers")
-      .then(response => {
-        if (response.data.success) {
-          setSuppliers(response.data.result);
-          setFilteredSuppliers(response.data.result);
-        }
-      })
-      .catch(error => console.error("Error fetching suppliers:", error));
-  }, []);
-
-  useEffect(() => {
-    setFilteredSuppliers(
-      suppliers.filter(supplier =>
-        supplier.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
-  }, [searchTerm, suppliers]);
-
   return (
     <div className="container">
       <div className="header">
@@ -41,8 +18,6 @@ const NhaCungCap = ({ setShowAddNhaCungCap, setShowEditNhaCungCap }) => {
             className="input-timkiem"
             type="text"
             placeholder="Tìm kiếm nhà cung cấp..."
-            value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
           />
           <button className="btn-timkiem">Tìm kiếm</button>
         </div>
@@ -65,34 +40,35 @@ const NhaCungCap = ({ setShowAddNhaCungCap, setShowEditNhaCungCap }) => {
       </div>
 
       <div className="content">
-        {filteredSuppliers.map((supplier, index) => (
-          <div key={supplier.id} className="nhacungcap-content-title content-title content-item">
-            <p>{index + 1}</p>
-            <p>{supplier.name}</p>
-            <p>{supplier.phone}</p>
-            <p>{supplier.address}</p>
-            <p className="btn">
-              <div className="btn-container">
-                <button
-                  className="btn-edit"
-                  onClick={() => setShowEditNhaCungCap(supplier)}
-                >
-                  <FontAwesomeIcon icon={faWrench} />
-                </button>
-                <span className="tooltip">Chỉnh sửa</span>
-              </div>
-              <div className="btn-container">
-                <button
-                  className="btn-remove"
-                  onClick={() => confirm("Xóa nhà cung cấp")}
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
-                <span className="tooltip">Xóa</span>
-              </div>
-            </p>
-          </div>
-        ))}
+        <div className="nhacungcap-content-title content-title content-item">
+          <p>1</p>
+          <p>Nhà Cung Cấp 1</p>
+          <p>0123456789</p>
+          <p>
+            273 An Dương Vương, Phường 3, Quận 5 Ho Chi Minh City, Vietnam 70000
+            Ho Chi Minh City
+          </p>
+          <p className="btn">
+            <div className="btn-container">
+              <button
+                className="btn-edit"
+                onClick={() => setShowEditNhaCungCap(true)}
+              >
+                <FontAwesomeIcon icon={faWrench} />
+              </button>
+              <span className="tooltip">Chỉnh sửa</span>
+            </div>
+            <div className="btn-container">
+              <button
+                className="btn-remove"
+                onClick={() => confirm("Xóa sản phẩm")}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+              <span className="tooltip">Xóa</span>
+            </div>
+          </p>
+        </div>
       </div>
     </div>
   );

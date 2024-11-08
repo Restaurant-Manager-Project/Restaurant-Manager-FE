@@ -1,34 +1,10 @@
 import { faPlus, faTrash, faWrench } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import "../../dungchung.css";
 import "./KhachHang.css";
 
 const KhachHang = ({ setShowAddKhachHang, setShowEditKhachHang }) => {
-  const [clients, setClients] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredClients, setFilteredClients] = useState([]);
-
-  useEffect(() => {
-    axios.get("https://restaurant-manager-be-1.onrender.com/api/clients")
-      .then(response => {
-        if (response.data.success) {
-          setClients(response.data.result);
-          setFilteredClients(response.data.result);
-        }
-      })
-      .catch(error => console.error("Error fetching clients:", error));
-  }, []);
-
-  useEffect(() => {
-    setFilteredClients(
-      clients.filter(client =>
-        `${client.firstName} ${client.lastName}`.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
-  }, [searchTerm, clients]);
-
   return (
     <div className="container">
       <div className="header">
@@ -37,8 +13,6 @@ const KhachHang = ({ setShowAddKhachHang, setShowEditKhachHang }) => {
             className="input-timkiem"
             type="text"
             placeholder="Tìm kiếm khách hàng..."
-            value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
           />
           <button className="btn-timkiem">Tìm kiếm</button>
         </div>
@@ -50,39 +24,63 @@ const KhachHang = ({ setShowAddKhachHang, setShowEditKhachHang }) => {
         <p>STT</p>
         <p>Tên khách hàng</p>
         <p>Số điện thoại</p>
-        <p>Số lần mua hàng</p>
+        <p>Khuyến mãi có thể sử dụng</p>
         <p>Hành động</p>
       </div>
 
       <div className="content">
-        {filteredClients.map((client, index) => (
-          <div key={client.id} className="khachhang-content-title content-title content-item">
-            <p>{index + 1}</p>
-            <p>{client.firstName} {client.lastName}</p>
-            <p>{client.phone}</p>
-            <p>{client.purchase_count}</p>
-            <p className="btn">
-              <div className="btn-container">
-                <button
-                  className="btn-edit"
-                  onClick={() => setShowEditKhachHang(client)}
-                >
-                  <FontAwesomeIcon icon={faWrench} />
-                </button>
-                <span className="tooltip">Chỉnh sửa</span>
-              </div>
-              <div className="btn-container">
-                <button
-                  className="btn-remove"
-                  onClick={() => confirm("Xóa khách hàng")}
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
-                <span className="tooltip">Xóa</span>
-              </div>
-            </p>
-          </div>
-        ))}
+        <div className="khachhang-content-title content-title content-item">
+          <p>1</p>
+          <p>Customer 1</p>
+          <p>0987654321</p>
+          <p>Khuyến mãi 1</p>
+          <p className="btn">
+            <div className="btn-container">
+              <button
+                className="btn-edit"
+                onClick={() => setShowEditKhachHang(true)}
+              >
+                <FontAwesomeIcon icon={faWrench} />
+              </button>
+              <span className="tooltip">Chỉnh sửa</span>
+            </div>
+            <div className="btn-container">
+              <button
+                className="btn-remove"
+                onClick={() => confirm("Xóa sản phẩm")}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+              <span className="tooltip">Xóa</span>
+            </div>
+          </p>
+        </div>
+        <div className="khachhang-content-title content-title content-item">
+          <p>2</p>
+          <p>Customer 2</p>
+          <p>0987654321</p>
+          <p>Khuyến mãi 2</p>
+          <p className="btn">
+            <div className="btn-container">
+              <button
+                className="btn-edit"
+                onClick={() => setShowEditKhachHang(true)}
+              >
+                <FontAwesomeIcon icon={faWrench} />
+              </button>
+              <span className="tooltip">Chỉnh sửa</span>
+            </div>
+            <div className="btn-container">
+              <button
+                className="btn-remove"
+                onClick={() => confirm("Xóa sản phẩm")}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+              <span className="tooltip">Xóa</span>
+            </div>
+          </p>
+        </div>
       </div>
     </div>
   );

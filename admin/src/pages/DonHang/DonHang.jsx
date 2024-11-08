@@ -25,7 +25,7 @@ const DonHang = ({ setShowChiTietDonHang }) => {
       <div className="donhang-content-title content-title title">
         <p>STT</p>
         <p>ID Đơn</p>
-        <p>Bàn</p>
+        <p>ID Bàn</p>
         <p>Tổng tiền</p>
         <p>Trạng thái</p>
         <p>Hành động</p>
