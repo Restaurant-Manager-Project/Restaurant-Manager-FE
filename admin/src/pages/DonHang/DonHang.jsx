@@ -3,8 +3,40 @@ import "../../dungchung.css";
 import "./DonHang.css";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const DonHang = ({ setShowChiTietDonHang }) => {
+  const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get('https://restaurant-manager-be-1.onrender.com/api/orders/');
+        if (response.data.success) {
+          setOrders(response.data.result);
+        } else {
+          setError(response.data.message);
+        }
+      } catch (error) {
+        setError('Error fetching orders');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
   return (
     <div className="container">
       <div className="header">
@@ -34,30 +66,16 @@ const DonHang = ({ setShowChiTietDonHang }) => {
       </div>
 
       <div className="content">
-        <div className="donhang-content-title content-title content-item">
-          <p>1</p>
-          <p>DH001</p>
-          <p>B01</p>
-          <p>150,000đ</p>
-          <p>Đã xác nhận</p>
-          <button onClick={() => setShowChiTietDonHang(true)}>Chi tiết</button>
-        </div>
-        <div className="donhang-content-title content-title content-item">
-          <p>2</p>
-          <p>DH002</p>
-          <p>B02</p>
-          <p>200,000đ</p>
-          <p>Đã xác nhận</p>
-          <button>Chi tiết</button>
-        </div>
-        <div className="donhang-content-title content-title content-item">
-          <p>2</p>
-          <p>DH002</p>
-          <p>B02</p>
-          <p>200,000đ</p>
-          <p>Đã xác nhận</p>
-          <button>Chi tiết</button>
-        </div>
+      {orders.map((order, index) => (
+                    <div key={order.orderId} className="donhang-content-title content-title content-item">
+                        <p>{index + 1}</p>
+                        <p>{order.orderId}</p>
+                        <p>{order.nameTable}</p>
+                        <p>{order.total.toLocaleString()}đ</p>
+                        <p>{order.processName}</p>
+                        <button>Chi tiết</button>
+                    </div>
+                ))}
       </div>
     </div>
   );
