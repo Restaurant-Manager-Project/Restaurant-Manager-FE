@@ -7,7 +7,7 @@ import LoginPopUp from '../../components/LoginPopup/LoginPopup'
 
 const Home = () => {
   const { qr_code } = useParams();
-
+  
   return (
     <div>
       < Header />
