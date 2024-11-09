@@ -23,7 +23,7 @@
     background-color: rgb(255, 255, 255);
     padding: 10px 27px;
     cursor: pointer;
-    border-radius: 15px;
+    border-radius: 20px;
     transition: background-color 0.3s;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     border: 3px solid white;
