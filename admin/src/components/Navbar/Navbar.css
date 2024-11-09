@@ -17,3 +17,12 @@ svg.svg-inline--fa.fa-circle-user {
     height: 40px;
     color: rgb(195, 0, 0);
 }
+.admin-info{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.admin-name{
+    font-size: 1.2em;
+    font-weight: 600;
+}
