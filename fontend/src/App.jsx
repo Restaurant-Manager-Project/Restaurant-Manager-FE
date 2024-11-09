@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import { Route, Routes, useParams } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import Menu from './pages/Menu/Menu';
+import TablePopup from './components/TablePopup/TablePopup';
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Footer from './components/Footer/Footer';
 import { CartProvider } from './components/CartContext/CartContext';
@@ -14,12 +15,27 @@ import API_URLS from '../config';
 const App = () => {
   const [qrCode, setQrCode] = useState(null);
   const [tableId, setTableId] = useState(null);
+  const [showTablePopup, setShowTablePopup] = useState(false);
+  const popupRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (popupRef.current && !popupRef.current.contains(event.target)) {
+      setShowTablePopup(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <CartProvider>
       <OrderStatusProvider>
         <div className='app'>
-          <Navbar qr_code={qrCode} />
+          <Navbar qr_code={qrCode} setShowTablePopup={setShowTablePopup} />
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/menu' element={<Menu />} />
@@ -28,6 +44,13 @@ const App = () => {
             <Route path='/vnpay-callback' element={<PaymentCallback />} />
             <Route path='/:qr_code/*' element={<MainContent setTableId={setTableId} setQrCode={setQrCode} />} />
           </Routes>
+          {showTablePopup && (
+            <div className="table-popup-overlay">
+              <div ref={popupRef}>
+                <TablePopup />
+              </div>
+            </div>
+          )}
         </div>
         <Footer />
       </OrderStatusProvider>

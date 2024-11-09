@@ -1,13 +1,13 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CartContext } from '../../components/CartContext/CartContext';
-import { useOrderStatus } from '../../components/OrderStatusContext/OrderStatusContext';
+import { CartContext } from '../CartContext/CartContext';
+import { useOrderStatus } from '../OrderStatusContext/OrderStatusContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faReceipt, faBars } from '@fortawesome/free-solid-svg-icons';
 import { assets } from '../../assets/assets';
 import './Navbar.css';
 
-const Navbar = ({ qr_code }) => {
+const Navbar = ({ qr_code, setShowTablePopup }) => {
   console.log('qr_code:', qr_code);
   const { cartItems } = useContext(CartContext);
   const { hasOrderData } = useOrderStatus();
@@ -64,7 +64,7 @@ const Navbar = ({ qr_code }) => {
           <FontAwesomeIcon icon={faCartShopping} onClick={() => handleNavigation('cart', 'cart')} />
           {cartItems.length > 0 && <div className="dot"></div>}
         </div>
-        {!qr_code && <p className='book_table'>Đặt bàn</p>}
+        {!qr_code && <p className='book_table' onClick={() => setShowTablePopup(true)}>Đặt bàn</p>}
         {qr_code && (
           <div className='navbar-receipt'>
             <FontAwesomeIcon icon={faReceipt} onClick={() => { handleNavigation('place-order', 'place-order') }} />
@@ -82,7 +82,7 @@ const Navbar = ({ qr_code }) => {
           <div >Về chúng tôi</div>
           <div >Liên hệ</div>
           <div onClick={() => { handleNavigation('cart', 'cart'); setDropdownOpen(false); }}>Giỏ hàng</div>
-          <div>Đặt bàn</div>
+          <div onClick={() => setShowTablePopup(true)}>Đặt bàn</div>
           <div onClick={() => { handleNavigation('place-order', 'place-order'); setDropdownOpen(false); }}>Đơn hàng</div>
         </div>
       )}

@@ -9,7 +9,10 @@ const Navbar = () => {
   return (
     <div className='navbar'>
       <img className='logo' src={assets.logo} alt="" />
-      <span>Anh Phúc Depzai<FontAwesomeIcon icon={faCircleUser} /></span>
+      <div className="admin-info">
+        <span className="admin-name">Admin</span>
+        <span><FontAwesomeIcon icon={faCircleUser} /></span>
+      </div>
     </div>
   )
 }
