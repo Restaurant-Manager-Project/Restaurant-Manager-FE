@@ -15,7 +15,7 @@ const NhaCungCap = ({ setShowAddNhaCungCap, setShowEditNhaCungCap }) => {
   const [filteredSuppliers, setFilteredSuppliers] = useState([]);
 
   useEffect(() => {
-    axios.get("https://restaurant-manager-be-1.onrender.com/api/suppliers")
+    axios.get("https://restaurant-manager-be-f47n.onrender.com/api/suppliers")
       .then(response => {
         if (response.data.success) {
           setSuppliers(response.data.result);

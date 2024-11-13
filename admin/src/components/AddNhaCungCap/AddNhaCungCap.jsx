@@ -48,7 +48,7 @@ const AddNhaCungCap = ({ setShowAddNhaCungCap }) => {
             };
 
             try {
-                const response = await axios.post("https://restaurant-manager-be-1.onrender.com/api/suppliers", newSupplier);
+                const response = await axios.post("https://restaurant-manager-be-f47n.onrender.com/api/suppliers", newSupplier);
                 if (response.data.success) {
                     console.log("Thêm nhà cung cấp thành công:", response.data);
                     setShowAddNhaCungCap(false);

@@ -56,7 +56,7 @@ const EditKhachHang = ({ setShowEditKhachHang, client }) => {
             };
 
             try {
-                const response = await axios.put(`https://restaurant-manager-be-1.onrender.com/api/clients/${client.id}`, updatedClient);
+                const response = await axios.put(`https://restaurant-manager-be-f47n.onrender.com/api/clients/${client.id}`, updatedClient);
                 if (response.data.success) {
                     console.log("Chỉnh sửa khách hàng thành công:", response.data);
                     setShowEditKhachHang(false);

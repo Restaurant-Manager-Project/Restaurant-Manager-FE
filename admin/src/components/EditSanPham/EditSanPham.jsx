@@ -94,7 +94,7 @@ const EditSanPham = ({ setShowEditSanPham, product }) => {
             };
 
             try {
-                const response = await axios.put(`https://restaurant-manager-be-1.onrender.com/api/products/${product.id}`, updatedProduct);
+                const response = await axios.put(`https://restaurant-manager-be-f47n.onrender.com/api/products/${product.id}`, updatedProduct);
                 if (response.data.success) {
                     console.log("Chỉnh sửa món ăn thành công:", response.data);
                     setShowEditSanPham(false);

@@ -11,7 +11,7 @@ const KhachHang = ({ setShowAddKhachHang, setShowEditKhachHang }) => {
   const [filteredClients, setFilteredClients] = useState([]);
 
   useEffect(() => {
-    axios.get("https://restaurant-manager-be-1.onrender.com/api/clients")
+    axios.get("https://restaurant-manager-be-f47n.onrender.com/api/clients")
       .then(response => {
         if (response.data.success) {
           setClients(response.data.result);

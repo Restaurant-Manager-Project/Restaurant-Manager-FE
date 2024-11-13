@@ -12,7 +12,7 @@ const Loai = ({ setShowAddLoai, setShowEditLoai }) => {
   const [filteredCategories, setFilteredCategories] = useState([]);
 
   useEffect(() => {
-    axios.get("https://restaurant-manager-be-1.onrender.com/api/categories")
+    axios.get("https://restaurant-manager-be-f47n.onrender.com/api/categories")
       .then(response => {
         if (response.data.success) {
           setCategories(response.data.result);

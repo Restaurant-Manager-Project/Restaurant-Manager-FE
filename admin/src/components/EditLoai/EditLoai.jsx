@@ -64,7 +64,7 @@ const EditLoai = ({ setShowEditLoai, category }) => {
             };
 
             try {
-                const response = await axios.put(`https://restaurant-manager-be-1.onrender.com/api/categories/${category.id}`, updatedCategory);
+                const response = await axios.put(`https://restaurant-manager-be-f47n.onrender.com/api/categories/${category.id}`, updatedCategory);
                 if (response.data.success) {
                     console.log("Chỉnh sửa loại món ăn thành công:", response.data);
                     setShowEditLoai(false);

@@ -15,7 +15,7 @@ const SanPham = ({ setShowAddSanPham, setShowEditSanPham }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    axios.get("https://restaurant-manager-be-1.onrender.com/api/products")
+    axios.get("https://restaurant-manager-be-f47n.onrender.com/api/products")
       .then(response => {
         if (response.data.success) {
           setProducts(response.data.result);
