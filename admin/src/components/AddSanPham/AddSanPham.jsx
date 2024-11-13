@@ -82,7 +82,7 @@ const AddSanPham = ({ setShowAddSanPham }) => {
                 };
 
                 try {
-                    const response = await axios.post("https://restaurant-manager-be-1.onrender.com/api/products", newProduct);
+                    const response = await axios.post("https://restaurant-manager-be-f47n.onrender.com/api/products", newProduct);
                     if (response.data.success) {
                         console.log("Thêm món ăn thành công:", response.data);
                         setShowAddSanPham(false);
