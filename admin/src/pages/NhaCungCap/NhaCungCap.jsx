@@ -3,6 +3,7 @@ import axios from "axios";
 import "./NhaCungCap.css";
 import {
   faPlus,
+  faSearch,
   faSort,
   faTrash,
   faWrench
@@ -44,7 +45,7 @@ const NhaCungCap = ({ setShowAddNhaCungCap, setShowEditNhaCungCap }) => {
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
-          <button className="btn-timkiem">Tìm kiếm</button>
+          <FontAwesomeIcon icon={faSearch} className="faSearch"></FontAwesomeIcon>
         </div>
         <button className="btn-them" onClick={() => setShowAddNhaCungCap(true)}>
           <FontAwesomeIcon icon={faPlus} /> Thêm

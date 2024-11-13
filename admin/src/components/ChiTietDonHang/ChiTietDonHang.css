@@ -3,7 +3,8 @@
     justify-items: start;
     overflow: auto;
     list-style-type: auto;
-    box-shadow: 2px 2px 13px #333;
-    width: 27vw;
-    height: 25vw;
+    border: 2px dashed black;
+    width: 22em;
+    height: 15em;
+    margin-top: 8px;
 }

@@ -17,6 +17,8 @@ import AddSanPham from './components/AddSanPham/AddSanPham';
 import EditSanPham from './components/EditSanPham/EditSanPham';
 import AddLoai from './components/AddLoai/AddLoai';
 import EditLoai from './components/EditLoai/EditLoai';
+import AddBan from './components/AddBan/AddBan';
+import AddLichDatBan from './components/AddLichDatBan/AddLichDatBan';
 import ChiTietDonHang from './components/ChiTietDonHang/ChiTietDonHang';
 import AddKhachHang from './components/AddKhachHang/AddKhachHang';
 import EditKhachHang from './components/EditKhachHang/EditKhachHang';
@@ -33,6 +35,8 @@ const App = () => {
   const [showAddLoai, setShowAddLoai] = useState(false);
   const [showEditLoai, setShowEditLoai] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null); // Thêm state để lưu trữ loại món ăn được chọn
+  const [showAddBan, setShowAddBan] = useState(false);
+  const [showAddLichDatBan, setShowAddLichDatBan] = useState(false);
   const [showChiTietDonHang, setShowChiTietDonHang] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
   const [showAddKhachHang, setShowAddKhachHang] = useState(false);
@@ -81,6 +85,8 @@ const App = () => {
           category={selectedCategory}
         />
       )}
+      {showAddBan && <AddBan setShowAddBan={setShowAddBan} />}
+      {showAddLichDatBan && <AddLichDatBan setShowAddLichDatBan={setShowAddLichDatBan} />}
       {showChiTietDonHang && (
         <ChiTietDonHang setShowChiTietDonHang={setShowChiTietDonHang} orderId={selectedOrderId}/>
       )}
@@ -133,8 +139,8 @@ const App = () => {
                 <Loai setShowAddLoai={setShowAddLoai} setShowEditLoai={handleEditLoai} />
               }
             />
-            <Route path="/Ban" element={<Ban />} />
-            <Route path="/Ban/LichDatBan" element={<LichDatBan />} />
+            <Route path="/Ban" element={<Ban setShowAddBan={setShowAddBan} />}/>
+            <Route path="/Ban/LichDatBan" element={<LichDatBan setShowAddLichDatBan={setShowAddLichDatBan} />} />
             <Route
               path="/DonHang"
               element={<DonHang setShowChiTietDonHang={setShowChiTietDonHang} setSelectedOrderId={setSelectedOrderId}/>}

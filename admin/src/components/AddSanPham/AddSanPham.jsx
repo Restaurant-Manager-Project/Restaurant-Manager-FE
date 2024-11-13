@@ -1,7 +1,7 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import "./AddSanPham.css";
 
 const AddSanPham = ({ setShowAddSanPham }) => {
@@ -29,7 +29,7 @@ const AddSanPham = ({ setShowAddSanPham }) => {
         if (tenMonAn.trim() === "") {
             validationErrors.tenMonAn = "Vui lòng nhập tên món ăn.";
         } else {
-            const addressRegex = /^[a-zA-Z\s]*$/;
+            const addressRegex = /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]*$/;
             if (!addressRegex.test(tenMonAn)) {
                 validationErrors.tenMonAn = "Tên món ăn không hợp lệ. Vui lòng chỉ nhập chữ.";
             }
@@ -111,41 +111,50 @@ const AddSanPham = ({ setShowAddSanPham }) => {
                     <div className="popup-inputs">
                         <div className={`popup-input ${errors.tenMonAn ? "error" : ""}`}>
                             <label htmlFor="popup-ten">Tên món ăn:</label>
-                            <input
-                                type="text"
-                                id="popup-ten"
-                                placeholder="Nhập tên món ăn..."
-                                value={tenMonAn}
-                                onChange={(e) => setTenMonAn(e.target.value)}
-                            />
-                            <div className="error">{errors.tenMonAn}</div>
+                            <div>
+                                <input
+                                    type="text"
+                                    id="popup-ten"
+                                    placeholder="Nhập tên món ăn..."
+                                    value={tenMonAn}
+                                    onChange={(e) => setTenMonAn(e.target.value)}
+                                />
+                                <div className="errorText">{errors.tenMonAn}</div>
+                            </div>
+                            
                         </div>
                         <div className={`popup-input ${errors.loaiMonAn ? "error" : ""}`}>
                             <label htmlFor="popup-loai">Loại:</label>
-                            <select
-                                name="popup-loai"
-                                id="popup-loai"
-                                value={loaiMonAn}
-                                onChange={(e) => setLoaiMonAn(e.target.value)}
-                            >
-                                <option value="">Chọn loại món ăn</option>
-                                {categories.map(category => (
-                                    <option key={category.id} value={category.name}>{category.name}</option>
-                                ))}
-                            </select>
-                            <div className="error">{errors.loaiMonAn}</div>
+                            <div>
+                                <select
+                                    name="popup-loai"
+                                    id="popup-loai"
+                                    value={loaiMonAn}
+                                    onChange={(e) => setLoaiMonAn(e.target.value)}
+                                >
+                                    <option value="">Chọn loại món ăn</option>
+                                    {categories.map(category => (
+                                        <option key={category.id} value={category.name}>{category.name}</option>
+                                    ))}
+                                </select>
+                                <div className="errorText">{errors.loaiMonAn}</div>
+                            </div>
+                            
                         </div>
                         <div className={`popup-input ${errors.hinhAnh ? "error" : ""}`}>
                             <label>Chọn hình:</label>
-                            <input
-                                type="file"
-                                onChange={(e) => setHinhAnh(e.target.files[0])}
-                            />
+                            <div>
+                                <input
+                                    type="file"
+                                    onChange={(e) => setHinhAnh(e.target.files[0])}
+                                />
+                                
+                                <div className="errorText">{errors.hinhAnh}</div>
+                            </div>
                             {hinhAnh && <img src={URL.createObjectURL(hinhAnh)} alt="Preview" />}
-                            <div className="error">{errors.hinhAnh}</div>
                         </div>
                     </div>
-                    <div className={`popup-input ${errors.moTa ? "error" : ""}`}>
+                    <div className={`popup-inputs ${errors.moTa ? "error" : ""}`}>
                         <label htmlFor="popup-mota">Mô tả:</label>
                         <textarea
                             name="popup-mota"
@@ -154,7 +163,7 @@ const AddSanPham = ({ setShowAddSanPham }) => {
                             value={moTa}
                             onChange={(e) => setMoTa(e.target.value)}
                         ></textarea>
-                        <div className="error">{errors.moTa}</div>
+                        <div className="errorText">{errors.moTa}</div>
                     </div>
                 </div>
                 <button type="submit" disabled={isLoading}>

@@ -361,6 +361,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /* Ẩn nút tăng giảm trên Firefox */
-input[type=number] {
+/* input[type=number] {
     -moz-appearance: textfield;
-}
+} */

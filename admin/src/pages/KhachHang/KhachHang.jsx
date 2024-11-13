@@ -1,4 +1,4 @@
-import { faPlus, faTrash, faWrench } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faSearch, faTrash, faWrench } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -40,7 +40,7 @@ const KhachHang = ({ setShowAddKhachHang, setShowEditKhachHang }) => {
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
-          <button className="btn-timkiem">Tìm kiếm</button>
+          <FontAwesomeIcon icon={faSearch} className="faSearch"></FontAwesomeIcon>
         </div>
         <button className="btn-them" onClick={() => setShowAddKhachHang(true)}>
           <FontAwesomeIcon icon={faPlus} /> Thêm

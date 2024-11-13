@@ -1,6 +1,8 @@
 import React from "react";
 import "../../dungchung.css";
 import "./DonHang.css";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -44,7 +46,7 @@ const DonHang = ({ setShowChiTietDonHang, setSelectedOrderId }) => {
             type="text"
             placeholder="Tìm kiếm đơn hàng..."
           />
-          <button className="btn-timkiem">Tìm kiếm</button>
+          <FontAwesomeIcon icon={faSearch} className="faSearch"></FontAwesomeIcon>
         </div>
         <div className="donhang-loc">
           <p>Từ ngày </p>

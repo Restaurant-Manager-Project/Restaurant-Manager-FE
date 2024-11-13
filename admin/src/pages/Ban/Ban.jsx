@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom'
 import { Routes, Route } from'react-router-dom'
 import LichDatBan from '../../components/LichDatBan/LichDatBan'
 
-const Ban = () => {
+const Ban = ({setShowAddBan}) => {
     const [tables, setTables] = useState([
         { id: 1, name: 'Bàn 1', quanlity: '4', status: 'Trống' },
         { id: 2, name: 'Bàn 2', quanlity: '4', status: 'Đang sử dụng' },
@@ -31,7 +31,7 @@ const Ban = () => {
                         <li>Lịch đặt bàn</li>
                     </NavLink>
                 </ul>
-                <button className="btn-them">
+                <button className="btn-them" onClick={() => setShowAddBan(true)}>
                     <FontAwesomeIcon icon={faPlus} /> Thêm bàn mới
                 </button>
             </div>
