@@ -2,7 +2,7 @@ import React from 'react'
 
 const TrangChu = () => {
   return (
-    <div>
+    <div className='container'>
       asdasdasfzxv
     </div>
   )

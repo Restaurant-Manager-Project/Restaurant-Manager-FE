@@ -8,16 +8,28 @@ const SanPham = ({ setShowAddSanPham, setShowEditSanPham }) => {
 const [products, setProducts] = useState([]);
 const [searchTerm, setSearchTerm] = useState("");
 const [filteredProducts, setFilteredProducts] = useState([]);
+const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState(null);
+
 
 useEffect(() => {
-    axios.get("https://restaurant-manager-be-1.onrender.com/api/products")
-    .then(response => {
+    const fetchProducts = async () => {
+    try {
+        const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/products');
         if (response.data.success) {
-            setProducts(response.data.result);
-            setFilteredProducts(response.data.result);
+        setProducts(response.data.result);
+        setFilteredProducts(response.data.result);
+        } else {
+        setError(response.data.message);
         }
-    })
-    .catch(error => console.error("Error fetching products:", error));
+    } catch (error) {
+        setError('Error fetching Products');
+    } finally {
+        setIsLoading(false);
+    }
+    };
+
+    fetchProducts();
 }, []);
 
 useEffect(() => {
@@ -27,6 +39,29 @@ useEffect(() => {
     )
     );
 }, [searchTerm, products]);
+if (isLoading) {
+    return (
+        <div className="container">
+            <div className="loader">
+            <div id="page">
+                    <div id="container">
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="h3">loading</div>
+                    </div>
+            </div>
+        </div>
+        </div>
+        
+    )
+}
+
+if (error) {
+    return <div>{error}</div>;
+}
+
 
 return (
     <div className="container">
@@ -63,7 +98,7 @@ return (
             <img src={product.img} alt={product.name} />
             <p>{product.name}</p>
             <p>{product.categoryName}</p>
-            <p>{product.price.toLocaleString()} đ</p>
+            {/* <p>{product.price.toLocaleString()} đ</p> */}
             <p>1</p>
             <p className="mo">Đang bán</p>
             <p className="btn">

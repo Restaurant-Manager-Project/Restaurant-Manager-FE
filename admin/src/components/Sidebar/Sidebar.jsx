@@ -27,7 +27,7 @@ const Sidebar = () => {
         })
 
         open.addEventListener('click', () => {
-            sidebar.style.width = '17%'
+            sidebar.style.width = '14%'
             options.forEach(option => {
                 const text = option.querySelector('span')
                 option.style.padding = '10px 27px'

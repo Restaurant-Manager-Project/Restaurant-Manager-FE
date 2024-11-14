@@ -118,14 +118,14 @@ const EditLoai = ({ setShowEditLoai, category }) => {
                 type="file"
                 onChange={(e) => setHinhAnh(e.target.files[0])}
               />
-              {hinhAnh ? (
+              
+              <div className="errorText">{errors.hinhAnh}</div>
+            </div>
+            {hinhAnh ? (
                 <img src={URL.createObjectURL(hinhAnh)} alt="Preview" />
               ) : (
                 <img src={category.img} alt="Hình ảnh hiện tại" />
               )}
-              <div className="errorText">{errors.hinhAnh}</div>
-            </div>
-            
           </div>
         </div>
         <button type="submit" disabled={isLoading}>
