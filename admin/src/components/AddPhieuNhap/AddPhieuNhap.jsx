@@ -5,8 +5,7 @@ import {
   faXmark
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./AddPhieuNhap.css";
 
 const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
@@ -17,17 +16,6 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
   const [giaBan, setGiaBan] = useState("");
   const [content, setContent] = useState([]);
   const [errors, setErrors] = useState({});
-  const [categories, setCategories] = useState([]);
-
-    useEffect(() => {
-        axios.get("https://restaurant-manager-be-1.onrender.com/api/categories")
-            .then(response => {
-                if (response.data.success) {
-                    setCategories(response.data.result);
-                }
-            })
-            .catch(error => console.error("Error fetching categories:", error));
-    }, []);
 
   // Hàm kiểm tra dữ liệu đầu vào
   const validateFormData = () => {
@@ -109,7 +97,6 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                 </select>
                 <div className="errorText">{errors.tenNhaCungCap}</div>
               </div>
-              
             </div>
             <div className={`popup-input ${errors.tenMon ? "error" : ""}`}>
               <label htmlFor="popup-tenMon">Món ăn:</label>
@@ -120,14 +107,12 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                   value={tenMon}
                   onChange={(e) => setTenMon(e.target.value)}
                 >
-                  <option value="">Chọn loại món ăn</option>
-                  {categories.map(category => (
-                      <option key={category.id} value={category.name}>{category.name}</option>
-                  ))}
+                  <option value="">Chọn món ăn</option>
+                  <option value="Món 1">Món 1</option>
+                  <option value="Món 2">Món 2</option>
                 </select>
                 <div className="errorText">{errors.tenMon}</div>
               </div>
-              
             </div>
             <div className={`popup-input ${errors.soLuong ? "error" : ""}`}>
               <label htmlFor="popup-soLuong">Số lượng:</label>
@@ -141,7 +126,6 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                 />
                 <div className="errorText">{errors.soLuong}</div>
               </div>
-              
             </div>
             <div className={`popup-input ${errors.giaNhap ? "error" : ""}`}>
               <label htmlFor="popup-giaNhap">Giá nhập:</label>
@@ -155,7 +139,6 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                 />
                 <div className="errorText">{errors.giaNhap}</div>
               </div>
-              
             </div>
             <div className={`popup-input ${errors.giaBan ? "error" : ""}`}>
               <label htmlFor="popup-giaBan">Giá bán:</label>
@@ -178,7 +161,7 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
             </div>
           </div>
           <div className="container">
-            <div className="phieunhap-content-title content-title title">
+            <div className="phieunhap-content-title2 content-title title">
               <p>STT</p>
               <p>Nhà cung cấp</p>
               <p>Món ăn</p>
@@ -191,7 +174,7 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
               {content.map((row, index) => (
                 <div
                   key={index}
-                  className="phieunhap-content-title content-title content-item"
+                  className="phieunhap-content-title2 content-title content-item"
                 >
                   <p>{index + 1}</p>
                   <p>{row.tenNhaCungCap}</p>

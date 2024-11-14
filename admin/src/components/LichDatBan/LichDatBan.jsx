@@ -56,7 +56,7 @@ function LichDatBan({setShowAddLichDatBan}) {
                     locale={viLocale}
                     plugins={[ dayGridPlugin, timeGridPlugin, multiMonthPlugin, interactionPlugin]}
                     initialView="dayGridMonth"
-                    height='31em'
+                    height='30em'
                     eventBackgroundColor='rgb(195, 0, 0)'
                     dateClick={dayClickAction}
                     events={[

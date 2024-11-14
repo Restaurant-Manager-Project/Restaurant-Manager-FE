@@ -1,9 +1,78 @@
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import "./ChiTietDonHang.css";
 
-const ChiTietDonHang = ({ setShowChiTietDonHang }) => {
+const ChiTietDonHang = ({ setShowChiTietDonHang, orderId }) => {
+    const [orderDetails, setOrderDetails] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchOrderDetails = async () => {
+            try {
+                const response = await axios.get(`https://restaurant-manager-be-f47n.onrender.com/api/orders/${orderId}`);
+                if (response.data.success) {
+                    setOrderDetails(response.data.result);
+                } else {
+                    setError(response.data.message);
+                }
+            } catch (error) {
+                setError('Error fetching order details');
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchOrderDetails();
+    }, [orderId]);
+
+    const handleProcessChange = async (event) => {
+        const newProcessId = event.target.value;
+        try {
+            const response = await axios.put(`https://restaurant-manager-be-f47n.onrender.com/api/orders/${orderId}`, {
+                processId: newProcessId
+            });
+            if (response.data.success) {
+                setOrderDetails(prevDetails => ({
+                    ...prevDetails,
+                    processId: newProcessId,
+                    processName: response.data.result.processName
+                }));
+            } else {
+                setError(response.data.message);
+            }
+        } catch (error) {
+            setError('Error updating order status');
+        }
+    };
+
+    if (isLoading) {
+        return (
+                <div className="loader">
+                <div id="page">
+                        <div id="container">
+                            <div id="ring"></div>
+                            <div id="ring"></div>
+                            <div id="ring"></div>
+                            <div id="ring"></div>
+                            <div id="h3">loading</div>
+                        </div>
+                </div>
+            </div>
+        )
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
+
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        return date.toLocaleString();
+    };
+
     return (
         <div className="popup">
             <form className="popup-container">
@@ -20,62 +89,40 @@ const ChiTietDonHang = ({ setShowChiTietDonHang }) => {
                     <div className="popup-inputs">
                         <div className="popup-input">
                             <label htmlFor="popup-idDon">ID Đơn:</label>
-                            <input type="text" id="popup-idDon" value="D001" disabled />
+                            <input type="text" id="popup-idDon" value={orderDetails.orderId} disabled />
                         </div>
                         <div className="popup-input">
-                            <label htmlFor="popup-idBan">ID Bàn:</label>
-                            <input type="text" id="popup-idBan" value="B12" disabled />
+                            <label htmlFor="popup-nameTable">Bàn:</label>
+                            <input type="text" id="popup-nameTable" value={orderDetails.nameTable} disabled />
                         </div>
                         <div className="popup-input">
-                            <label htmlFor="popup-ngayTao">Ngày tạo:</label>
-                            <input
-                                type="text"
-                                id="popup-ngayTao"
-                                value="2022-01-01"
-                                disabled
-                            />
+                            <label htmlFor="popup-total">Tổng tiền:</label>
+                            <input type="text" id="popup-total" value={orderDetails.total.toLocaleString()} disabled />
                         </div>
                         <div className="popup-input">
-                            <label htmlFor="popup-tongTien">Tổng tiền:</label>
-                            <input type="text" id="popup-tongTien" value="100000" disabled />
+                            <label htmlFor="popup-dateCreate">Ngày giờ đặt:</label>
+                            <input type="text" id="popup-dateCreate" value={formatDate(orderDetails.dateCreate)} disabled />
                         </div>
                         <div className="popup-input">
-                            <label htmlFor="popup-trangThai">Trạng thái:</label>
-                            <select name="popup-trangThai" id="popup-trangThai">
-                                <option value="1">Chưa xác nhận</option>
-                                <option value="2">Đã xác nhận</option>
-                                <option value="3">Đã thanh toán</option>
-                                <option value="4">Đã giao hàng</option>
-                                <option value="5">Đã nhận hàng</option>
-                                <option value="6">Đã hủy</option>
+                            <label htmlFor="popup-processName">Trạng thái:</label>
+                            <select id="popup-processName" value={orderDetails.processId} onChange={handleProcessChange}>
+                                <option value="1">Đã tiếp nhận</option>
+                                <option value="2">Đã chế biến</option>
+                                <option value="3">Đã phục vụ</option>
                             </select>
                         </div>
                     </div>
                     <div className="popup-inputs">
-                        <label htmlFor="popup-dsMonAn">Danh sách món ăn:</label>
-                        <ul id="popup-dsMonAn" className="order-list">
-                            <li>Son hao hai vi x1</li>
-                            <li>Kimchi han quoc x1</li>
-                            <li>Mi tocc ccccccccc ccccccccccccc cccccccccccccccccccccc ccccccc ccccc ccccccc ccccccc ccccccc ccc ccccm x1</li>
-                            <li>Mi tocc x2</li>
-                            <li>Mi tocc x3</li>
-                            <li>Mi tocc x4</li>
-                            <li>Mi tocc x5</li>
-                            <li>Mi tocc x6</li>
-                            <li>Mi tocc x7</li>
-                            <li>Mi tocc x8</li>
-                            <li>Mi tocc x9</li>
-                            <li>Mi tocc x10</li>
-                            <li>Mi tocc x11</li>
-                            <li>Mi tocc x12</li>
-                            <li>Mi tocc x13</li>
-                            <li>Mi tocc x14</li>
-                            <li>Mi tocc x15</li>
-                            <li>Mi tocc x16</li>
+                        <h3>Chi tiết món ăn</h3>
+                        <ul id="popup-dsMonAn">
+                            {orderDetails.detailList.map(detail => (
+                                <li key={detail.id}>
+                                    {detail.productName} - Số lượng: {detail.quantity}
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>
-                <button type="button" onClick={() => alert("Đã lưu thay đổi")}>Lưu</button>
             </form>
         </div>
     );

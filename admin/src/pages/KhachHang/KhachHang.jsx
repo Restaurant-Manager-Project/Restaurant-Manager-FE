@@ -10,15 +10,28 @@ const KhachHang = ({ setShowAddKhachHang, setShowEditKhachHang }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredClients, setFilteredClients] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  
   useEffect(() => {
-    axios.get("https://restaurant-manager-be-1.onrender.com/api/clients")
-      .then(response => {
-        if (response.data.success) {
+      const fetchClients = async () => {
+      try {
+          const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/clients');
+          if (response.data.success) {
           setClients(response.data.result);
           setFilteredClients(response.data.result);
-        }
-      })
-      .catch(error => console.error("Error fetching clients:", error));
+          } else {
+          setError(response.data.message);
+          }
+      } catch (error) {
+          setError('Error fetching Clients');
+      } finally {
+          setIsLoading(false);
+      }
+      };
+  
+      fetchClients();
   }, []);
 
   useEffect(() => {
@@ -28,6 +41,26 @@ const KhachHang = ({ setShowAddKhachHang, setShowEditKhachHang }) => {
       )
     );
   }, [searchTerm, clients]);
+
+  if (isLoading) {
+    return (
+            <div className="loader">
+            <div id="page">
+                    <div id="container">
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="h3">loading</div>
+                    </div>
+            </div>
+        </div>
+    )
+  }
+
+  if (error) {
+      return <div>{error}</div>;
+  }
 
   return (
     <div className="container">
@@ -83,6 +116,9 @@ const KhachHang = ({ setShowAddKhachHang, setShowEditKhachHang }) => {
             </p>
           </div>
         ))}
+        {filteredClients.length === 0 && searchTerm !== "" && (
+          <div className="thongbao">Không tìm thấy &quot;{searchTerm}&quot;</div>
+        )}
       </div>
     </div>
   );

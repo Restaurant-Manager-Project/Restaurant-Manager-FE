@@ -38,6 +38,7 @@ const App = () => {
   const [showAddBan, setShowAddBan] = useState(false);
   const [showAddLichDatBan, setShowAddLichDatBan] = useState(false);
   const [showChiTietDonHang, setShowChiTietDonHang] = useState(false);
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
   const [showAddKhachHang, setShowAddKhachHang] = useState(false);
   const [showEditKhachHang, setShowEditKhachHang] = useState(false);
   const [selectedClient, setSelectedClient] = useState(null); // Thêm state để lưu trữ khách hàng được chọn
@@ -87,7 +88,7 @@ const App = () => {
       {showAddBan && <AddBan setShowAddBan={setShowAddBan} />}
       {showAddLichDatBan && <AddLichDatBan setShowAddLichDatBan={setShowAddLichDatBan} />}
       {showChiTietDonHang && (
-        <ChiTietDonHang setShowChiTietDonHang={setShowChiTietDonHang} />
+        <ChiTietDonHang setShowChiTietDonHang={setShowChiTietDonHang} orderId={selectedOrderId}/>
       )}
       {showAddKhachHang && (
         <AddKhachHang setShowAddKhachHang={setShowAddKhachHang} />
@@ -142,7 +143,7 @@ const App = () => {
             <Route path="/Ban/LichDatBan" element={<LichDatBan setShowAddLichDatBan={setShowAddLichDatBan} />} />
             <Route
               path="/DonHang"
-              element={<DonHang setShowChiTietDonHang={setShowChiTietDonHang} />}
+              element={<DonHang setShowChiTietDonHang={setShowChiTietDonHang} setSelectedOrderId={setSelectedOrderId}/>}
             />
             <Route
               path="/KhachHang"

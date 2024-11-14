@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://restaurant-manager-be-1.onrender.com';
+const API_BASE_URL = 'https://restaurant-manager-be-f47n.onrender.com';
 
 const API_URLS = {
     GET_PRODUCTS: `${API_BASE_URL}/api/products`, // Lấy danh sách sản phẩm

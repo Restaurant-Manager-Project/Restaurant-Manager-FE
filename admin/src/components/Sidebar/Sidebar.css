@@ -4,6 +4,7 @@
     border-right: 1.5px solid #a9a9a9;
     color: #464646;
     transition: 0.3s ease-in-out;
+    height: 89vh;
 }
 
 .sidebar-options{

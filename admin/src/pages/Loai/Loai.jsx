@@ -10,26 +10,57 @@ const Loai = ({ setShowAddLoai, setShowEditLoai }) => {
   const [categories, setCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredCategories, setFilteredCategories] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  
   useEffect(() => {
-    axios.get("https://restaurant-manager-be-f47n.onrender.com/api/categories")
-      .then(response => {
-        if (response.data.success) {
+      const fetchCategories = async () => {
+      try {
+          const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/categories');
+          if (response.data.success) {
           setCategories(response.data.result);
           setFilteredCategories(response.data.result);
-        }
-      })
-      .catch(error => console.error("Error fetching categories:", error));
+          } else {
+          setError(response.data.message);
+          }
+      } catch (error) {
+          setError('Error fetching Categories');
+      } finally {
+          setIsLoading(false);
+      }
+      };
+  
+      fetchCategories();
   }, []);
-
-  useEffect(() => {
-    setFilteredCategories(
-      categories.filter(category =>
-        category.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
+  
+    useEffect(() => {
+      setFilteredCategories(
+        categories.filter(categorie =>
+          categorie.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
   }, [searchTerm, categories]);
-
+  if (isLoading) {
+      return (
+              <div className="loader">
+              <div id="page">
+                      <div id="container">
+                          <div id="ring"></div>
+                          <div id="ring"></div>
+                          <div id="ring"></div>
+                          <div id="ring"></div>
+                          <div id="h3">loading</div>
+                      </div>
+              </div>
+          </div>
+      )
+  }
+  
+  if (error) {
+      return <div>{error}</div>;
+  }
+  
   return (
     <div className="container">
       <div className="header">
@@ -84,7 +115,7 @@ const Loai = ({ setShowAddLoai, setShowEditLoai }) => {
         ))}
         {filteredCategories.length === 0 && searchTerm !== "" && (
           <div className="thongbao">Không tìm thấy &quot;{searchTerm}&quot;</div>
-      )}
+        )}
       </div>
     </div>
   );

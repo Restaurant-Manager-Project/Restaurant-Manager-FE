@@ -14,16 +14,28 @@ const NhaCungCap = ({ setShowAddNhaCungCap, setShowEditNhaCungCap }) => {
   const [suppliers, setSuppliers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredSuppliers, setFilteredSuppliers] = useState([]);
-
+const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  
   useEffect(() => {
-    axios.get("https://restaurant-manager-be-1.onrender.com/api/suppliers")
-      .then(response => {
-        if (response.data.success) {
+      const fetchSuppliers = async () => {
+      try {
+          const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/suppliers');
+          if (response.data.success) {
           setSuppliers(response.data.result);
           setFilteredSuppliers(response.data.result);
-        }
-      })
-      .catch(error => console.error("Error fetching suppliers:", error));
+          } else {
+          setError(response.data.message);
+          }
+      } catch (error) {
+          setError('Error fetching Suppliers');
+      } finally {
+          setIsLoading(false);
+      }
+      };
+  
+      fetchSuppliers();
   }, []);
 
   useEffect(() => {
@@ -34,6 +46,25 @@ const NhaCungCap = ({ setShowAddNhaCungCap, setShowEditNhaCungCap }) => {
     );
   }, [searchTerm, suppliers]);
 
+  if (isLoading) {
+    return (
+            <div className="loader">
+            <div id="page">
+                    <div id="container">
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="h3">loading</div>
+                    </div>
+            </div>
+        </div>
+    )
+}
+
+if (error) {
+    return <div>{error}</div>;
+}
   return (
     <div className="container">
       <div className="header">
@@ -94,6 +125,9 @@ const NhaCungCap = ({ setShowAddNhaCungCap, setShowEditNhaCungCap }) => {
             </p>
           </div>
         ))}
+        {filteredSuppliers.length === 0 && searchTerm !== "" && (
+          <div className="thongbao">Không tìm thấy &quot;{searchTerm}&quot;</div>
+        )}
       </div>
     </div>
   );

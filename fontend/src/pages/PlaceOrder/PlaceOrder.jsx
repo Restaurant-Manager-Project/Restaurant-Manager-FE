@@ -96,7 +96,7 @@ const PlaceOrder = () => {
         <div className="order-details">
           {orderDetails.map((order, index) => (
             <div key={index} className="order-section">
-              <h3>Đơn hàng số: {order.orderId} - Trạng thái: </h3>
+              <h3>Đơn hàng số: {order.orderId} - Trạng thái: {order.processName}</h3>
               <div className="table-container">
                 <table>
                   <thead>

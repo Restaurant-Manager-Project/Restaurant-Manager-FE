@@ -57,7 +57,7 @@ const Food = () => {
     useEffect(() => {
         let isMounted = true;
 
-        axios.get("https://restaurant-manager-be-1.onrender.com/api/categories")
+        axios.get("https://restaurant-manager-be-f47n.onrender.com/api/categories")
             .then(response => {
                 if (isMounted) {
                     if (response.data && Array.isArray(response.data.result)) {

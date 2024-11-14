@@ -6,7 +6,6 @@ import "./AddLichDatBan.css";
 
 const AddLichDatBan = ({ setShowAddLichDatBan }) => {
 const [tenLoai, setTenLoai] = useState("");
-const [hinhAnh, setHinhAnh] = useState(null);
 const [errors, setErrors] = useState({});
 const [isLoading, setIsLoading] = useState(false);
 
@@ -16,16 +15,12 @@ const validateFormData = () => {
     if (tenLoai.trim() === "") {
     validationErrors.tenLoai = "Vui lòng nhập tên loại món ăn.";
     } else {
-    const vietnameseRegex =
-        /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]*$/;
-    if (!vietnameseRegex.test(tenLoai)) {
-        validationErrors.tenLoai =
-        "Tên loại món ăn không hợp lệ. Vui lòng chỉ nhập chữ.";
-    }
-    }
-
-    if (!hinhAnh) {
-    validationErrors.hinhAnh = "Vui lòng chọn hình ảnh cho loại món ăn.";
+        const vietnameseRegex =
+            /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]*$/;
+        if (!vietnameseRegex.test(tenLoai)) {
+            validationErrors.tenLoai =
+            "Tên loại món ăn không hợp lệ. Vui lòng chỉ nhập chữ.";
+        }
     }
 
     setErrors(validationErrors);
