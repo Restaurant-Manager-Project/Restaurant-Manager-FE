@@ -3,6 +3,7 @@ import axios from "axios";
 import "./NhaCungCap.css";
 import {
   faPlus,
+  faSearch,
   faSort,
   faTrash,
   faWrench
@@ -15,7 +16,7 @@ const NhaCungCap = ({ setShowAddNhaCungCap, setShowEditNhaCungCap }) => {
   const [filteredSuppliers, setFilteredSuppliers] = useState([]);
 
   useEffect(() => {
-    axios.get("https://restaurant-manager-be-1.onrender.com/api/suppliers")
+    axios.get("https://restaurant-manager-be-f47n.onrender.com/api/suppliers")
       .then(response => {
         if (response.data.success) {
           setSuppliers(response.data.result);
@@ -44,7 +45,7 @@ const NhaCungCap = ({ setShowAddNhaCungCap, setShowEditNhaCungCap }) => {
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
-          <button className="btn-timkiem">Tìm kiếm</button>
+          <FontAwesomeIcon icon={faSearch} className="faSearch"></FontAwesomeIcon>
         </div>
         <button className="btn-them" onClick={() => setShowAddNhaCungCap(true)}>
           <FontAwesomeIcon icon={faPlus} /> Thêm

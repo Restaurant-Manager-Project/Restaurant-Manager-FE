@@ -140,7 +140,7 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                         </div>
                     </div>
                     <div className="container">
-                        <div className="phieunhap-content-title content-title title">
+                        <div className="phieunhap-content-title2 content-title title">
                             <p>STT</p>
                             <p>Nhà cung cấp</p>
                             <p>Món ăn</p>

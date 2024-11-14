@@ -1,10 +1,12 @@
 import React from "react";
 import "../../dungchung.css";
 import "./DonHang.css";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const DonHang = ({ setShowChiTietDonHang }) => {
+const DonHang = ({ setShowChiTietDonHang, setSelectedOrderId }) => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,7 +14,7 @@ const DonHang = ({ setShowChiTietDonHang }) => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get('https://restaurant-manager-be-1.onrender.com/api/orders/');
+        const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/orders/');
         if (response.data.success) {
           setOrders(response.data.result);
         } else {
@@ -44,7 +46,7 @@ const DonHang = ({ setShowChiTietDonHang }) => {
             type="text"
             placeholder="Tìm kiếm đơn hàng..."
           />
-          <button className="btn-timkiem">Tìm kiếm</button>
+          <FontAwesomeIcon icon={faSearch} className="faSearch"></FontAwesomeIcon>
         </div>
         <div className="donhang-loc">
           <p>Từ ngày </p>
@@ -71,7 +73,7 @@ const DonHang = ({ setShowChiTietDonHang }) => {
                         <p>{order.nameTable}</p>
                         <p>{order.total.toLocaleString()}đ</p>
                         <p>{order.processName}</p>
-                        <button>Chi tiết</button>
+                        <button onClick={() => { setSelectedOrderId(order.orderId); setShowChiTietDonHang(true);}}>Chi tiết</button>
                     </div>
                 ))}
       </div>

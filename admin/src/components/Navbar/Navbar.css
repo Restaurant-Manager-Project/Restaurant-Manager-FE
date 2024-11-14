@@ -5,6 +5,7 @@
     padding: 8px 1%;
     z-index: 1000;
     border: 1px solid #a9a9a9;
+    height: 10vh;
 }
 
 .navbar .logo{

@@ -11,7 +11,7 @@ import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './LichDatBan.css'; // Import file CSS
 
-function LichDatBan() {
+function LichDatBan({setShowAddLichDatBan}) {
     let list = null;
 
     useEffect(() => {
@@ -33,7 +33,7 @@ function LichDatBan() {
     }
 
     const dayClickAction = (info) => {
-        alert(`Clicked on ${info.dateStr}`);
+        setShowAddLichDatBan(true, info.dateStr);
     }
     return (
         <div className="container">
@@ -60,7 +60,7 @@ function LichDatBan() {
                     eventBackgroundColor='rgb(195, 0, 0)'
                     dateClick={dayClickAction}
                     events={[
-                        { title: 'Sự kiện 1', start: '2024-11-01' },
+                        { title: 'Sự kiện 1', start: '2024-11-01T12:00:00' },
                         { title: 'Sự kiện 2', start: '2024-11-05' },
                         { title: 'Sự kiện 3', start: '2024-11-07' },
                         { title: 'Sự kiện 4', start: '2024-11-10' },
@@ -98,14 +98,14 @@ function LichDatBan() {
                     height='35em'
                     eventBackgroundColor='rgb(195, 0, 0)'
                     events={[
-                        { title: 'Event 1', start: '2024-11-01' },
-                        { title: 'Event 2', start: '2024-11-05' },
-                        { title: 'Event 3', start: '2024-11-07' },
-                        { title: 'Event 4', start: '2024-11-10' },
-                        { title: 'Event 5', start: '2024-11-12' },
-                        { title: 'Event 6', start: '2024-11-15' },
-                        { title: 'Event 7', start: '2024-11-17' },
-                        { title: 'Event 8', start: '2024-11-20' },
+                        { title: 'Sự kiện 1', start: '2024-11-01T12:00:00' },
+                        { title: 'Sự kiện 2', start: '2024-11-05' },
+                        { title: 'Sự kiện 3', start: '2024-11-07' },
+                        { title: 'Sự kiện 4', start: '2024-11-10' },
+                        { title: 'Sự kiện 5', start: '2024-11-12' },
+                        { title: 'Sự kiện 6', start: '2024-11-15' },
+                        { title: 'Sự kiện 7', start: '2024-11-17' },
+                        { title: 'Sự kiện 8', start: '2024-11-20' },
                     ]}
                     
                     views={{

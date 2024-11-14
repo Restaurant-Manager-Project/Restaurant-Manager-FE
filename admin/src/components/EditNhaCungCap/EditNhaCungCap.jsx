@@ -56,7 +56,7 @@ const EditNhaCungCap = ({ setShowEditNhaCungCap, supplier }) => {
             };
 
             try {
-                const response = await axios.put(`https://restaurant-manager-be-1.onrender.com/api/supplier/${supplier.id}`, updatedSupplier);
+                const response = await axios.put(`https://restaurant-manager-be-f47n.onrender.com/api/supplier/${supplier.id}`, updatedSupplier);
                 if (response.data.success) {
                     console.log("Chỉnh sửa nhà cung cấp thành công:", response.data);
                     setShowEditNhaCungCap(false);

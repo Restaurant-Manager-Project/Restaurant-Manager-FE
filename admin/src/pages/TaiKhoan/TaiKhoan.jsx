@@ -1,4 +1,4 @@
-import { faPlus, faTrash, faWrench } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faSearch, faTrash, faWrench } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import "./TaiKhoan.css"
@@ -9,7 +9,7 @@ const TaiKhoan = ({setShowAddTaiKhoan, setShowEditTaiKhoan}) => {
         <div className="header">
             <div className="timkiem">
             <input className='input-timkiem' type="text" placeholder="Tìm kiếm tài khoản..." />
-            <button className='btn-timkiem'>Tìm kiếm</button>
+            <FontAwesomeIcon icon={faSearch} className="faSearch"></FontAwesomeIcon>
             </div>
             <button className='btn-them' onClick={()=>setShowAddTaiKhoan(true)}><FontAwesomeIcon icon={faPlus} /> Thêm</button>
         </div>

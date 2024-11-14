@@ -59,7 +59,7 @@ const AddLoai = ({ setShowAddLoai }) => {
                 };
 
                 try {
-                    const response = await axios.post("https://restaurant-manager-be-1.onrender.com/api/categories", newCategory);
+                    const response = await axios.post("https://restaurant-manager-be-f47n.onrender.com/api/categories", newCategory);
                     if (response.data.success) {
                         console.log("Thêm loại món ăn thành công:", response.data);
                         setShowAddLoai(false);

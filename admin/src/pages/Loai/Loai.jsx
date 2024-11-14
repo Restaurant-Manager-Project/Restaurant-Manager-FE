@@ -1,4 +1,4 @@
-import { faPlus, faTrash, faWrench } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faSearch, faTrash, faWrench } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -12,7 +12,7 @@ const Loai = ({ setShowAddLoai, setShowEditLoai }) => {
   const [filteredCategories, setFilteredCategories] = useState([]);
 
   useEffect(() => {
-    axios.get("https://restaurant-manager-be-1.onrender.com/api/categories")
+    axios.get("https://restaurant-manager-be-f47n.onrender.com/api/categories")
       .then(response => {
         if (response.data.success) {
           setCategories(response.data.result);
@@ -41,7 +41,7 @@ const Loai = ({ setShowAddLoai, setShowEditLoai }) => {
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
-          <button className="btn-timkiem">Tìm kiếm</button>
+          <FontAwesomeIcon icon={faSearch} className="faSearch"></FontAwesomeIcon>
         </div>
         <button className="btn-them" onClick={() => setShowAddLoai(true)}>
           <FontAwesomeIcon icon={faPlus} /> Thêm
@@ -82,6 +82,9 @@ const Loai = ({ setShowAddLoai, setShowEditLoai }) => {
             </p>
           </div>
         ))}
+        {filteredCategories.length === 0 && searchTerm !== "" && (
+          <div className="thongbao">Không tìm thấy &quot;{searchTerm}&quot;</div>
+      )}
       </div>
     </div>
   );

@@ -5,6 +5,10 @@ button {
 /*-------------------------------Khung Admin---------------------------------*/
 .container {
     width: 100%;
+    padding: 0 20px;
+    height: 90vh; 
+    overflow-y: auto; 
+    box-sizing: border-box;
 }
 
 .header {
@@ -86,7 +90,7 @@ button {
     border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #f9f9f9;
-    max-height: 69vh;
+    max-height: 55vh;
     overflow: auto;
 }
 
@@ -357,6 +361,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /* Ẩn nút tăng giảm trên Firefox */
-input[type=number] {
+/* input[type=number] {
     -moz-appearance: textfield;
-}
+} */
