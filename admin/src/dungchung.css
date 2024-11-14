@@ -6,8 +6,8 @@ button {
 .container {
     width: 100%;
     padding: 0 20px;
-    height: 90vh; 
-    overflow-y: auto; 
+    max-height: 88vh;
+    overflow-y: auto;
     box-sizing: border-box;
 }
 
@@ -15,10 +15,10 @@ button {
     display: flex;
     justify-content: space-between;
     background-color: rgb(255, 255, 255);
-    padding: 50px;
+    padding: 30px 50px;
+    align-items: center;
 
     & .btn-them {
-        font-size: large;
         font-weight: 800;
         padding: 7px 20px;
         border: 2px solid rgb(195, 0, 0);
@@ -39,63 +39,42 @@ button {
 
 .timkiem {
     display: flex;
+    position: relative;
 
     & .input-timkiem {
         width: 250px;
-        padding: 10px;
-        border-radius: 10px 0 0 10px;
+        padding: 10px 35px 10px 10px;
+        border-radius: 20px;
         border: 1px solid #ccc;
-        font-size: 16px;
+
+        
     }
 
-    & .btn-timkiem {
-        position: relative;
-        font-size: large;
-        font-weight: 600;
-        padding: 7px 20px;
-        border: 3px solid rgb(195, 0, 0);
-        border-radius: 0 10px 10px 0;
-        background-color: rgb(195, 0, 0);
-        color: white;
-        transition: all 0.5s ease-in-out;
-        z-index: 1;
-        overflow: hidden;
-
-
-
-        &:hover {
-            color: rgb(195, 0, 0);
-
-            &::before {
-                width: 100%;
-            }
-        }
-
-        &::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 0;
-            background-color: white;
-            z-index: -1;
-            transition: all .5s;
-        }
+    & .faSearch{
+        position: absolute;
+        right: 10px;
+        top: 12px;
+        color:#808080;
+        cursor: text;
+        /* font-size: 20px; */
     }
 }
 
-.content, .content-1 {
+.content{
     padding: 10px;
     border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #f9f9f9;
-    max-height: 55vh;
+    max-height: 66vh;
     overflow: auto;
+    text-align: center;
 }
 
 .content-1{
-    max-height: 55vh !important;
+    max-height: 22em !important;
+}
+.content-2{
+    max-height: 32em !important;
 }
 .content-title {
     display: grid;
@@ -113,7 +92,7 @@ button {
     border-radius: 20px 20px 0 0;
 
     & p {
-        padding: 15px;
+        padding: 15px 10px;
         cursor: pointer;
     }
 }
@@ -137,6 +116,7 @@ button {
 
 .btn-container {
     position: relative;
+    transform: scale(0.8);
 
     & .tooltip {
         position: absolute;
@@ -153,6 +133,7 @@ button {
         border-radius: 12px;
         background: gray;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
 
         &::before {
             content: "";
@@ -180,11 +161,11 @@ button {
     }
 
     & .btn-edit:hover {
-        background-color: aqua;
+        background-color: aqua !important;
     }
 
     & .btn-remove:hover {
-        background-color: red;
+        background-color: red !important;
     }
 }
 
@@ -196,7 +177,6 @@ button {
     border-radius: 50% !important;
     background-color: #6a6161 !important;
     color: white !important;
-    font-size: 15px;
     transition: ease 0.3s;
 }
 
@@ -215,15 +195,14 @@ button {
 .popup-container {
     position: relative;
     place-self: center;
-    /* width: max(23vw, 330px); */
-    min-width: 20vw;
+    min-width: 25em;
     color: #808080;
     background-color: white;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 15px;
     padding: 25px 30px;
-    border-radius: 8px;
+    border-radius: 20px;
     font-size: 16px;
     animation: fadeIn .5s;
 
@@ -258,7 +237,7 @@ button {
 
 .popup-table{
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 21em 2fr;
     gap: 20px;
     /* height: 250px; */
 }
@@ -273,7 +252,6 @@ button {
         padding: 10px;
         border-radius: 4px;
         border: 2px solid #ccc;
-        font-size: medium;
         margin-top: 6px;
     }
 
@@ -283,6 +261,7 @@ button {
         object-fit: cover;
         border-radius: 10px;
         margin-top: 10px;
+        margin-left: 13vh;
     }
 
     & label {
@@ -292,36 +271,35 @@ button {
 }
 
 .popup-input {
-    display: flex;
-    flex-direction: column;
-    /* grid-template-columns: 1fr 3fr; */
-    /* align-items: center; */
-    /* gap: 10px; */
-    /* justify-items: start; */
+    /* display: flex;
+    flex-direction: column; */
+    display: grid;
+    grid-template-columns: 5em 1fr ;
+    align-items: center;
+    column-gap: 10px;
 
     & input:disabled {
         /* opacity: 0.5; */
         background-color: rgb(214, 212, 212);
     }
+}
 
-    & .error{
-        color: red;
-        font-size: small;
-        height: 13px;
-        /* transform: translateY(-8px); */
-    }
+.errorText{
+    color: red;
+    font-size: small;
+    height: 13px;
+    /* transform: translateY(-8px); */
 }
 
 textarea {
-    width: 100%;
+    width: 20em;
     padding: 10px;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     font-size: large;
-    resize: vertical;
-    min-height: 16vw;
-    max-height: 29vw;
-    min-width: 100%;
+    resize:none !important;
+    height: 16em;
+    outline: none;
     /* scroll-padding-block: 12px; */
     &:disabled{
         background-color: rgb(214, 212, 212);
@@ -338,20 +316,19 @@ input:focus{
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 24px;
     color: #808080;
     cursor: pointer;
 }
 
 .btn-group{
     display: flex;
-    /* gap: 10px; */
     justify-content: space-evenly;
+}
 
-    & button:nth-child(2){
-        background-color: white;
-        color: #333;
-    }
+.thongbao{
+    font-size: x-large;
+    font-weight: bold;
+    margin: auto;
 }
 /* Ẩn nút tăng giảm trên Chrome, Safari, Edge, Opera */
 input[type=number]::-webkit-inner-spin-button,
@@ -360,7 +337,103 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
 }
 
-/* Ẩn nút tăng giảm trên Firefox */
-/* input[type=number] {
-    -moz-appearance: textfield;
-} */
+
+/*============================Loading sreen============================*/
+/* From Uiverse.io by 0senno */ 
+.loader{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+/* From Uiverse.io by dimasptrautmaa */ 
+#page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  #h3 {
+    color: white;
+  }
+  
+  #ring {
+    width: 190px;
+    height: 190px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    position: absolute;
+  }
+  
+  #ring:nth-child(1) {
+    border-bottom: 8px solid rgb(255, 141, 249);
+    animation: rotate1 2s linear infinite;
+  }
+  
+  @keyframes rotate1 {
+    from {
+      transform: rotateX(50deg) rotateZ(110deg);
+    }
+  
+    to {
+      transform: rotateX(50deg) rotateZ(470deg);
+    }
+  }
+  
+  #ring:nth-child(2) {
+    border-bottom: 8px solid rgb(255,65,106);
+    animation: rotate2 2s linear infinite;
+  }
+  
+  @keyframes rotate2 {
+    from {
+      transform: rotateX(20deg) rotateY(50deg) rotateZ(20deg);
+    }
+  
+    to {
+      transform: rotateX(20deg) rotateY(50deg) rotateZ(380deg);
+    }
+  }
+  
+  #ring:nth-child(3) {
+    border-bottom: 8px solid rgb(0,255,255);
+    animation: rotate3 2s linear infinite;
+  }
+  
+  @keyframes rotate3 {
+    from {
+      transform: rotateX(40deg) rotateY(130deg) rotateZ(450deg);
+    }
+  
+    to {
+      transform: rotateX(40deg) rotateY(130deg) rotateZ(90deg);
+    }
+  }
+  
+  #ring:nth-child(4) {
+    border-bottom: 8px solid rgb(252, 183, 55);
+    animation: rotate4 2s linear infinite;
+  }
+  
+  @keyframes rotate4 {
+    from {
+      transform: rotateX(70deg) rotateZ(270deg);
+    }
+  
+    to {
+      transform: rotateX(70deg) rotateZ(630deg);
+    }
+  }

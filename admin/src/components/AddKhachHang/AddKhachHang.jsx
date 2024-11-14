@@ -1,7 +1,7 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
 import "./AddKhachHang.css";
 
 const AddKhachHang = ({ setShowAddKhachHang }) => {
@@ -75,36 +75,45 @@ const AddKhachHang = ({ setShowAddKhachHang }) => {
                 <div className="popup-inputs">
                     <div className={`popup-input ${errors.firstName ? "error" : ""}`}>
                         <label htmlFor="popup-firstName">Tên:</label>
-                        <input
-                            type="text"
-                            id="popup-firstName"
-                            placeholder="Nhập tên..."
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                        />
-                        <div className="error">{errors.firstName}</div>
+                        <div>
+                            <input
+                                type="text"
+                                id="popup-firstName"
+                                placeholder="Nhập tên..."
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                            />
+                            <div className="errorText">{errors.firstName}</div>
+                        </div>
+                        
                     </div>
                     <div className={`popup-input ${errors.lastName ? "error" : ""}`}>
                         <label htmlFor="popup-lastName">Họ:</label>
-                        <input
-                            type="text"
-                            id="popup-lastName"
-                            placeholder="Nhập họ..."
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                        />
-                        <div className="error">{errors.lastName}</div>
+                        <div>
+                            <input
+                                type="text"
+                                id="popup-lastName"
+                                placeholder="Nhập họ..."
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                            />
+                            <div className="errorText">{errors.lastName}</div>
+                        </div>
+                        
                     </div>
                     <div className={`popup-input ${errors.phone ? "error" : ""}`}>
                         <label htmlFor="popup-phone">Số điện thoại:</label>
-                        <input
-                            type="text"
-                            id="popup-phone"
-                            placeholder="Nhập số điện thoại..."
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                        />
-                        <div className="error">{errors.phone}</div>
+                        <div>
+                            <input
+                                type="text"
+                                id="popup-phone"
+                                placeholder="Nhập số điện thoại..."
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                            />
+                            <div className="errorText">{errors.phone}</div>
+                        </div>
+                        
                     </div>
                 </div>
                 <button type="submit" disabled={isLoading}>

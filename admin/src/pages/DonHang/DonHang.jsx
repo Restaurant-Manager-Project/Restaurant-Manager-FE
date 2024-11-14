@@ -11,62 +11,76 @@ const DonHang = ({ setShowChiTietDonHang, setSelectedOrderId }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+useEffect(() => {
     const fetchOrders = async () => {
-      try {
+    try {
         const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/orders/');
         if (response.data.success) {
-          setOrders(response.data.result);
+        setOrders(response.data.result);
         } else {
-          setError(response.data.message);
+        setError(response.data.message);
         }
-      } catch (error) {
+    } catch (error) {
         setError('Error fetching orders');
-      } finally {
+    } finally {
         setIsLoading(false);
-      }
+    }
     };
 
     fetchOrders();
-  }, []);
+}, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+if (isLoading) {
+    return (
+        <div className="loader">
+            <div id="page">
+                    <div id="container">
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="h3">loading</div>
+                    </div>
+            </div>
+        </div>
+    )
+}
 
-  if (error) {
+if (error) {
     return <div>{error}</div>;
-  }
-  return (
+}
+return (
     <div className="container">
-      <div className="header">
+    
+    
+    <div className="header">
         <div className="timkiem">
-          <input
+        <input
             className="input-timkiem"
             type="text"
             placeholder="Tìm kiếm đơn hàng..."
-          />
-          <FontAwesomeIcon icon={faSearch} className="faSearch"></FontAwesomeIcon>
+        />
+        <FontAwesomeIcon icon={faSearch} className="faSearch"></FontAwesomeIcon>
         </div>
         <div className="donhang-loc">
-          <p>Từ ngày </p>
-          <input type="date" />
-          <p>Dến ngày </p>
-          <input type="date" />
-          <button>Lọc</button>
+        <p>Từ ngày </p>
+        <input type="date" />
+        <p>Dến ngày </p>
+        <input type="date" />
+        <button>Lọc</button>
         </div>
-      </div>
-      <div className="donhang-content-title content-title title">
+    </div>
+    <div className="donhang-content-title content-title title">
         <p>STT</p>
         <p>ID Đơn</p>
         <p>Bàn</p>
         <p>Tổng tiền</p>
         <p>Trạng thái</p>
         <p>Hành động</p>
-      </div>
+    </div>
 
-      <div className="content">
-      {orders.map((order, index) => (
+    <div className="content">
+    {orders.map((order, index) => (
                     <div key={order.orderId} className="donhang-content-title content-title content-item">
                         <p>{index + 1}</p>
                         <p>{order.orderId}</p>
@@ -76,9 +90,9 @@ const DonHang = ({ setShowChiTietDonHang, setSelectedOrderId }) => {
                         <button onClick={() => { setSelectedOrderId(order.orderId); setShowChiTietDonHang(true);}}>Chi tiết</button>
                     </div>
                 ))}
-      </div>
     </div>
-  );
+    </div>
+);
 };
 
 export default DonHang;

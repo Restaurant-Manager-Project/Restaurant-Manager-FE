@@ -87,28 +87,33 @@ const AddLoai = ({ setShowAddLoai }) => {
                 <div className="popup-inputs">
                     <div className={`popup-input ${errors.tenLoai ? "error" : ""}`}>
                         <label htmlFor="popup-ten">Tên loại:</label>
-                        <input
-                            type="text"
-                            id="popup-ten"
-                            placeholder="Nhập tên loại..."
-                            value={tenLoai}
-                            onChange={(e) => setTenLoai(e.target.value)}
-                        />
-                        <div className="error">{errors.tenLoai}</div>
+                        <div>
+                            <input
+                                type="text"
+                                id="popup-ten"
+                                placeholder="Nhập tên loại..."
+                                value={tenLoai}
+                                onChange={(e) => setTenLoai(e.target.value)}
+                            />
+                            <div className="errorText">{errors.tenLoai}</div>
+                        </div>
                     </div>
                     <div className={`popup-input ${errors.hinhAnh ? "error" : ""}`}>
                         <label>Chọn hình:</label>
-                        <input
-                            type="file"
-                            onChange={(e) => setHinhAnh(e.target.files[0])}
-                        />
-                        {hinhAnh && <img src={URL.createObjectURL(hinhAnh)} alt="Preview" />}
-                        <div className="error">{errors.hinhAnh}</div>
+                        <div>
+                            <input
+                                type="file"
+                                onChange={(e) => setHinhAnh(e.target.files[0])}
+                            />
+                            
+                            <div className="errorText">{errors.hinhAnh}</div>
+                        </div>
+                        {hinhAnh && (
+                            <img src={URL.createObjectURL(hinhAnh)} alt="Preview" />
+                        )}
                     </div>
                 </div>
-                <button type="submit" disabled={isLoading}>
-                    {isLoading ? "Đang thêm..." : "Thêm loại món ăn"}
-                </button>
+                <button type="submit">Thêm loại món ăn</button>
             </form>
         </div>
     );

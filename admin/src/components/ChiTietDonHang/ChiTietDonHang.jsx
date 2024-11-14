@@ -49,7 +49,19 @@ const ChiTietDonHang = ({ setShowChiTietDonHang, orderId }) => {
     };
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+                <div className="loader">
+                <div id="page">
+                        <div id="container">
+                            <div id="ring"></div>
+                            <div id="ring"></div>
+                            <div id="ring"></div>
+                            <div id="ring"></div>
+                            <div id="h3">loading</div>
+                        </div>
+                </div>
+            </div>
+        )
     }
 
     if (error) {

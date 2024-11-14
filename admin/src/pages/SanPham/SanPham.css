@@ -3,7 +3,7 @@
 
 
 .sanpham-content-title {
-    grid-template-columns: 0.4fr .5fr 1.5fr 0.4fr 0.4fr 0.5fr 0.5fr 0.5fr;
+    grid-template-columns: 0.4fr .5fr 1.5fr 0.4fr 0.4fr 0.5fr;
 }
 
 .btn{
