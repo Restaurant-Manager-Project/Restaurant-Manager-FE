@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faWrench, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faWrench, faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
 import './PhieuNhap.css';
 
 const PhieuNhap = ({ setShowAddPhieuNhap }) => {
@@ -29,7 +29,19 @@ const PhieuNhap = ({ setShowAddPhieuNhap }) => {
     }, []);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return (
+                <div className="loader">
+                <div id="page">
+                        <div id="container">
+                            <div id="ring"></div>
+                            <div id="ring"></div>
+                            <div id="ring"></div>
+                            <div id="ring"></div>
+                            <div id="h3">loading</div>
+                        </div>
+                </div>
+            </div>
+        )
     }
 
     if (error) {
@@ -45,7 +57,7 @@ const PhieuNhap = ({ setShowAddPhieuNhap }) => {
                         type="text"
                         placeholder="Tìm kiếm phiếu nhập..."
                     />
-                    <button className="btn-timkiem">Tìm kiếm</button>
+                    <FontAwesomeIcon icon={faSearch} className="faSearch"></FontAwesomeIcon>
                 </div>
                 <button className="btn-them" onClick={() => setShowAddPhieuNhap(true)}>
                     <FontAwesomeIcon icon={faPlus} /> Thêm

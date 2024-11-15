@@ -3,6 +3,7 @@ import axios from "axios";
 import "./SanPham.css";
 import {
   faPlus,
+  faSearch,
   faSort,
   faTrash,
   faWrench
@@ -10,20 +11,32 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SanPham = ({ setShowAddSanPham, setShowEditSanPham }) => {
-  const [products, setProducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
+const [products, setProducts] = useState([]);
+const [searchTerm, setSearchTerm] = useState("");
+const [filteredProducts, setFilteredProducts] = useState([]);
+const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState(null);
 
-  useEffect(() => {
-    axios.get("https://restaurant-manager-be-f47n.onrender.com/api/products")
-      .then(response => {
+
+useEffect(() => {
+    const fetchProducts = async () => {
+    try {
+        const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/products');
         if (response.data.success) {
-          setProducts(response.data.result);
-          setFilteredProducts(response.data.result);
+        setProducts(response.data.result);
+        setFilteredProducts(response.data.result);
+        } else {
+        setError(response.data.message);
         }
-      })
-      .catch(error => console.error("Error fetching products:", error));
-  }, []);
+    } catch (error) {
+        setError('Error fetching Products');
+    } finally {
+        setIsLoading(false);
+    }
+    };
+
+    fetchProducts();
+}, []);
 
   useEffect(() => {
     setFilteredProducts(
@@ -31,7 +44,27 @@ const SanPham = ({ setShowAddSanPham, setShowEditSanPham }) => {
         product.name.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
-  }, [searchTerm, products]);
+}, [searchTerm, products]);
+if (isLoading) {
+    return (
+            <div className="loader">
+            <div id="page">
+                    <div id="container">
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="h3">loading</div>
+                    </div>
+            </div>
+        </div>
+    )
+}
+
+if (error) {
+    return <div>{error}</div>;
+}
+
 
   return (
     <div className="container">
@@ -44,7 +77,7 @@ const SanPham = ({ setShowAddSanPham, setShowEditSanPham }) => {
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
-          <button className="btn-timkiem">Tìm kiếm</button>
+          <FontAwesomeIcon icon={faSearch} className="faSearch"></FontAwesomeIcon>
         </div>
         <button className="btn-them" onClick={() => setShowAddSanPham(true)}>
           <FontAwesomeIcon icon={faPlus} /> Thêm
@@ -97,6 +130,9 @@ const SanPham = ({ setShowAddSanPham, setShowEditSanPham }) => {
             </p>
           </div>
         ))}
+        {filteredProducts.length === 0 && searchTerm !== "" && (
+          <div className="thongbao">Không tìm thấy &quot;{searchTerm}&quot;</div>
+        )}
       </div>
     </div>
   );
