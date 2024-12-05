@@ -41,7 +41,7 @@ useEffect(() => {
   useEffect(() => {
     setFilteredProducts(
       products.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        product.name?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
 }, [searchTerm, products]);
@@ -54,7 +54,7 @@ if (isLoading) {
                         <div id="ring"></div>
                         <div id="ring"></div>
                         <div id="ring"></div>
-                        <div id="h3">loading</div>
+                        <div id="h3"></div>
                     </div>
             </div>
         </div>
@@ -106,8 +106,8 @@ if (error) {
             <p>{index + 1}</p>
             <img src={product.img} alt={product.name} />
             <p>{product.name}</p>
-            <p>{product.price.toLocaleString()}đ</p>
-            <p>1</p>
+            <p>{product.price ? product.price.toLocaleString() : 'N/A'}đ</p>
+            <p>{product.quantity}</p>
             <p className="btn">
               <div className="btn-container">
                 <button

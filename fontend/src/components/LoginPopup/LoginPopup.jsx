@@ -109,8 +109,11 @@ const LoginPopup = () => {
           const response = await axios.get(API_URLS.GET_CLIENT_BY_PHONE(phone));
     
           if (response.status === 200) {
-            const data = response.data;
+            const data = response.data.result;
             setClientInfo(data);
+            localStorage.setItem('rank_id', data.rank_id);
+            localStorage.setItem('client_id', data.id);
+            console.log('Client info:', data);
             setSuccessMessage2('Đăng nhập thành công');
             setPhoneError('');
           } else {

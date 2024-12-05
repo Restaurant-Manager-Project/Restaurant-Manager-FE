@@ -8,6 +8,7 @@ const ChiTietDonHang = ({ setShowChiTietDonHang, orderId }) => {
     const [orderDetails, setOrderDetails] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [newProcessId, setNewProcessId] = useState('');
 
     useEffect(() => {
         const fetchOrderDetails = async () => {
@@ -15,6 +16,7 @@ const ChiTietDonHang = ({ setShowChiTietDonHang, orderId }) => {
                 const response = await axios.get(`https://restaurant-manager-be-f47n.onrender.com/api/orders/${orderId}`);
                 if (response.data.success) {
                     setOrderDetails(response.data.result);
+                    setNewProcessId(response.data.result.processId);
                 } else {
                     setError(response.data.message);
                 }
@@ -28,40 +30,59 @@ const ChiTietDonHang = ({ setShowChiTietDonHang, orderId }) => {
         fetchOrderDetails();
     }, [orderId]);
 
-    const handleProcessChange = async (event) => {
-        const newProcessId = event.target.value;
+    const handleProcessChange = (event) => {
+        setNewProcessId(event.target.value);
+    };
+    
+    const handleConfirmChange = async () => {
+        const token = localStorage.getItem('token'); 
+    
+        if (!token) {
+            setError('Token không tồn tại. Vui lòng đăng nhập lại.');
+            return;
+        }
+    
         try {
             const response = await axios.put(`https://restaurant-manager-be-f47n.onrender.com/api/orders/${orderId}`, {
                 processId: newProcessId
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             });
+    
             if (response.data.success) {
                 setOrderDetails(prevDetails => ({
                     ...prevDetails,
-                    processId: newProcessId,
-                    processName: response.data.result.processName
+                    processId: newProcessId
                 }));
+                alert('Trạng thái đơn hàng đã được cập nhật thành công!');
             } else {
                 setError(response.data.message);
             }
         } catch (error) {
-            setError('Error updating order status');
+            if (error.response && error.response.status === 403) {
+                setError('Bạn không có quyền thực hiện hành động này.');
+            } else {
+                setError('Đã xảy ra lỗi khi cập nhật trạng thái đơn hàng.');
+            }
         }
     };
 
     if (isLoading) {
         return (
-                <div className="loader">
+            <div className="loader">
                 <div id="page">
-                        <div id="container">
-                            <div id="ring"></div>
-                            <div id="ring"></div>
-                            <div id="ring"></div>
-                            <div id="ring"></div>
-                            <div id="h3">loading</div>
-                        </div>
+                    <div id="container">
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="ring"></div>
+                        <div id="h3"></div>
+                    </div>
                 </div>
             </div>
-        )
+        );
     }
 
     if (error) {
@@ -70,7 +91,7 @@ const ChiTietDonHang = ({ setShowChiTietDonHang, orderId }) => {
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
-        return date.toLocaleString();
+        return date.toISOString().split('T').join(' ').split('.')[0];
     };
 
     return (
@@ -89,15 +110,15 @@ const ChiTietDonHang = ({ setShowChiTietDonHang, orderId }) => {
                     <div className="popup-inputs">
                         <div className="popup-input">
                             <label htmlFor="popup-idDon">ID Đơn:</label>
-                            <input type="text" id="popup-idDon" value={orderDetails.orderId} disabled />
+                            <input type="text" id="popup-idDon" value={orderDetails?.orderId || ''} disabled />
                         </div>
                         <div className="popup-input">
                             <label htmlFor="popup-nameTable">Bàn:</label>
-                            <input type="text" id="popup-nameTable" value={orderDetails.nameTable} disabled />
+                            <input type="text" id="popup-nameTable" value={orderDetails?.nameTable || ''} disabled />
                         </div>
                         <div className="popup-input">
                             <label htmlFor="popup-total">Tổng tiền:</label>
-                            <input type="text" id="popup-total" value={orderDetails.total.toLocaleString()} disabled />
+                            <input type="text" id="popup-total" value={orderDetails?.total?.toLocaleString() || ''} disabled />
                         </div>
                         <div className="popup-input">
                             <label htmlFor="popup-dateCreate">Ngày giờ đặt:</label>
@@ -105,7 +126,7 @@ const ChiTietDonHang = ({ setShowChiTietDonHang, orderId }) => {
                         </div>
                         <div className="popup-input">
                             <label htmlFor="popup-processName">Trạng thái:</label>
-                            <select id="popup-processName" value={orderDetails.processId} onChange={handleProcessChange}>
+                            <select id="popup-processName" value={newProcessId} onChange={handleProcessChange}>
                                 <option value="1">Đã tiếp nhận</option>
                                 <option value="2">Đã chế biến</option>
                                 <option value="3">Đã phục vụ</option>
@@ -115,12 +136,17 @@ const ChiTietDonHang = ({ setShowChiTietDonHang, orderId }) => {
                     <div className="popup-inputs">
                         <h3>Chi tiết món ăn</h3>
                         <ul id="popup-dsMonAn">
-                            {orderDetails.detailList.map(detail => (
+                            {orderDetails?.detailList?.map(detail => (
                                 <li key={detail.id}>
                                     {detail.productName} - Số lượng: {detail.quantity}
                                 </li>
                             ))}
                         </ul>
+                    </div>
+                    <div className="btn-group">
+                        <button type="button" onClick={handleConfirmChange}>
+                            Xác nhận
+                        </button>
                     </div>
                 </div>
             </form>

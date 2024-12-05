@@ -55,7 +55,7 @@ const [isLoading, setIsLoading] = useState(true);
                         <div id="ring"></div>
                         <div id="ring"></div>
                         <div id="ring"></div>
-                        <div id="h3">loading</div>
+                        <div id="h3"></div>
                     </div>
             </div>
         </div>

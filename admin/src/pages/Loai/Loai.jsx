@@ -19,8 +19,8 @@ const Loai = ({ setShowAddLoai, setShowEditLoai }) => {
       try {
           const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/categories');
           if (response.data.success) {
-          setCategories(response.data.result);
-          setFilteredCategories(response.data.result);
+          setCategories(response.data.result.content);
+          setFilteredCategories(response.data.result.content);
           } else {
           setError(response.data.message);
           }
@@ -50,7 +50,7 @@ const Loai = ({ setShowAddLoai, setShowEditLoai }) => {
                           <div id="ring"></div>
                           <div id="ring"></div>
                           <div id="ring"></div>
-                          <div id="h3">loading</div>
+                          <div id="h3"></div>
                       </div>
               </div>
           </div>

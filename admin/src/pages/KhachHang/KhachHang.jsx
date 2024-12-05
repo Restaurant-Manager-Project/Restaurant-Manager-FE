@@ -51,7 +51,7 @@ const KhachHang = ({ setShowAddKhachHang, setShowEditKhachHang }) => {
                         <div id="ring"></div>
                         <div id="ring"></div>
                         <div id="ring"></div>
-                        <div id="h3">loading</div>
+                        <div id="h3"></div>
                     </div>
             </div>
         </div>
@@ -83,7 +83,7 @@ const KhachHang = ({ setShowAddKhachHang, setShowEditKhachHang }) => {
         <p>STT</p>
         <p>Tên khách hàng</p>
         <p>Số điện thoại</p>
-        <p>Số lần mua hàng</p>
+        <p>Điểm tích lũy</p>
         <p>Hành động</p>
       </div>
 
@@ -93,7 +93,7 @@ const KhachHang = ({ setShowAddKhachHang, setShowEditKhachHang }) => {
             <p>{index + 1}</p>
             <p>{client.firstName} {client.lastName}</p>
             <p>{client.phone}</p>
-            <p>{client.purchase_count}</p>
+            <p>{client.paid}</p>
             <p className="btn">
               <div className="btn-container">
                 <button

@@ -12,13 +12,15 @@ import mi from './Mi.jpg';
 import all from './All.jpg';
 import dauhu from './DauHu.jpg';
 import hacao from './HaCao.jpg';
+import loginlogo from './logologin.png';
 
 
 export const assets = {
     proportion1,
     proportion2,
     proportion3,
-    logo
+    logo,
+    loginlogo
 }
 
 export const menu_list = [

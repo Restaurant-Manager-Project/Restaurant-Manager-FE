@@ -15,8 +15,15 @@ const PlaceOrder = () => {
   const [orderDetails, setOrderDetails] = useState([]); // State to hold order details
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [animationData, setAnimationData] = useState(null);
+  const [rankId, setRankId] = useState(null); // State to hold rank_id
+  const [isCashPaymentPopupOpen, setIsCashPaymentPopupOpen] = useState(false);
+  const [confirmationCode, setConfirmationCode] = useState('');
 
   useEffect(() => {
+    // Lấy rank_id từ localStorage hoặc context
+    const rankIdFromStorage = localStorage.getItem('rank_id');
+    setRankId(rankIdFromStorage);
+
     // Fetch order details based on directionTable
     const fetchOrderDetails = async () => {
       try {
@@ -58,7 +65,7 @@ const PlaceOrder = () => {
   };
 
   const handlePayment = async () => {
-    const totalAmount = calculateTotalAmount();
+    const totalAmount = calculateDiscountedAmount();
     const paymentData = {
       directionTable: qr_code,
       amount: totalAmount
@@ -82,7 +89,76 @@ const PlaceOrder = () => {
   };
 
   const calculateTotalAmount = () => {
-    return orderDetails.reduce((total, order) => total + order.total, 0);
+    const total = orderDetails.reduce((total, order) => total + order.total, 0);
+    return total;
+  };
+
+  const calculateDiscountedAmount = () => {
+    const total = orderDetails.reduce((total, order) => total + order.total, 0);
+    let discount = 0;
+
+    if (rankId === '1') {
+      discount = total * 0.05; // Giảm 5% cho rank_id = 1
+    } else if (rankId === '2') {
+      discount = total * 0.08; // Giảm 8% cho rank_id = 2
+    } else if (rankId === '3') {
+      discount = total * 0.1; // Giảm 10% cho rank_id = 3
+    } else if (rankId === '4') {
+      discount = total * 0.15; // Giảm 15% cho rank_id = 4
+    }
+    return total - discount;
+  };
+
+  const getDiscountText = () => {
+    if (rankId === '1') {
+      return 'Bạn được giảm 5% với Hạng đồng';
+    } else if (rankId === '2') {
+      return 'Bạn được giảm 8% với Hạng bạc';
+    } else if (rankId === '3') {
+      return 'Bạn được giảm 10% với Hạng vàng';
+    } else if (rankId === '4') {
+      return 'Bạn được giảm 15% với Hạng kim cương';
+    }
+    else {
+      return 'Không có mã giảm giá';
+    }
+  };
+
+  const handleCashPayment = () => {
+    setIsCashPaymentPopupOpen(true);
+  }
+
+  const handleConfirmCashPayment = async () => {
+    if (confirmationCode === "XACNHAN123") {
+      const clientId = localStorage.getItem('client_id');
+      const timeCreate = new Date().toISOString();
+      const total = calculateDiscountedAmount();
+      const invoiceData = clientId ? { // Use a ternary operator for cleaner conditional logic
+        clientId,
+        timeCreate,
+        total,
+      } : {
+        timeCreate,
+        total,
+      };
+
+      try {
+        const response = await axios.post("https://restaurant-manager-be-f47n.onrender.com/api/invoices", invoiceData);
+        if (response.data.success) {
+          console.log('Invoice created successfully:', response.data);
+          setIsCashPaymentPopupOpen(false);
+          // Clear cart and navigate to success page or show success message
+          clearCart();
+          navigate('/');
+        } else {
+          console.error('Error creating invoice:', response.data.message);
+        }
+      } catch (error) {
+        console.error('Error creating invoice:', error);
+      }
+    } else {
+      alert('Mã xác nhận không hợp lệ');
+    }
   };
 
   if (!orderDetails.length) {
@@ -135,11 +211,10 @@ const PlaceOrder = () => {
         <h3 className='totalPrice'>Tổng tiền: {calculateTotalAmount().toLocaleString()} VND</h3>
         <div className="cart-promo">
           <h3>Áp mã khuyến mãi</h3>
-          <input type="text" placeholder="Nhập mã khuyến mãi" />
-          <button>Áp dụng</button>
+          <input type="text" placeholder={getDiscountText()} />
         </div>
         <hr />
-        <h3 id='total2'>Thành tiền: </h3>
+        <h3 id='total2'>Thành tiền: {calculateDiscountedAmount().toLocaleString()}</h3>
         <div className="methodContainer">
           <h3 id='paymentMethod'>Chọn phương thức thanh toán: </h3>
           <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
@@ -149,9 +224,30 @@ const PlaceOrder = () => {
         </div>
         <div className="order-actions">
           <button onClick={handleOrderMore}>Đặt thêm món</button>
-          <button onClick={handlePayment}>Thanh toán</button>
+          {paymentMethod === 'card' ? (
+            <button onClick={handlePayment}>Thanh toán</button>
+          ) : (
+            <button onClick={handleCashPayment}>Thanh toán</button>
+          )}
         </div>
       </div>
+      {isCashPaymentPopupOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={() => setIsCashPaymentPopupOpen(false)}>&times;</span>
+            <h2>Chờ nhân viên đến xác nhận</h2>
+            <p>Tổng tiền: {calculateDiscountedAmount().toLocaleString()}</p>
+            <p>Nhân viên vui lòng nhập mã xác nhận:</p>
+            <input
+              type="text"
+              value={confirmationCode}
+              onChange={(e) => setConfirmationCode(e.target.value)}
+              placeholder="Nhập mã xác nhận"
+            />
+            <button onClick={handleConfirmCashPayment}>Xác nhận</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
