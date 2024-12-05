@@ -1,20 +1,36 @@
-import React from 'react'
-import "./Navbar.css"
-import "../../assets/assets"
-import { assets } from '../../assets/assets'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
+import React, { useState } from 'react';
+import "./Navbar.css";
+import { assets } from '../../assets/assets';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+    setShowDropdown(false);
+  };
+
   return (
     <div className='navbar'>
       <img className='logo' src={assets.logo} alt="" />
       <div className="admin-info">
         <span className="admin-name">Admin</span>
-        <span><FontAwesomeIcon icon={faCircleUser} /></span>
+        <span onClick={() => setShowDropdown(!showDropdown)}>
+          <FontAwesomeIcon icon={faCircleUser} />
+        </span>
+        {showDropdown && (
+          <div className="dropdown-menu">
+            <button onClick={handleLogout}>Đăng xuất</button>
+          </div>
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

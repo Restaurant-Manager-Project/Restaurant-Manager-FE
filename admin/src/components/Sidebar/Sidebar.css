@@ -1,5 +1,5 @@
 .sidebar{
-    width: 15em;
+    width: 16%;
     min-height: 89vh;
     border-right: 1.5px solid #a9a9a9;
     color: #464646;
@@ -24,9 +24,8 @@
     background-color: rgb(255, 255, 255);
     padding: 10px 27px;
     cursor: pointer;
-    border-radius: 20px;
+    border-radius: 10px;
     transition: background-color 0.3s;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     border: 3px solid white;
     font-size: small;
     position: relative;

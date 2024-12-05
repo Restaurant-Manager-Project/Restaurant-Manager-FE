@@ -58,32 +58,36 @@
     margin-bottom: 20px;
 }
 
-.dashboard-feedback h3 {
-    margin-bottom: 20px;
-}
-
-.dashboard-feedback table {
+.top-products-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 40px;
-}
-
-.dashboard-feedback th,
-.dashboard-feedback td {
-    border: 1px solid #ddd;
+  }
+  
+  .top-products-table th,
+  .top-products-table td {
     padding: 8px;
-}
-
-.dashboard-feedback th {
-    background-color: rgb(195, 0, 0);
-    color: white;
     text-align: left;
-}
+    border: 1px solid #ddd;
+  }
+  
+  .top-products-table th {
+    background-color: #f4f4f4;
+  }  
 
-.dashboard-feedback td {
-    background-color: #f9f9f9;
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
 }
-
-.dashboard-feedback tr:nth-child(even) td {
-    background-color: #f1f1f1;
+input[type=text], input[type=password], input[type=email], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }

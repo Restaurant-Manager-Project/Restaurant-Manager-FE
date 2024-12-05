@@ -27,6 +27,7 @@ button {
         color: rgb(195, 0, 0);
         box-shadow: 5px 5px 5px rgb(195, 0, 0);
         transition: all 0.1s linear;
+        width: fit-content;
 
         &:hover {
             transform: translate(3px, 3px);
@@ -379,7 +380,7 @@ input[type=number]::-webkit-outer-spin-button {
   }
   
   #ring:nth-child(1) {
-    border-bottom: 8px solid rgb(255, 141, 249);
+    border-bottom: 8px solid #ff4747;
     animation: rotate1 2s linear infinite;
   }
   
@@ -394,7 +395,7 @@ input[type=number]::-webkit-outer-spin-button {
   }
   
   #ring:nth-child(2) {
-    border-bottom: 8px solid rgb(255,65,106);
+    border-bottom: 8px solid rgb(241, 48, 48);
     animation: rotate2 2s linear infinite;
   }
   
@@ -409,7 +410,7 @@ input[type=number]::-webkit-outer-spin-button {
   }
   
   #ring:nth-child(3) {
-    border-bottom: 8px solid rgb(0,255,255);
+    border-bottom: 8px solid rgb(255, 0, 0);
     animation: rotate3 2s linear infinite;
   }
   
@@ -424,7 +425,7 @@ input[type=number]::-webkit-outer-spin-button {
   }
   
   #ring:nth-child(4) {
-    border-bottom: 8px solid rgb(252, 183, 55);
+    border-bottom: 8px solid rgb(252, 55, 55);
     animation: rotate4 2s linear infinite;
   }
   

@@ -14,10 +14,10 @@ const AddSanPham = ({ setShowAddSanPham }) => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        axios.get("https://restaurant-manager-be-1.onrender.com/api/categories")
+        axios.get("https://restaurant-manager-be-f47n.onrender.com/api/categories")
             .then(response => {
                 if (response.data.success) {
-                    setCategories(response.data.result);
+                    setCategories(response.data.result.content);
                 }
             })
             .catch(error => console.error("Error fetching categories:", error));
@@ -51,47 +51,32 @@ const AddSanPham = ({ setShowAddSanPham }) => {
         return Object.keys(validationErrors).length === 0;
     };
 
-    const uploadImageToCloudinary = async (image) => {
-        const formData = new FormData();
-        formData.append("file", image);
-        formData.append("upload_preset", "Demo-upload");
-        formData.append("cloud_name", "dwjm7jkno");
-
-        try {
-            const response = await axios.post("https://api.cloudinary.com/v1_1/dwjm7jkno/image/upload", formData);
-            return response.data.url;
-        } catch (error) {
-            console.error("Error uploading image to Cloudinary:", error);
-            return null;
-        }
-    };
-
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (validateAddFormData()) {
             setIsLoading(true);
-            const imageUrl = await uploadImageToCloudinary(hinhAnh);
 
-            if (imageUrl) {
-                const newProduct = {
-                    name: tenMonAn,
-                    categoryName: loaiMonAn,
-                    img: imageUrl,
-                    description: moTa,
-                };
+            const formData = new FormData();
+            formData.append("name", tenMonAn);
+            formData.append("categoryId", loaiMonAn);
+            formData.append("description", moTa);
+            formData.append("img", hinhAnh);
 
-                try {
-                    const response = await axios.post("https://restaurant-manager-be-f47n.onrender.com/api/products", newProduct);
-                    if (response.data.success) {
-                        console.log("Thêm món ăn thành công:", response.data);
-                        setShowAddSanPham(false);
-                    } else {
-                        console.error("Error adding product:", response.data.message);
-                    }
-                } catch (error) {
-                    console.error("Error adding product:", error);
+            try {
+                const response = await axios.post("https://restaurant-manager-be-f47n.onrender.com/api/products", formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                if (response.data.success) {
+                    console.log("Thêm món ăn thành công:", response.data);
+                    setShowAddSanPham(false);
+                } else {
+                    console.error("Error adding product:", response.data.message);
                 }
+            } catch (error) {
+                console.error("Error adding product:", error);
             }
 
             setIsLoading(false);
@@ -134,7 +119,7 @@ const AddSanPham = ({ setShowAddSanPham }) => {
                                 >
                                     <option value="">Chọn loại món ăn</option>
                                     {categories.map(category => (
-                                        <option key={category.id} value={category.name}>{category.name}</option>
+                                        <option key={category.id} value={category.id}>{category.name}</option>
                                     ))}
                                 </select>
                                 <div className="errorText">{errors.loaiMonAn}</div>

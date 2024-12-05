@@ -19,6 +19,7 @@ const Sidebar = () => {
                 const text = option.querySelector('span')
                 option.style.padding = '10px'
                 option.style.justifyContent = 'center'
+                option.style.borderRadius = '50%'
                 text.style.opacity = '0'
                 
             })
@@ -27,12 +28,12 @@ const Sidebar = () => {
         })
 
         open.addEventListener('click', () => {
-            sidebar.style.width = '14%'
+            sidebar.style.width = '16%'
             options.forEach(option => {
                 const text = option.querySelector('span')
                 option.style.padding = '10px 27px'
                 option.style.justifyContent = 'start'
-
+                option.style.borderRadius = '10px'
                 text.style.opacity = '1'
             })
             open.style.display = 'none'
@@ -76,7 +77,7 @@ const Sidebar = () => {
                     <p><FontAwesomeIcon icon={faBriefcase} /></p><span>Phân quyền</span>
                 </NavLink>
                 <NavLink to='/TaiKhoan' className="sidebar-option">
-                    <p><FontAwesomeIcon icon={faUser} /></p><span>Tài khoản</span>
+                    <p><FontAwesomeIcon icon={faUser} /></p><span>Nhân viên</span>
                 </NavLink>
             </div>
         </div>

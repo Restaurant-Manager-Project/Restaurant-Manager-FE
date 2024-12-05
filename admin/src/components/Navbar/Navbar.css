@@ -22,8 +22,35 @@ svg.svg-inline--fa.fa-circle-user {
     display: flex;
     align-items: center;
     gap: 10px;
+    position: relative;
+    cursor: pointer;
 }
 .admin-name{
     font-size: 1.2em;
     font-weight: 600;
+}
+.dropdown-menu {
+    position: absolute;
+    width: 100px;
+    top: 125%;
+    right: 0;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dropdown-menu button {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+}
+
+.dropdown-menu button:hover {
+    background-color: #f0f0f0;
 }

@@ -5,7 +5,8 @@ import {
   faXmark
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./AddPhieuNhap.css";
 
 const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
@@ -16,6 +17,39 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
   const [giaBan, setGiaBan] = useState("");
   const [content, setContent] = useState([]);
   const [errors, setErrors] = useState({});
+  const [suppliers, setSuppliers] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchSuppliers = async () => {
+      try {
+        const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/suppliers');
+        if (response.data.success) {
+          setSuppliers(response.data.result);
+        } else {
+          console.error(response.data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching suppliers:', error);
+      }
+    };
+
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/products');
+        if (response.data.success) {
+          setProducts(response.data.result);
+        } else {
+          console.error(response.data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchSuppliers();
+    fetchProducts();
+  }, []);
 
   // Hàm kiểm tra dữ liệu đầu vào
   const validateFormData = () => {
@@ -51,14 +85,50 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
   };
 
   // Hàm xử lý gửi dữ liệu lên API
-  const handleSubmitToAPI = () => {
+  const handleSubmitToAPI = async () => {
     if (content.length === 0) {
       alert("Vui lòng thêm ít nhất một phiếu nhập trước khi gửi!");
       return;
     }
-    console.log("Dữ liệu đã gửi lên API:", content);
-    alert("Dữ liệu đã gửi lên API thành công!");
-    setContent([]);
+
+    const employeeId = 3; 
+    const dateCreate = new Date().toISOString(); // Ngày tạo hiện tại
+    const total = content.reduce((sum, item) => sum + item.soLuong * item.giaNhap, 0); // Tính tổng tiền
+
+    const detailsProductList = content.map((item, index) => {
+      const product = products.find(p => p.name === item.tenMon);
+      return {
+        productId: product.id,
+        quantity: parseInt(item.soLuong, 10),
+        importPrice: parseInt(item.giaNhap, 10),
+        sellPrice: parseInt(item.giaBan, 10),
+      };
+    });
+
+    const supplier = suppliers.find(s => s.name === content[0].tenNhaCungCap);
+
+    const data = {
+      employeeId,
+      supplierId: supplier.id,
+      dateCreate,
+      total,
+      detailsProductList
+    };
+
+    try {
+      const response = await axios.post('https://restaurant-manager-be-f47n.onrender.com/api/imports', data);
+      if (response.data.success) {
+        console.log("Dữ liệu đã gửi lên API:", data);
+        alert("Dữ liệu đã gửi lên API thành công!");
+        setContent([]);
+      } else {
+        console.error(response.data.message);
+        alert("Đã xảy ra lỗi khi gửi dữ liệu lên API.");
+      }
+    } catch (error) {
+      console.error('Error submitting data to API:', error);
+      alert("Đã xảy ra lỗi khi gửi dữ liệu lên API.");
+    }
   };
 
   // Hàm xử lý xóa một dòng trong bảng
@@ -92,8 +162,9 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                   onChange={(e) => setTenNhaCungCap(e.target.value)}
                 >
                   <option value="">Chọn nhà cung cấp</option>
-                  <option value="Nhà cung cấp A">Nhà cung cấp A</option>
-                  <option value="Nhà cung cấp B">Nhà cung cấp B</option>
+                  {suppliers.map(supplier => (
+                    <option key={supplier.id} value={supplier.name}>{supplier.name}</option>
+                  ))}
                 </select>
                 <div className="errorText">{errors.tenNhaCungCap}</div>
               </div>
@@ -108,8 +179,9 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                   onChange={(e) => setTenMon(e.target.value)}
                 >
                   <option value="">Chọn món ăn</option>
-                  <option value="Món 1">Món 1</option>
-                  <option value="Món 2">Món 2</option>
+                  {products.map(product => (
+                    <option key={product.id} value={product.name}>{product.name}</option>
+                  ))}
                 </select>
                 <div className="errorText">{errors.tenMon}</div>
               </div>
