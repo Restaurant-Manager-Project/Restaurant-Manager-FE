@@ -24,13 +24,18 @@
     position: relative;
     max-height: 90vh;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
+.modal-content h2{
+    text-align: center;
+}
 .close {
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 24px;
+    font-size: 34px;
     cursor: pointer;
 }
 
@@ -52,6 +57,7 @@
 
 .form-check {
     margin-bottom: 10px;
+    display: flex;
 }
 
 .form-check input[type="checkbox"] {
@@ -60,19 +66,22 @@
 
 .form-checks {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
     gap: 10px;
 }
 
 .btn-submit {
     padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
+    border: 2px solid #ff6464;
+    border-radius: 4px;
+    background-color: #ff6464;
+    color: white;
     cursor: pointer;
-}
+    transition: .2s ease-in-out;
 
-.btn-submit:hover {
-    background-color: #0056b3;
+    &:hover {
+        border: 2px solid #ff6464;
+        background-color: white;
+        color: #ff6464;
+    }
 }

@@ -5,8 +5,8 @@ import {
   faXmark
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import "./AddPhieuNhap.css";
 
 const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
@@ -23,27 +23,31 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
   useEffect(() => {
     const fetchSuppliers = async () => {
       try {
-        const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/suppliers');
+        const response = await axios.get(
+          "https://restaurant-manager-be-f47n.onrender.com/api/suppliers"
+        );
         if (response.data.success) {
           setSuppliers(response.data.result);
         } else {
           console.error(response.data.message);
         }
       } catch (error) {
-        console.error('Error fetching suppliers:', error);
+        console.error("Error fetching suppliers:", error);
       }
     };
 
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/products');
+        const response = await axios.get(
+          "https://restaurant-manager-be-f47n.onrender.com/api/products"
+        );
         if (response.data.success) {
           setProducts(response.data.result);
         } else {
           console.error(response.data.message);
         }
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error("Error fetching products:", error);
       }
     };
 
@@ -91,21 +95,24 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
       return;
     }
 
-    const employeeId = 3; 
+    const employeeId = 3;
     const dateCreate = new Date().toISOString(); // Ngày tạo hiện tại
-    const total = content.reduce((sum, item) => sum + item.soLuong * item.giaNhap, 0); // Tính tổng tiền
+    const total = content.reduce(
+      (sum, item) => sum + item.soLuong * item.giaNhap,
+      0
+    ); // Tính tổng tiền
 
     const detailsProductList = content.map((item, index) => {
-      const product = products.find(p => p.name === item.tenMon);
+      const product = products.find((p) => p.name === item.tenMon);
       return {
         productId: product.id,
         quantity: parseInt(item.soLuong, 10),
         importPrice: parseInt(item.giaNhap, 10),
-        sellPrice: parseInt(item.giaBan, 10),
+        sellPrice: parseInt(item.giaBan, 10)
       };
     });
 
-    const supplier = suppliers.find(s => s.name === content[0].tenNhaCungCap);
+    const supplier = suppliers.find((s) => s.name === content[0].tenNhaCungCap);
 
     const data = {
       employeeId,
@@ -116,7 +123,10 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
     };
 
     try {
-      const response = await axios.post('https://restaurant-manager-be-f47n.onrender.com/api/imports', data);
+      const response = await axios.post(
+        "https://restaurant-manager-be-f47n.onrender.com/api/imports",
+        data
+      );
       if (response.data.success) {
         alert("Thêm phiếu nhập thành công.");
         setContent([]);
@@ -125,7 +135,7 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
         alert("Đã xảy ra lỗi khi gửi dữ liệu lên API.");
       }
     } catch (error) {
-      console.error('Error submitting data to API:', error);
+      console.error("Error submitting data to API:", error);
       alert("Đã xảy ra lỗi khi gửi dữ liệu lên API.");
     }
   };
@@ -161,14 +171,16 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                   onChange={(e) => setTenNhaCungCap(e.target.value)}
                 >
                   <option value="">Chọn nhà cung cấp</option>
-                  {suppliers.map(supplier => (
-                    <option key={supplier.id} value={supplier.name}>{supplier.name}</option>
+                  {suppliers.map((supplier) => (
+                    <option key={supplier.id} value={supplier.name}>
+                      {supplier.name}
+                    </option>
                   ))}
                 </select>
                 <div className="errorText">{errors.tenNhaCungCap}</div>
               </div>
             </div>
-            <div className={`popup-input ${errors.tenMon ? "error" : ""}`}>
+            <div className={`popup-input ${errors.tenMon ? "errorClass" : ""}`}>
               <label htmlFor="popup-tenMon">Món ăn:</label>
               <div>
                 <select
@@ -178,14 +190,18 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                   onChange={(e) => setTenMon(e.target.value)}
                 >
                   <option value="">Chọn món ăn</option>
-                  {products.map(product => (
-                    <option key={product.id} value={product.name}>{product.name}</option>
+                  {products.map((product) => (
+                    <option key={product.id} value={product.name}>
+                      {product.name}
+                    </option>
                   ))}
                 </select>
                 <div className="errorText">{errors.tenMon}</div>
               </div>
             </div>
-            <div className={`popup-input ${errors.soLuong ? "error" : ""}`}>
+            <div
+              className={`popup-input ${errors.soLuong ? "errorClass" : ""}`}
+            >
               <label htmlFor="popup-soLuong">Số lượng:</label>
               <div>
                 <input
@@ -198,7 +214,9 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                 <div className="errorText">{errors.soLuong}</div>
               </div>
             </div>
-            <div className={`popup-input ${errors.giaNhap ? "error" : ""}`}>
+            <div
+              className={`popup-input ${errors.giaNhap ? "errorClass" : ""}`}
+            >
               <label htmlFor="popup-giaNhap">Giá nhập:</label>
               <div>
                 <input
@@ -211,7 +229,7 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                 <div className="errorText">{errors.giaNhap}</div>
               </div>
             </div>
-            <div className={`popup-input ${errors.giaBan ? "error" : ""}`}>
+            <div className={`popup-input ${errors.giaBan ? "errorClass" : ""}`}>
               <label htmlFor="popup-giaBan">Giá bán:</label>
               <div>
                 <input
@@ -223,7 +241,6 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                 />
                 <div className="errorText">{errors.giaBan}</div>
               </div>
-              
             </div>
             <div className="btn-group">
               <button type="button" onClick={handleAddRow}>

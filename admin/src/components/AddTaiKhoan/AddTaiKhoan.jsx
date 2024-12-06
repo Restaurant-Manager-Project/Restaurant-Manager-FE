@@ -110,112 +110,139 @@ const AddTaiKhoan = ({ setShowAddTaiKhoan }) => {
             <FontAwesomeIcon icon={faXmark} />
           </div>
         </div>
-        <div className="popup-inputs">
-          <div className={`popup-input ${errors.firstName ? "error" : ""}`}>
-            <label htmlFor="popup-firstName">Họ:</label>
-            <input
-              type="text"
-              id="popup-firstName"
-              name="firstName"
-              placeholder="Nhập họ..."
-              value={employeeData.firstName}
-              onChange={handleEmployeeDataChange}
-            />
-            <div className="errorText">{errors.firstName}</div>
+        <div className="popup-table popup-table-1">
+          <div className="popup-inputs">
+            <div className={`popup-input ${errors.firstName ? "errorClass" : ""}`}>
+              <label htmlFor="popup-firstName">Họ:</label>
+              <div>
+                <input
+                  type="text"
+                  id="popup-firstName"
+                  name="firstName"
+                  placeholder="Nhập họ..."
+                  value={employeeData.firstName}
+                  onChange={handleEmployeeDataChange}
+                />
+                <div className="errorText">{errors.firstName}</div>
+              </div>
+            </div>
+            <div className={`popup-input ${errors.lastName ? "errorClass" : ""}`}>
+              <label htmlFor="popup-lastName">Tên:</label>
+              <div>
+                <input
+                  type="text"
+                  id="popup-lastName"
+                  name="lastName"
+                  placeholder="Nhập tên..."
+                  value={employeeData.lastName}
+                  onChange={handleEmployeeDataChange}
+                />
+                <div className="errorText">{errors.lastName}</div>
+              </div>
+            </div>
+            <div className={`popup-input ${errors.phone ? "errorClass" : ""}`}>
+              <label htmlFor="popup-phone">Số điện thoại:</label>
+              <div>
+                <input
+                  type="text"
+                  id="popup-phone"
+                  name="phone"
+                  placeholder="Nhập số điện thoại..."
+                  value={employeeData.phone}
+                  onChange={handleEmployeeDataChange}
+                />
+                <div className="errorText">{errors.phone}</div>
+              </div>
+              
+            </div>
+            <div className={`popup-input ${errors.address ? "errorClass" : ""}`}>
+              <label htmlFor="popup-address">Địa chỉ:</label>
+              <div>
+                <input
+                  type="text"
+                  id="popup-address"
+                  name="address"
+                  placeholder="Nhập địa chỉ..."
+                  value={employeeData.address}
+                  onChange={handleEmployeeDataChange}
+                />
+                <div className="errorText">{errors.address}</div>
+              </div>
+              
+            </div>
           </div>
-          <div className={`popup-input ${errors.lastName ? "error" : ""}`}>
-            <label htmlFor="popup-lastName">Tên:</label>
-            <input
-              type="text"
-              id="popup-lastName"
-              name="lastName"
-              placeholder="Nhập tên..."
-              value={employeeData.lastName}
-              onChange={handleEmployeeDataChange}
-            />
-            <div className="errorText">{errors.lastName}</div>
-          </div>
-          <div className={`popup-input ${errors.phone ? "error" : ""}`}>
-            <label htmlFor="popup-phone">Số điện thoại:</label>
-            <input
-              type="text"
-              id="popup-phone"
-              name="phone"
-              placeholder="Nhập số điện thoại..."
-              value={employeeData.phone}
-              onChange={handleEmployeeDataChange}
-            />
-            <div className="errorText">{errors.phone}</div>
-          </div>
-          <div className={`popup-input ${errors.address ? "error" : ""}`}>
-            <label htmlFor="popup-address">Địa chỉ:</label>
-            <input
-              type="text"
-              id="popup-address"
-              name="address"
-              placeholder="Nhập địa chỉ..."
-              value={employeeData.address}
-              onChange={handleEmployeeDataChange}
-            />
-            <div className="errorText">{errors.address}</div>
-          </div>
-          <div className="popup-input">
-            <label htmlFor="popup-gender">Giới tính:</label>
-            <select
-              name="gender"
-              id="popup-gender"
-              value={employeeData.gender}
-              onChange={(e) =>
-                setEmployeeData((prev) => ({
-                  ...prev,
-                  gender: e.target.value === "true",
-                }))
-              }
-            >
-              <option value="true">Nam</option>
-              <option value="false">Nữ</option>
-            </select>
-          </div>
-          <div className={`popup-input ${errors.username ? "error" : ""}`}>
-            <label htmlFor="popup-username">Tên đăng nhập:</label>
-            <input
-              type="text"
-              id="popup-username"
-              placeholder="Nhập tên đăng nhập..."
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <div className="errorText">{errors.username}</div>
-          </div>
-          <div className={`popup-input ${errors.password ? "error" : ""}`}>
-            <label htmlFor="popup-password">Mật khẩu:</label>
-            <input
-              type="password"
-              id="popup-password"
-              placeholder="Nhập mật khẩu..."
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <div className="errorText">{errors.password}</div>
-          </div>
-          <div className={`popup-input ${errors.quyen ? "error" : ""}`}>
-            <label htmlFor="popup-quyen">Quyền:</label>
-            <select
-              name="popup-quyen"
-              id="popup-quyen"
-              value={quyen}
-              onChange={(e) => setQuyen(e.target.value)}
-            >
-              <option value="">Chọn quyền</option>
-              {roles.map((role) => (
-                <option key={role.id} value={role.id}>
-                  {role.name}
-                </option>
-              ))}
-            </select>
-            <div className="errorText">{errors.quyen}</div>
+          <div className="popup-inputs">
+            <div className="popup-input">
+              <label htmlFor="popup-gender">Giới tính:</label>
+              <div>
+                <select
+                  name="gender"
+                  id="popup-gender"
+                  value={employeeData.gender}
+                  onChange={(e) =>
+                    setEmployeeData((prev) => ({
+                      ...prev,
+                      gender: e.target.value === "true"
+                    }))
+                  }
+                >
+                  <option value="true">Nam</option>
+                  <option value="false">Nữ</option>
+                </select>
+              </div>
+              <div className="errorText"></div>
+            </div>
+            <div className={`popup-input ${errors.username ? "errorClass" : ""}`}>
+              <label htmlFor="popup-username">Tên đăng nhập:</label>
+              <div>
+                <input
+                  type="text"
+                  id="popup-username"
+                  placeholder="Nhập tên đăng nhập..."
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+                <div className="errorText">{errors.username}</div>
+              </div>
+              
+            </div>
+            <div className={`popup-input ${errors.password ? "errorClass" : ""}`}>
+              <label htmlFor="popup-password">Mật khẩu:</label>
+              <div>
+                <input
+                  type="password"
+                  id="popup-password"
+                  placeholder="Nhập mật khẩu..."
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <div className="errorText">{errors.password}</div>
+              </div>
+              
+            </div>
+            <div className={`popup-input ${errors.quyen ? "errorClass" : ""}`}>
+              <label htmlFor="popup-quyen">Quyền:</label>
+              <div>
+                <select
+                  name="popup-quyen"
+                  id="popup-quyen"
+                  value={quyen}
+                  onChange={(e) => setQuyen(e.target.value)}
+                >
+                  <option value="">Chọn quyền</option>
+                  {roles.map((role) => (
+                    <option key={role.id} value={role.id}>
+                      {role.name}
+                    </option>
+                  ))}
+                </select>
+                <div className="errorText">{errors.quyen}</div>
+              </div>
+              
+            </div>
           </div>
         </div>
+        
         <button type="submit">Thêm tài khoản</button>
       </form>
     </div>
