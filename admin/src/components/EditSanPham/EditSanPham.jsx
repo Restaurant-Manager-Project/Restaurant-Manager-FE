@@ -103,7 +103,7 @@ const handleSubmit = async (event) => {
         updatedProduct
         );
         if (response.data.success) {
-        console.log("Chỉnh sửa món ăn thành công:", response.data);
+        alert("Chỉnh sửa món ăn thành công");
         setShowEditSanPham(false);
         } else {
         console.error("Error updating product:", response.data.message);

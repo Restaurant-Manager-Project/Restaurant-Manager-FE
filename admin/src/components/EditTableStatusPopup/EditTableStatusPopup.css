@@ -15,7 +15,9 @@
   background: #fff;
   padding: 20px;
   border-radius: 8px;
-  max-width: 90%;
+  max-width: 100%;
+  max-height: 80vh; /* Giới hạn chiều cao của popup */
+  overflow-y: auto; /* Thêm thanh cuộn dọc */
 }
 
 .popup-title {
@@ -66,4 +68,8 @@
 
 .close-btn {
   cursor: pointer;
+}
+
+.order-details th, td{
+  padding: 10px;
 }

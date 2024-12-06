@@ -25,7 +25,7 @@ const Navbar = () => {
         </span>
         {showDropdown && (
           <div className="dropdown-menu">
-            <button onClick={handleLogout}>Đăng xuất</button>
+            <button className="logout" onClick={handleLogout}>Đăng xuất</button>
           </div>
         )}
       </div>

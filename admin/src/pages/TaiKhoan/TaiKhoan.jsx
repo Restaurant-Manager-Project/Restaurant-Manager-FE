@@ -49,6 +49,28 @@ const TaiKhoan = ({ setShowAddTaiKhoan, setShowEditTaiKhoan }) => {
     `${employee.firstName} ${employee.lastName}`.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Hàm chỉnh sửa nhân viên
+  const handleEditEmployee = (id) => {
+    setShowEditTaiKhoan(id); // Gọi setShowEditTaiKhoan để mở form chỉnh sửa
+  };
+
+  // Hàm xóa nhân viên
+  const handleDelete = async (id) => {
+    if (window.confirm("Bạn có chắc muốn xóa tài khoản này?")) {
+      try {
+        const response = await axios.delete(`https://restaurant-manager-be-f47n.onrender.com/api/employees/${id}`);
+        if (response.data.success) {
+          setEmployees(employees.filter(employee => employee.id !== id)); // Cập nhật lại danh sách nhân viên
+          alert("Xóa tài khoản thành công.");
+        } else {
+          console.error('Error deleting employee:', response.data.message);
+        }
+      } catch (error) {
+        console.error('Error deleting employee:', error);
+      }
+    }
+  };
+
   return (
     <div className='container'>
       <div className="header">
@@ -84,7 +106,7 @@ const TaiKhoan = ({ setShowAddTaiKhoan, setShowEditTaiKhoan }) => {
             <p>{getRoleName(employee.accountDTO.role_id)}</p>
             <p className='btn'>
               <div className="btn-container">
-                <button className='btn-edit' onClick={() => setShowEditTaiKhoan(employee)}>
+                <button className='btn-edit' onClick={() => handleEditEmployee(employee.id)}>
                   <FontAwesomeIcon icon={faWrench} />
                 </button>
                 <span className='tooltip'>Chỉnh sửa</span>

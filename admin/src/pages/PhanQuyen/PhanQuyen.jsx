@@ -12,6 +12,7 @@ const PhanQuyen = () => {
   const [newQuyen, setNewQuyen] = useState({ name: '', permissions: [] });
   const [editQuyen, setEditQuyen] = useState({ id: '', name: '', permissions: [] });
   const [searchTerm, setSearchTerm] = useState("");
+  const [refresh, setRefresh] = useState(false); // State to trigger refresh
 
   useEffect(() => {
     const fetchQuyenData = async () => {
@@ -38,21 +39,21 @@ const PhanQuyen = () => {
 
     fetchQuyenData();
     fetchPermissions();
-  }, []);
+  }, [refresh]); // Add refresh as a dependency
 
   const handleAddQuyen = async () => {
     const newQuyenData = {
       name: newQuyen.name,
       permissions: newQuyen.permissions
     };
-    console.log(newQuyenData);
 
     try {
       const response = await axios.post('https://restaurant-manager-be-f47n.onrender.com/api/roles', newQuyenData);
       if (response.data.success) {
-        setQuyenData([...quyenData, response.data.result]);
+        alert('Thêm quyền thành công');
         setShowAddQuyen(false);
         setNewQuyen({ name: '', permissions: [] });
+        setRefresh(prev => !prev); // Trigger refresh
       } else {
         console.error('Error adding quyen:', response.data.message);
       }
@@ -62,12 +63,18 @@ const PhanQuyen = () => {
   };
 
   const handleEditQuyen = async () => {
+    const editQuyenData = {
+      name: editQuyen.name,
+      permissions: editQuyen.permissions
+    };
+
     try {
-      const response = await axios.put(`https://restaurant-manager-be-f47n.onrender.com/api/roles/${editQuyen.id}`, editQuyen);
+      const response = await axios.put(`https://restaurant-manager-be-f47n.onrender.com/api/roles/${editQuyen.id}`, editQuyenData);
       if (response.data.success) {
-        setQuyenData(quyenData.map(quyen => quyen.id === editQuyen.id ? response.data.result : quyen));
+        alert('Chỉnh sửa quyền thành công');
         setShowEditQuyen(false);
         setEditQuyen({ id: '', name: '', permissions: [] });
+        setRefresh(prev => !prev); // Trigger refresh
       } else {
         console.error('Error editing quyen:', response.data.message);
       }
@@ -98,7 +105,7 @@ const PhanQuyen = () => {
   };
 
   const filteredQuyenData = quyenData.filter(quyen =>
-    quyen.name.toLowerCase().includes(searchTerm.toLowerCase())
+    quyen && quyen.name && quyen.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
