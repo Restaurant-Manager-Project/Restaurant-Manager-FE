@@ -50,7 +50,7 @@ const AddKhachHang = ({ setShowAddKhachHang }) => {
             try {
                 const response = await axios.post("https://restaurant-manager-be-f47n.onrender.com/api/clients", newClient);
                 if (response.data.success) {
-                    console.log("Thêm khách hàng thành công:", response.data);
+                    alert("Thêm khách hàng thành công");
                     setShowAddKhachHang(false);
                 } else {
                     console.error("Error adding client:", response.data.message);

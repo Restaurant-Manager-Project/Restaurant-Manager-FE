@@ -23,6 +23,7 @@ useEffect(() => {
     try {
         const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/products');
         if (response.data.success) {
+          console.log("yeah");
         setProducts(response.data.result);
         setFilteredProducts(response.data.result);
         } else {

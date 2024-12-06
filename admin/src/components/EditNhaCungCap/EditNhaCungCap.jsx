@@ -10,6 +10,7 @@ const [address, setAddress] = useState("");
 const [phone, setPhone] = useState("");
 const [errors, setErrors] = useState({});
 const [isLoading, setIsLoading] = useState(false);
+const [refresh, setRefresh] = useState(false);
 
 useEffect(() => {
     if (supplier) {
@@ -44,6 +45,25 @@ const validateFormData = () => {
     return Object.keys(validationErrors).length === 0;
 };
 
+useEffect(() => {
+    const fetchSuppliers = async () => {
+      try {
+        const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/suppliers');
+        if (response.data.success) {
+          setSuppliers(response.data.result);
+        } else {
+          setErrors('Error fetching suppliers');
+        }
+      } catch (error) {
+        setErrors('Error fetching suppliers');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSuppliers();
+  }, [refresh]);
+
 const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -62,7 +82,8 @@ const handleSubmit = async (event) => {
         updatedSupplier
         );
         if (response.data.success) {
-        console.log("Chỉnh sửa nhà cung cấp thành công:", response.data);
+        alert("Chỉnh sửa nhà cung cấp thành công");
+        setRefresh((prev) => !prev);
         setShowEditNhaCungCap(false);
         } else {
         console.error("Error updating supplier:", response.data.message);

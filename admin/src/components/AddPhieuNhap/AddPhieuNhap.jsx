@@ -118,8 +118,7 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
     try {
       const response = await axios.post('https://restaurant-manager-be-f47n.onrender.com/api/imports', data);
       if (response.data.success) {
-        console.log("Dữ liệu đã gửi lên API:", data);
-        alert("Dữ liệu đã gửi lên API thành công!");
+        alert("Thêm phiếu nhập thành công.");
         setContent([]);
       } else {
         console.error(response.data.message);

@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
     }),
     [token]
   );
-
+  
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );

@@ -70,7 +70,7 @@ const AddSanPham = ({ setShowAddSanPham }) => {
                     },
                 });
                 if (response.data.success) {
-                    console.log("Thêm món ăn thành công:", response.data);
+                    alert("Thêm món ăn thành công");
                     setShowAddSanPham(false);
                 } else {
                     console.error("Error adding product:", response.data.message);

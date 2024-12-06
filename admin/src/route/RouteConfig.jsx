@@ -51,6 +51,7 @@ const RouteConfig = () => {
     const [showAddPhieuNhap, setShowAddPhieuNhap] = useState(false);
     const [showAddTaiKhoan, setShowAddTaiKhoan] = useState(false);
     const [showEditTaiKhoan, setShowEditTaiKhoan] = useState(false);
+    const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
 
     const handleEditSanPham = (product) => {
         setSelectedProduct(product);
@@ -71,6 +72,12 @@ const RouteConfig = () => {
         setSelectedSupplier(supplier);
         setShowEditNhaCungCap(true);
     };
+
+    const handleEditTaiKhoan = (id) => {
+        setSelectedEmployeeId(id);
+        setShowEditTaiKhoan(true);
+      };
+      
 
     return (
         <>
@@ -125,7 +132,7 @@ const RouteConfig = () => {
                         <AddTaiKhoan setShowAddTaiKhoan={setShowAddTaiKhoan} />
                     )}
                     {showEditTaiKhoan && (
-                        <EditTaiKhoan setShowEditTaiKhoan={setShowEditTaiKhoan} />
+                        <EditTaiKhoan setShowEditTaiKhoan={handleEditTaiKhoan} employeeId={selectedEmployeeId}/>
                     )}
                     <Routes>
                         <Route path="/" element={<ProtectedRoute><TrangChu /></ProtectedRoute>} />

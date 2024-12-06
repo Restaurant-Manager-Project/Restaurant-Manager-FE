@@ -21,6 +21,7 @@ const Login = () => {
                 password
             });
             if (response.data.success) {
+                console.log(response.data.result);
                 setToken(response.data.result);
                 localStorage.setItem("token", response.data.result)
                 navigate("/", { replace: true });

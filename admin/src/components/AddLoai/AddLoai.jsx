@@ -47,7 +47,7 @@ const AddLoai = ({ setShowAddLoai }) => {
                     },
                 });
                 if (response.data.success) {
-                    console.log("Thêm loại món ăn thành công:", response.data);
+                    alert("Thêm loại món ăn thành công");
                     setShowAddLoai(false);
                 } else {
                     console.error("Error adding category:", response.data.message);
