@@ -1,5 +1,4 @@
-/* EditTableStatusPopup.css */
-.popup {
+/* .popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -16,8 +15,8 @@
   padding: 20px;
   border-radius: 8px;
   max-width: 100%;
-  max-height: 80vh; /* Giới hạn chiều cao của popup */
-  overflow-y: auto; /* Thêm thanh cuộn dọc */
+  max-height: 80vh; 
+  overflow-y: auto; 
 }
 
 .popup-title {
@@ -72,4 +71,4 @@
 
 .order-details th, td{
   padding: 10px;
-}
+} */

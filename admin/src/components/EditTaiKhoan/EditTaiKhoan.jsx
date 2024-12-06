@@ -1,7 +1,7 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import "./EditTaiKhoan.css";
 
 const EditTaiKhoan = ({ setShowEditTaiKhoan, id }) => {
@@ -20,7 +20,9 @@ const EditTaiKhoan = ({ setShowEditTaiKhoan, id }) => {
     // Lấy danh sách quyền từ API
     const fetchRoles = async () => {
       try {
-        const response = await axios.get("https://restaurant-manager-be-f47n.onrender.com/api/roles");
+        const response = await axios.get(
+          "https://restaurant-manager-be-f47n.onrender.com/api/roles"
+        );
         if (response.data.success) {
           setRoles(response.data.result);
         }
@@ -32,7 +34,9 @@ const EditTaiKhoan = ({ setShowEditTaiKhoan, id }) => {
     // Lấy danh sách nhân viên và tìm nhân viên theo ID
     const fetchEmployeeDetails = async () => {
       try {
-        const response = await axios.get("https://restaurant-manager-be-f47n.onrender.com/api/employees");
+        const response = await axios.get(
+          "https://restaurant-manager-be-f47n.onrender.com/api/employees"
+        );
         if (response.data.success) {
           const employees = response.data.result;
           const employee = employees.find((emp) => emp.id === id);
@@ -57,7 +61,6 @@ const EditTaiKhoan = ({ setShowEditTaiKhoan, id }) => {
     fetchRoles();
     fetchEmployeeDetails();
   }, [id]);
-
 
   // Hàm kiểm tra dữ liệu đầu vào
   const validateFormData = () => {
@@ -86,8 +89,8 @@ const EditTaiKhoan = ({ setShowEditTaiKhoan, id }) => {
           accountDTO: {
             username,
             password,
-            role_id: parseInt(quyen),
-          },
+            role_id: parseInt(quyen)
+          }
         };
 
         const response = await axios.put(
@@ -118,7 +121,7 @@ const EditTaiKhoan = ({ setShowEditTaiKhoan, id }) => {
           </div>
         </div>
         <div className="popup-inputs">
-          <div className={`popup-input ${errors.quyen ? "error" : ""}`}>
+          <div className={`popup-input ${errors.quyen ? "errorClass" : ""}`}>
             <label htmlFor="popup-quyen">Quyền:</label>
             <div>
               <select
