@@ -21,9 +21,10 @@ const Login = () => {
                 password
             });
             if (response.data.success) {
-                console.log(response.data.result);
-                setToken(response.data.result);
-                localStorage.setItem("token", response.data.result)
+                const { accessToken } = response.data.result;
+                console.log(accessToken);
+                setToken(accessToken);
+                localStorage.setItem("token", accessToken);
                 navigate("/", { replace: true });
             } else {
                 setError(response.data.message);

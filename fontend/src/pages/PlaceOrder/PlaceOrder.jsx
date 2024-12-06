@@ -235,16 +235,7 @@ const PlaceOrder = () => {
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={() => setIsCashPaymentPopupOpen(false)}>&times;</span>
-            <h2>Chờ nhân viên đến xác nhận</h2>
-            <p>Tổng tiền: {calculateDiscountedAmount().toLocaleString()}</p>
-            <p>Nhân viên vui lòng nhập mã xác nhận:</p>
-            <input
-              type="text"
-              value={confirmationCode}
-              onChange={(e) => setConfirmationCode(e.target.value)}
-              placeholder="Nhập mã xác nhận"
-            />
-            <button onClick={handleConfirmCashPayment}>Xác nhận</button>
+            <h2>Hãy đến quầy thanh toán</h2>
           </div>
         </div>
       )}
