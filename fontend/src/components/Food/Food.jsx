@@ -60,8 +60,8 @@ const Food = () => {
         axios.get("https://restaurant-manager-be-f47n.onrender.com/api/categories")
             .then(response => {
                 if (isMounted) {
-                    if (response.data && Array.isArray(response.data.result)) {
-                        setCategories([{ id: 0, name: "All", img: menu_list[0].menu_image }, ...response.data.result]);
+                    if (response.data && Array.isArray(response.data.result.content)) {
+                        setCategories([{ id: 0, name: "All", img: menu_list[0].menu_image }, ...response.data.result.content]);
                     } else {
                         console.error('API response does not contain a valid result array:', response.data);
                     }
@@ -87,14 +87,21 @@ const Food = () => {
     const handleQuantityChange = (amount) => {
         setQuantity(prevQuantity => Math.max(1, prevQuantity + amount));
     };
-
+    
     const handleAddToCart = () => {
         if (!qr_code) {
             setOpenDialog(true);
-        } else {
-            addToCart(selectedProduct, quantity);
-            setIsModalOpen(false);
+            return;
         }
+    
+        const product = foodList.find(item => item.id === selectedProduct.id);
+        if (product && quantity > product.quantity) {
+            alert(`Số lượng sản phẩm "${product.name}" chỉ còn "${product.quantity}". Vui lòng điều chỉnh lại số lượng.`);
+            return;
+        }
+    
+        addToCart(selectedProduct, quantity);
+        setIsModalOpen(false);
     };
 
     const handleCloseDialog = () => {

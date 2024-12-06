@@ -1,12 +1,29 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./EditTaiKhoan.css";
 
 const EditTaiKhoan = ({ setShowEditTaiKhoan }) => {
   const [quyen, setQuyen] = useState("");
-  const [trangThai, setTrangThai] = useState("");
+  const [roles, setRoles] = useState([]);
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    // Lấy danh sách quyền từ API
+    const fetchRoles = async () => {
+      try {
+        const response = await axios.get("https://restaurant-manager-be-f47n.onrender.com/api/roles");
+        if (response.data.success) {
+          setRoles(response.data.result);
+        }
+      } catch (error) {
+        console.error("Error fetching roles:", error);
+      }
+    };
+
+    fetchRoles();
+  }, []);
 
   // Hàm kiểm tra dữ liệu đầu vào
   const validateFormData = () => {
@@ -16,21 +33,35 @@ const EditTaiKhoan = ({ setShowEditTaiKhoan }) => {
       validationErrors.quyen = "Vui lòng chọn quyền.";
     }
 
-    if (trangThai === "") {
-      validationErrors.trangThai = "Vui lòng chọn trạng thái.";
-    }
-
     setErrors(validationErrors);
     return Object.keys(validationErrors).length === 0;
   };
 
   // Hàm xử lý submit form
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (validateFormData()) {
-      console.log("Dữ liệu hợp lệ, tiến hành chỉnh sửa tài khoản...");
-      // Thực hiện các hành động khác nếu cần, ví dụ: gọi API để cập nhật tài khoản
+      try {
+        const dataToSubmit = {
+          role_id: parseInt(quyen),
+        };
+
+        const response = await axios.put(
+          "https://restaurant-manager-be-f47n.onrender.com/api/users/role",
+          dataToSubmit
+        );
+
+        if (response.data.success) {
+          alert("Cập nhật quyền thành công!");
+          setShowEditTaiKhoan(false);
+        } else {
+          alert("Đã có lỗi xảy ra khi cập nhật quyền.");
+        }
+      } catch (error) {
+        console.error("Error submitting data:", error);
+        alert("Không thể cập nhật quyền. Vui lòng thử lại sau.");
+      }
     }
   };
 
@@ -38,25 +69,12 @@ const EditTaiKhoan = ({ setShowEditTaiKhoan }) => {
     <div className="popup">
       <form className="popup-container" onSubmit={handleSubmit}>
         <div className="popup-title">
-          <h2>Chỉnh sửa tài khoản</h2>
+          <h2>Chỉnh sửa quyền của nhân viên</h2>
           <div className="close-btn" onClick={() => setShowEditTaiKhoan(false)}>
             <FontAwesomeIcon icon={faXmark} />
           </div>
         </div>
         <div className="popup-inputs">
-          <div className="popup-input">
-            <label htmlFor="popup-ten">ID Nhân viên:</label>
-            <div>
-              <input
-                type="text"
-                id="popup-ten"
-                placeholder="Nhập ID Nhân viên..."
-                disabled
-              />
-              <div className="errorText"></div>
-            </div>
-            
-          </div>
           <div className={`popup-input ${errors.quyen ? "error" : ""}`}>
             <label htmlFor="popup-quyen">Quyền:</label>
             <div>
@@ -67,32 +85,17 @@ const EditTaiKhoan = ({ setShowEditTaiKhoan }) => {
                 onChange={(e) => setQuyen(e.target.value)}
               >
                 <option value="">Chọn quyền</option>
-                <option value="1">Quản lý</option>
-                <option value="2">Nhân viên</option>
+                {roles.map((role) => (
+                  <option key={role.id} value={role.id}>
+                    {role.name}
+                  </option>
+                ))}
               </select>
               <div className="errorText">{errors.quyen}</div>
             </div>
-            
-          </div>
-          <div className={`popup-input ${errors.trangThai ? "error" : ""}`}>
-            <label htmlFor="popup-trangThai">Trạng thái:</label>
-            <div>
-              <select
-                name="popup-trangThai"
-                id="popup-trangThai"
-                value={trangThai}
-                onChange={(e) => setTrangThai(e.target.value)}
-              >
-                <option value="">Chọn trạng thái</option>
-                <option value="1">Hoạt động</option>
-                <option value="2">Bị khóa</option>
-              </select>
-              <div className="errorText">{errors.trangThai}</div>
-            </div>
-            
           </div>
         </div>
-        <button type="submit">Chỉnh sửa tài khoản</button>
+        <button type="submit">Chỉnh sửa</button>
       </form>
     </div>
   );

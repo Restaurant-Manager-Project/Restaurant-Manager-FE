@@ -64,7 +64,7 @@ const Navbar = ({ qr_code, setShowTablePopup }) => {
           <FontAwesomeIcon icon={faCartShopping} onClick={() => handleNavigation('cart', 'cart')} />
           {cartItems.length > 0 && <div className="dot"></div>}
         </div>
-        {!qr_code && <p className='book_table' onClick={() => setShowTablePopup(true)}>Đặt bàn</p>}
+        {!qr_code && <p className='book_table' onClick={() => setShowTablePopup(true)}>Xem sơ đồ bàn</p>}
         {qr_code && (
           <div className='navbar-receipt'>
             <FontAwesomeIcon icon={faReceipt} onClick={() => { handleNavigation('place-order', 'place-order') }} />

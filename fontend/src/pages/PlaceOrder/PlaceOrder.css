@@ -165,7 +165,8 @@ select {
 }
 
 .cart-promo input {
-    width: calc(100% - 100px);
+    width: 250px;
+    height: auto;
     padding: 10px;
     margin-right: 10px;
     border: 1px solid #ccc;
@@ -200,6 +201,7 @@ select {
 #animation {
     margin: 0 auto;
 }
+
 
 @media (max-width: 768px) {
     .place-order {
