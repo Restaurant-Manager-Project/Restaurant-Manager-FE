@@ -12,7 +12,9 @@ const TablePopup = () => {
       try {
         const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/tables');
         if (response.data.success) {
-          setTables(response.data.result);
+          // Sắp xếp bàn theo id tăng dần
+          const sortedTables = response.data.result.sort((a, b) => a.id - b.id);
+          setTables(sortedTables);
         } else {
           console.error(response.data.message);
         }
@@ -46,6 +48,7 @@ const TablePopup = () => {
           <div key={table.id} className={`table ${getStatusClass(table.statusId)}`}>
             <FontAwesomeIcon icon={faTablet} />
             <p>{table.name}</p>
+            <p>{table.statusName}</p>
           </div>
         ))}
       </div>

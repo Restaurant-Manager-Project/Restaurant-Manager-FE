@@ -29,7 +29,7 @@
 
 .table-layout {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 2fr);
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
@@ -42,8 +42,8 @@
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   justify-content: center;
 }
 

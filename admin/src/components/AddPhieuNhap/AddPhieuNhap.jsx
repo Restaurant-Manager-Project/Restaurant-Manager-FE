@@ -91,7 +91,7 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
       return;
     }
 
-    const employeeId = 3; 
+    const employeeId = localStorage.getItem("employeeId"); // Lấy id nhân viên từ localStorage
     const dateCreate = new Date().toISOString(); // Ngày tạo hiện tại
     const total = content.reduce((sum, item) => sum + item.soLuong * item.giaNhap, 0); // Tính tổng tiền
 

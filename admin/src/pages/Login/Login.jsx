@@ -13,27 +13,28 @@ const Login = () => {
     const navigate = useNavigate();
     const { setToken } = useAuth();
 
-    const handleLogin = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await axios.post('https://restaurant-manager-be-f47n.onrender.com/login', {
-                username,
-                password
-            });
-            if (response.data.success) {
-                const { accessToken } = response.data.result;
-                console.log(accessToken);
-                setToken(accessToken);
-                localStorage.setItem("token", accessToken);
-                navigate("/", { replace: true });
-            } else {
-                setError(response.data.message);
-            }
-        } catch (error) {
-            setError('Error logging in');
+        const handleLogin = async (event) => {
+      event.preventDefault();
+      try {
+        const response = await axios.post('https://restaurant-manager-be-f47n.onrender.com/login', {
+          username,
+          password
+        });
+        if (response.data.success) {
+          const { employeeID, accessToken } = response.data.result;
+          console.log(accessToken);
+          console.log(employeeID);
+          setToken(accessToken);
+          localStorage.setItem("token", accessToken);
+          localStorage.setItem("employeeID", employeeID);
+          navigate("/", { replace: true });
+        } else {
+          setError(response.data.message);
         }
+      } catch (error) {
+        setError('Error logging in');
+      }
     };
-
     return (
         <div className='overlay'>
             <form className="login-form" onSubmit={handleLogin}>

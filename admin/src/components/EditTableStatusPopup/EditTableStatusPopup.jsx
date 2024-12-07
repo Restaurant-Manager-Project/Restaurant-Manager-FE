@@ -17,12 +17,14 @@ const EditTableStatusPopup = ({ table, onClose, onUpdate }) => {
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
-        const response = await axios.get(`https://restaurant-manager-be-f47n.onrender.com/api/table/${table.direction}/details-orders`);
+        const response = await axios.get(`https://restaurant-manager-be-f47n.onrender.com/api/orders?direction=${table.direction}`);
         if (response.data.success) {
-          setOrderDetails(response.data.result);
-          const total = response.data.result.reduce((sum, item) => sum + item.price * item.quantity, 0);
+          const orders = response.data.result;
+          const orderDetails = orders.flatMap(order => order.detailList);
+          const total = orders.reduce((sum, order) => sum + order.total, 0);
+          setOrderDetails(orderDetails);
           setTotalAmount(total);
-          if (response.data.result.length > 0) {
+          if (orders.length > 0) {
             setNewStatusId('2'); // Chuyển trạng thái sang "Đang sử dụng" nếu có đơn hàng
           }
         } else {
@@ -112,8 +114,9 @@ const EditTableStatusPopup = ({ table, onClose, onUpdate }) => {
     try {
       const invoiceData = {
         clientId,
-        timeCreate: new Date().toISOString(),
-        total: discountedAmount
+        timeCreate: new Date().toISOString().split('T')[0], // Định dạng yyyy-mm-dd
+        total: discountedAmount,
+        orderList: orderDetails.map(order => ({ orderId: order.id })) // Chuyển đổi orderDetails thành orderList
       };
 
       console.log('Invoice Data:', invoiceData); // Kiểm tra dữ liệu trước khi gửi
@@ -121,7 +124,10 @@ const EditTableStatusPopup = ({ table, onClose, onUpdate }) => {
       const response = await axios.post(`https://restaurant-manager-be-f47n.onrender.com/api/invoices`, invoiceData);
       if (response.data.success) {
         alert('Thanh toán thành công');
-        onClose();
+        setOrderDetails([]); // Xóa dữ liệu đơn hàng
+        setTotalAmount(0); // Đặt lại tổng tiền
+        setNewStatusId('1'); // Chuyển trạng thái bàn thành "Còn trống"
+        await handleConfirmChange(); // Cập nhật trạng thái bàn
       } else {
         console.error(response.data.message);
       }

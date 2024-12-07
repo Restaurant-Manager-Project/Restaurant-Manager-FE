@@ -17,7 +17,6 @@ const PlaceOrder = () => {
   const [animationData, setAnimationData] = useState(null);
   const [rankId, setRankId] = useState(null); // State to hold rank_id
   const [isCashPaymentPopupOpen, setIsCashPaymentPopupOpen] = useState(false);
-  const [confirmationCode, setConfirmationCode] = useState('');
 
   useEffect(() => {
     // Lấy rank_id từ localStorage hoặc context
@@ -127,39 +126,6 @@ const PlaceOrder = () => {
   const handleCashPayment = () => {
     setIsCashPaymentPopupOpen(true);
   }
-
-  const handleConfirmCashPayment = async () => {
-    if (confirmationCode === "XACNHAN123") {
-      const clientId = localStorage.getItem('client_id');
-      const timeCreate = new Date().toISOString();
-      const total = calculateDiscountedAmount();
-      const invoiceData = clientId ? { // Use a ternary operator for cleaner conditional logic
-        clientId,
-        timeCreate,
-        total,
-      } : {
-        timeCreate,
-        total,
-      };
-
-      try {
-        const response = await axios.post("https://restaurant-manager-be-f47n.onrender.com/api/invoices", invoiceData);
-        if (response.data.success) {
-          console.log('Invoice created successfully:', response.data);
-          setIsCashPaymentPopupOpen(false);
-          // Clear cart and navigate to success page or show success message
-          clearCart();
-          navigate('/');
-        } else {
-          console.error('Error creating invoice:', response.data.message);
-        }
-      } catch (error) {
-        console.error('Error creating invoice:', error);
-      }
-    } else {
-      alert('Mã xác nhận không hợp lệ');
-    }
-  };
 
   if (!orderDetails.length) {
     return <div>Không có dữ liệu đơn hàng.</div>;
