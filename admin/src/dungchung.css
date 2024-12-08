@@ -54,7 +54,7 @@ button {
     & .faSearch{
         position: absolute;
         right: 10px;
-        top: 12px;
+        top: 20px;
         color:#808080;
         cursor: text;
         /* font-size: 20px; */
@@ -279,7 +279,7 @@ button {
     align-items: center;
     column-gap: 10px;
 
-    & input:disabled {
+    & input:disabled, & select:disabled{
         /* opacity: 0.5; */
         background-color: rgb(214, 212, 212);
     }
@@ -310,7 +310,7 @@ textarea {
 input:focus{
     outline: 0;
 }
-.error input, .error textarea, .error select{
+.errorClass input, .errorClass textarea, .errorClass select{
     border: 2px solid #ff6464;
 }
 .close-btn {

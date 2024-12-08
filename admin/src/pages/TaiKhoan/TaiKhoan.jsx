@@ -105,12 +105,12 @@ const TaiKhoan = ({ setShowAddTaiKhoan, setShowEditTaiKhoan }) => {
             <p>{employee.address}</p>
             <p>{getRoleName(employee.accountDTO.role_id)}</p>
             <p className='btn'>
-              <div className="btn-container">
+              {/* <div className="btn-container">
                 <button className='btn-edit' onClick={() => handleEditEmployee(employee.id)}>
                   <FontAwesomeIcon icon={faWrench} />
                 </button>
                 <span className='tooltip'>Chỉnh sửa</span>
-              </div>
+              </div> */}
               <div className="btn-container">
                 <button className='btn-remove' onClick={() => handleDelete(employee.id)}>
                   <FontAwesomeIcon icon={faTrash} />

@@ -36,7 +36,7 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
 
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/products');
+        const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/import/products');
         if (response.data.success) {
           setProducts(response.data.result);
         } else {
@@ -91,7 +91,7 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
       return;
     }
 
-    const employeeId = localStorage.getItem("employeeId"); // Lấy id nhân viên từ localStorage
+    const employeeId = localStorage.getItem("employeeID"); // Lấy id nhân viên từ localStorage
     const dateCreate = new Date().toISOString(); // Ngày tạo hiện tại
     const total = content.reduce((sum, item) => sum + item.soLuong * item.giaNhap, 0); // Tính tổng tiền
 
@@ -114,6 +114,7 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
       total,
       detailsProductList
     };
+    console.log('Data to send:', data);
 
     try {
       const response = await axios.post('https://restaurant-manager-be-f47n.onrender.com/api/imports', data);
@@ -254,12 +255,6 @@ const AddPhieuNhap = ({ setShowAddPhieuNhap }) => {
                   <p>{row.giaNhap}</p>
                   <p>{row.giaBan}</p>
                   <p className="btn">
-                    <div className="btn-container">
-                      <button className="btn-edit">
-                        <FontAwesomeIcon icon={faWrench} />
-                      </button>
-                      <span className="tooltip">Chỉnh sửa</span>
-                    </div>
                     <div className="btn-container">
                       <button
                         className="btn-remove"

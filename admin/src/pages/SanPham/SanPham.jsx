@@ -11,33 +11,31 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SanPham = ({ setShowAddSanPham, setShowEditSanPham }) => {
-const [products, setProducts] = useState([]);
-const [searchTerm, setSearchTerm] = useState("");
-const [filteredProducts, setFilteredProducts] = useState([]);
-const [isLoading, setIsLoading] = useState(true);
-const [error, setError] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-
-useEffect(() => {
+  useEffect(() => {
     const fetchProducts = async () => {
-    try {
+      try {
         const response = await axios.get('https://restaurant-manager-be-f47n.onrender.com/api/products');
         if (response.data.success) {
-          console.log("yeah");
-        setProducts(response.data.result);
-        setFilteredProducts(response.data.result);
+          setProducts(response.data.result);
+          setFilteredProducts(response.data.result);
         } else {
-        setError(response.data.message);
+          setError(response.data.message);
         }
-    } catch (error) {
+      } catch (error) {
         setError('Error fetching Products');
-    } finally {
+      } finally {
         setIsLoading(false);
-    }
+      }
     };
 
     fetchProducts();
-}, []);
+  }, []);
 
   useEffect(() => {
     setFilteredProducts(
@@ -45,27 +43,51 @@ useEffect(() => {
         product.name?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
-}, [searchTerm, products]);
-if (isLoading) {
+  }, [searchTerm, products]);
+
+    const handleDeleteProduct = async (productId) => {
+    const productToDelete = products.find(product => product.id === productId);
+  
+    if (productToDelete.quantity > 0) {
+      alert("Không thể xóa sản phẩm có số lượng lớn hơn 0.");
+      return;
+    }
+  
+    if (window.confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+      try {
+        const response = await axios.delete(`https://restaurant-manager-be-f47n.onrender.com/api/products/${productId}`);
+        if (response.data.success) {
+          alert("Xóa sản phẩm thành công");
+          setProducts(products.filter(product => product.id !== productId));
+          setFilteredProducts(filteredProducts.filter(product => product.id !== productId));
+        } else {
+          console.error("Error deleting product:", response.data.message);
+        }
+      } catch (error) {
+        console.error("Error deleting product:", error);
+      }
+    }
+  };
+
+  if (isLoading) {
     return (
-            <div className="loader">
-            <div id="page">
-                    <div id="container">
-                        <div id="ring"></div>
-                        <div id="ring"></div>
-                        <div id="ring"></div>
-                        <div id="ring"></div>
-                        <div id="h3"></div>
-                    </div>
-            </div>
+      <div className="loader">
+        <div id="page">
+          <div id="container">
+            <div id="ring"></div>
+            <div id="ring"></div>
+            <div id="ring"></div>
+            <div id="ring"></div>
+            <div id="h3"></div>
+          </div>
         </div>
-    )
-}
+      </div>
+    );
+  }
 
-if (error) {
+  if (error) {
     return <div>{error}</div>;
-}
-
+  }
 
   return (
     <div className="container">
@@ -122,7 +144,7 @@ if (error) {
               <div className="btn-container">
                 <button
                   className="btn-remove"
-                  onClick={() => confirm("Xóa sản phẩm")}
+                  onClick={() => handleDeleteProduct(product.id)}
                 >
                   <FontAwesomeIcon icon={faTrash} />
                 </button>

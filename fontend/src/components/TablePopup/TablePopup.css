@@ -74,3 +74,35 @@
   margin-top: 10px;
   font-size: 14px;
 }
+
+.qr-code {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  z-index: 1002;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.qr-code img {
+  width: 300px;
+  height: 300px;
+  margin-top: 10px;
+}
+
+.qr-code .close-btn {
+  cursor: pointer;
+  font-size: 20px;
+  right: 10px;
+  top: 10px;
+  position: absolute;
+}

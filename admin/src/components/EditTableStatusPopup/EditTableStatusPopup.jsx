@@ -13,6 +13,7 @@ const EditTableStatusPopup = ({ table, onClose, onUpdate }) => {
   const [rankId, setRankId] = useState(null);
   const [discountedAmount, setDiscountedAmount] = useState(0);
   const [discountText, setDiscountText] = useState('');
+  const [order, setOrder] = useState([]);
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -23,6 +24,7 @@ const EditTableStatusPopup = ({ table, onClose, onUpdate }) => {
           const orderDetails = orders.flatMap(order => order.detailList);
           const total = orders.reduce((sum, order) => sum + order.total, 0);
           setOrderDetails(orderDetails);
+          setOrder(orders);
           setTotalAmount(total);
           if (orders.length > 0) {
             setNewStatusId('2'); // Chuyển trạng thái sang "Đang sử dụng" nếu có đơn hàng
@@ -116,7 +118,7 @@ const EditTableStatusPopup = ({ table, onClose, onUpdate }) => {
         clientId,
         timeCreate: new Date().toISOString().split('T')[0], // Định dạng yyyy-mm-dd
         total: discountedAmount,
-        orderList: orderDetails.map(order => ({ orderId: order.id })) // Chuyển đổi orderDetails thành orderList
+        orderList: order.map(order => ({ orderId: order.orderId })) // Chuyển đổi orderDetails thành orderList
       };
 
       console.log('Invoice Data:', invoiceData); // Kiểm tra dữ liệu trước khi gửi
@@ -152,16 +154,18 @@ const EditTableStatusPopup = ({ table, onClose, onUpdate }) => {
           </div>
           <div className="popup-input">
             <label htmlFor="popup-status">Trạng thái:</label>
-            <select id="popup-status" value={newStatusId} onChange={handleStatusChange}>
+            <select id="popup-status" value={newStatusId} onChange={handleStatusChange} disabled={newStatusId === "2"}>
               <option value="1">Còn trống</option>
               <option value="2">Đang sử dụng</option>
               <option value="3">Đã đặt trước</option>
             </select>
           </div>
           <div className="popup-input">
-            <label htmlFor="popup-phone">Số điện thoại khách hàng:</label>
-            <input type="text" id="popup-phone" value={phone} onChange={handlePhoneChange} />
-            <button type="button" onClick={handlePhoneConfirm}>Xác nhận</button>
+            <label htmlFor="popup-phone">SĐT khách hàng:</label>
+            <div className='loc-ngay'>
+              <input type="text" id="popup-phone" value={phone} onChange={handlePhoneChange} />
+            <button type="button btn-confirm" onClick={handlePhoneConfirm}>Xác nhận</button>
+            </div>
           </div>
         </div>
         {orderDetails.length > 0 && (
@@ -192,9 +196,10 @@ const EditTableStatusPopup = ({ table, onClose, onUpdate }) => {
             {discountedAmount > 0 && <h3>Tiền sau khi giảm: {discountedAmount.toLocaleString()} VND</h3>}
           </div>
         )}
-        <div className="btn-group">
-          <button type="button" onClick={handleConfirmChange}>Xác nhận</button>
-          <button type="button" onClick={handlePaymentConfirm}>Xác nhận thanh toán</button>
+        <div className="btn-group btn-group-1">
+          {newStatusId == "2" ? <button type="button" onClick={handlePaymentConfirm}>Xác nhận thanh toán</button> : <button type="button" onClick={handleConfirmChange}>Xác nhận trạng thái</button>}
+          
+          
         </div>
       </div>
     </div>

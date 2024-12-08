@@ -58,7 +58,6 @@ const EditTaiKhoan = ({ setShowEditTaiKhoan, id }) => {
     fetchEmployeeDetails();
   }, [id]);
 
-
   // Hàm kiểm tra dữ liệu đầu vào
   const validateFormData = () => {
     let validationErrors = {};
@@ -91,7 +90,7 @@ const EditTaiKhoan = ({ setShowEditTaiKhoan, id }) => {
         };
 
         const response = await axios.put(
-          `https://restaurant-manager-be-f47n.onrender.com/api/employee/${id}`,
+          `https://restaurant-manager-be-f47n.onrender.com/api/employees/${id}`,
           dataToSubmit
         );
 

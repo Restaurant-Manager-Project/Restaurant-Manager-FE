@@ -1,4 +1,17 @@
 
+.btn-loc{
+    padding: 8px 10px;
+    background-color: tomato;
+    border-radius: 15px;
+    border: 2px solid tomato;
+
+    &:hover{
+        background-color: white;
+        color: tomato;
+        border: 2px solid tomato;
+        transition: ease 0.3s;
+    }
+}
 
 .donhang-loc {
     display: flex;

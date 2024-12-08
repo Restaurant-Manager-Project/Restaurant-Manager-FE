@@ -106,21 +106,22 @@ const DonHang = ({ setShowChiTietDonHang, setSelectedOrderId }) => {
           />
           <FontAwesomeIcon icon={faSearch} className="faSearch"></FontAwesomeIcon>
         </div>
-        <div className="donhang-loc">
-          <p>Từ ngày </p>
+        <div className="loc-ngay">
+          <label>Từ ngày: </label>
           <input
             type="date"
             value={startDate}
             onChange={handleStartDateChange}
           />
-          <p>Đến ngày </p>
+          <label>Đến ngày: </label>
           <input
             type="date"
             value={endDate}
             onChange={handleEndDateChange}
           />
-          <button onClick={() => filterOrders(searchTerm, startDate, endDate)}>Lọc</button>
+          <button className="btn-loc" onClick={() => filterOrders(searchTerm, startDate, endDate)}>Lọc</button>
         </div>
+        
       </div>
       <div className="donhang-content-title content-title title">
         <p>STT</p>

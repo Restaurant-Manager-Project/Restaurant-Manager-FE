@@ -3,6 +3,7 @@ import axios from 'axios';
 import API_URLS from '../../../config';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Lottie from 'lottie-react';
+import './PaymentCallback.css';
 
 const PaymentCallback = () => {
   const navigate = useNavigate();

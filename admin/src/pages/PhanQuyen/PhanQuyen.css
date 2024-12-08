@@ -52,6 +52,8 @@
 
 .form-check {
     margin-bottom: 10px;
+    display: flex;
+
 }
 
 .form-check input[type="checkbox"] {
@@ -60,7 +62,7 @@
 
 .form-checks {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
     gap: 10px;
 }
 

@@ -66,13 +66,7 @@ const Ban = ({ setShowAddBan }) => {
           <NavLink to='/Ban'>
             <li className='open'>Quản lý bàn</li>
           </NavLink>
-          <NavLink to='/Ban/LichDatBan'>
-            <li>Lịch đặt bàn</li>
-          </NavLink>
         </ul>
-        <button className="btn-them" onClick={() => setShowAddBan(true)}>
-          <FontAwesomeIcon icon={faPlus} /> Thêm bàn mới
-        </button>
       </div>
       <div className="content">
         <div className="table-grid">

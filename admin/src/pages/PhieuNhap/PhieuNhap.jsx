@@ -153,14 +153,6 @@ const PhieuNhap = ({ setShowAddPhieuNhap }) => {
                         <p className="btn">
                             <div className="btn-container">
                                 <button
-                                    className="btn-edit"
-                                >
-                                    <FontAwesomeIcon icon={faWrench} />
-                                </button>
-                                <span className="tooltip">Chỉnh sửa</span>
-                            </div>
-                            <div className="btn-container">
-                                <button
                                     className="btn-remove"
                                     onClick={() => confirm("Xóa sản phẩm")}
                                 >

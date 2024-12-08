@@ -13,6 +13,7 @@ const PhanQuyen = () => {
   const [editQuyen, setEditQuyen] = useState({ id: '', name: '', permissions: [] });
   const [searchTerm, setSearchTerm] = useState("");
   const [refresh, setRefresh] = useState(false); // State to trigger refresh
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const fetchQuyenData = async () => {
@@ -41,7 +42,26 @@ const PhanQuyen = () => {
     fetchPermissions();
   }, [refresh]); // Add refresh as a dependency
 
+  const validateQuyenData = (quyen) => {
+    let validationErrors = {};
+
+    if (quyen.name.trim() === "") {
+      validationErrors.name = "Tên quyền không được để trống.";
+    }
+
+    if (quyen.permissions.length === 0) {
+      validationErrors.permissions = "Phải chọn ít nhất một chức năng.";
+    }
+
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
+
   const handleAddQuyen = async () => {
+    if (!validateQuyenData(newQuyen)) {
+      return;
+    }
+
     const newQuyenData = {
       name: newQuyen.name,
       permissions: newQuyen.permissions
@@ -63,6 +83,10 @@ const PhanQuyen = () => {
   };
 
   const handleEditQuyen = async () => {
+    if (!validateQuyenData(editQuyen)) {
+      return;
+    }
+
     const editQuyenData = {
       name: editQuyen.name,
       permissions: editQuyen.permissions
@@ -169,6 +193,7 @@ const PhanQuyen = () => {
                 value={newQuyen.name}
                 onChange={(e) => setNewQuyen({ ...newQuyen, name: e.target.value })}
               />
+              {errors.name && <div className="errorText">{errors.name}</div>}
             </div>
             <div className="form-group">
               <label>Các chức năng:</label>
@@ -186,6 +211,7 @@ const PhanQuyen = () => {
                   </div>
                 ))}
               </div>
+              {errors.permissions && <div className="errorText">{errors.permissions}</div>}
             </div>
             <button className="btn-submit" onClick={handleAddQuyen}>Thêm</button>
           </div>
@@ -205,6 +231,7 @@ const PhanQuyen = () => {
                 value={editQuyen.name}
                 onChange={(e) => setEditQuyen({ ...editQuyen, name: e.target.value })}
               />
+              {errors.name && <div className="errorText">{errors.name}</div>}
             </div>
             <div className="form-group">
               <label>Các chức năng:</label>
@@ -222,6 +249,7 @@ const PhanQuyen = () => {
                   </div>
                 ))}
               </div>
+              {errors.permissions && <div className="errorText">{errors.permissions}</div>}
             </div>
             <button className="btn-submit" onClick={handleEditQuyen}>Lưu</button>
           </div>
