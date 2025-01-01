@@ -16,6 +16,7 @@ const PlaceOrder = () => {
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [animationData, setAnimationData] = useState(null);
   const [rankId, setRankId] = useState(null); // State to hold rank_id
+  const [clientId, setClientId] = useState(null); // State to hold client_id
   const [isCashPaymentPopupOpen, setIsCashPaymentPopupOpen] = useState(false);
 
   useEffect(() => {
@@ -64,10 +65,13 @@ const PlaceOrder = () => {
   };
 
   const handlePayment = async () => {
+    const clientId = localStorage.getItem('client_id');
+    setClientId(clientId);
     const totalAmount = calculateDiscountedAmount();
     const paymentData = {
       directionTable: qr_code,
-      amount: totalAmount
+      amount: totalAmount,
+      clientId: clientId
     };
     console.log('Payment data:', paymentData);
     try {

@@ -63,6 +63,7 @@ const PaymentCallback = () => {
   const handleBackToHome = () => {
     navigate(`/`);
     localStorage.removeItem('rank_id');
+    localStorage.removeItem('client_id');
   };
 
   const handleBackToPlaceOrder = () => {
