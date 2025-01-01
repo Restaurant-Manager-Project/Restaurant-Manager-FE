@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar/Navbar';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { Route, Routes, useParams, useNavigate } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import Menu from './pages/Menu/Menu';
@@ -61,27 +61,48 @@ const App = () => {
 const MainContent = ({ setTableId, setQrCode }) => {
   const { qr_code } = useParams();
   const [localTableId, setLocalTableId] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (qr_code) {
-      setQrCode(qr_code);
-      fetch(API_URLS.GET_TABLE(qr_code))
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          if (data.success && data.result) {
-            setTableId(Number(data.result.id));
-            setLocalTableId(Number(data.result.id));
-            console.log('Fetched tableId:', data.result.id);
+    const checkTableExists = async () => {
+      try {
+        const response = await fetch('https://restaurant-manager-be-f47n.onrender.com/api/tables');
+        const data = await response.json();
+        if (data.success && data.result) {
+          const table = data.result.find(table => table.direction === qr_code);
+          if (table) {
+            setQrCode(qr_code);
+            fetch(API_URLS.GET_TABLE(qr_code))
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then(data => {
+                if (data.success && data.result) {
+                  setTableId(Number(data.result.id));
+                  setLocalTableId(Number(data.result.id));
+                  console.log('Fetched tableId:', data.result.id);
+                } else {
+                  console.error('Error: Invalid API response structure', data);
+                }
+              })
+              .catch(error => console.error('Error:', error));
           } else {
-            console.error('Error: Invalid API response structure', data);
+            alert('Error: Table code does not exist');
+            navigate('/');
           }
-        })
-        .catch(error => console.error('Error:', error));
+        } else {
+          console.error('Error: Invalid API response structure', data);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    if (qr_code) {
+      checkTableExists();
     }
   }, [qr_code, setTableId, setQrCode]);
 

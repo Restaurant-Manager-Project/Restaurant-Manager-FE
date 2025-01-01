@@ -101,6 +101,7 @@ const Food = () => {
         }
     
         addToCart(selectedProduct, quantity);
+        alert(`Đã thêm "${selectedProduct.name}" vào giỏ hàng thành công.`);
         setIsModalOpen(false);
     };
 
@@ -187,10 +188,10 @@ const Food = () => {
                 <div className="food-list">
                     {currentItems.map((item, index) => {
                         return (
-                            <div className="food-list-item" key={index}>
-                                <div className="img-container">
+                            <div className="food-list-item" key={index} onClick={() => handleAddClick(item)}>
+                                <div className="img-container" >
                                     <img src={item.img} alt={item.name} />
-                                    <button className='add' onClick={() => handleAddClick(item)}>
+                                    <button className='add'>
                                         <FontAwesomeIcon icon={faPlus} />
                                     </button>
                                 </div>
